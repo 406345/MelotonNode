@@ -111,7 +111,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libprotobuf.lib;libuv.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libprotobuf.lib;libuv.lib;MaratonFramework.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -165,6 +165,10 @@
     <ClCompile Include="..\message\MessageReadBlock.pb.cc" />
     <ClCompile Include="..\message\MessageSyncBlock.pb.cc" />
     <ClCompile Include="..\message\MessageWrite.pb.cc" />
+    <ClCompile Include="..\source\BlockHub.cpp" />
+    <ClCompile Include="..\source\MasterConnector.cpp" />
+    <ClCompile Include="..\source\MelotonSession.cpp" />
+    <ClCompile Include="..\source\Path.cpp" />
     <ClCompile Include="MelotonNode.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +189,13 @@
     <ClInclude Include="..\handler\MessageReadHandler.h" />
     <ClInclude Include="..\handler\MessageSyncBlockHandler.h" />
     <ClInclude Include="..\handler\MessageWriteHandler.h" />
+    <ClInclude Include="..\include\BlockHub.h" />
+    <ClInclude Include="..\include\BlockIndex.h" />
+    <ClInclude Include="..\include\MasterConnector.h" />
+    <ClInclude Include="..\include\MasterSession.h" />
+    <ClInclude Include="..\include\MelotonNode.h" />
+    <ClInclude Include="..\include\MelotonSession.h" />
+    <ClInclude Include="..\include\Path.h" />
     <ClInclude Include="..\message\MessageAlive.pb.h" />
     <ClInclude Include="..\message\MessageBlockAccept.pb.h" />
     <ClInclude Include="..\message\MessageBlockData.pb.h" />
@@ -201,7 +212,6 @@
     <ClInclude Include="..\message\MessageReadBlock.pb.h" />
     <ClInclude Include="..\message\MessageSyncBlock.pb.h" />
     <ClInclude Include="..\message\MessageWrite.pb.h" />
-    <ClInclude Include="MelotonNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

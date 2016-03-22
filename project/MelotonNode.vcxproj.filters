@@ -67,9 +67,20 @@
     <ClCompile Include="..\message\MessageWrite.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\MasterConnector.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\MelotonSession.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\BlockHub.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Path.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MelotonNode.h" />
     <ClInclude Include="..\handler\MessageAliveHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
@@ -168,6 +179,25 @@
     </ClInclude>
     <ClInclude Include="..\message\MessageWrite.pb.h">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MasterConnector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MelotonSession.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MasterSession.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MelotonNode.h" />
+    <ClInclude Include="..\include\BlockHub.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BlockIndex.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Path.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
