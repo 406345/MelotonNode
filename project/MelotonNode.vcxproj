@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E16AD5B0-F5A0-46A6-A008-FAE73123FD20}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MelotonMaster</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <ProjectName>MelotonNode</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\3rd;..\include;..\message;..\handler;$(IncludePath)</IncludePath>
+    <ReferencePath>..\lib;$(ReferencePath)</ReferencePath>
+    <SourcePath>..\source;..\message;$(SourcePath)</SourcePath>
+    <LibraryPath>..\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libprotobuf.lib;libuv.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;userenv.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\message\MessageAlive.pb.cc" />
+    <ClCompile Include="..\message\MessageBlockAccept.pb.cc" />
+    <ClCompile Include="..\message\MessageBlockData.pb.cc" />
+    <ClCompile Include="..\message\MessageBlockList.pb.cc" />
+    <ClCompile Include="..\message\MessageBlockMeta.pb.cc" />
+    <ClCompile Include="..\message\MessageError.pb.cc" />
+    <ClCompile Include="..\message\MessageOpenACK.pb.cc" />
+    <ClCompile Include="..\message\MessageOpenFile.pb.cc" />
+    <ClCompile Include="..\message\MessagePrepareRead.pb.cc" />
+    <ClCompile Include="..\message\MessagePrepareReadACK.pb.cc" />
+    <ClCompile Include="..\message\MessagePrepareWrite.pb.cc" />
+    <ClCompile Include="..\message\MessagePrepareWriteACK.pb.cc" />
+    <ClCompile Include="..\message\MessageRead.pb.cc" />
+    <ClCompile Include="..\message\MessageReadBlock.pb.cc" />
+    <ClCompile Include="..\message\MessageSyncBlock.pb.cc" />
+    <ClCompile Include="..\message\MessageWrite.pb.cc" />
+    <ClCompile Include="MelotonNode.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\handler\MessageAliveHandler.h" />
+    <ClInclude Include="..\handler\MessageBlockAcceptHandler.h" />
+    <ClInclude Include="..\handler\MessageBlockDataHandler.h" />
+    <ClInclude Include="..\handler\MessageBlockListHandler.h" />
+    <ClInclude Include="..\handler\MessageBlockMetaHandler.h" />
+    <ClInclude Include="..\handler\MessageErrorHandler.h" />
+    <ClInclude Include="..\handler\MessageHub.h" />
+    <ClInclude Include="..\handler\MessageOpenACKHandler.h" />
+    <ClInclude Include="..\handler\MessageOpenFileHandler.h" />
+    <ClInclude Include="..\handler\MessagePrepareReadACKHandler.h" />
+    <ClInclude Include="..\handler\MessagePrepareReadHandler.h" />
+    <ClInclude Include="..\handler\MessagePrepareWriteACKHandler.h" />
+    <ClInclude Include="..\handler\MessagePrepareWriteHandler.h" />
+    <ClInclude Include="..\handler\MessageReadBlockHandler.h" />
+    <ClInclude Include="..\handler\MessageReadHandler.h" />
+    <ClInclude Include="..\handler\MessageSyncBlockHandler.h" />
+    <ClInclude Include="..\handler\MessageWriteHandler.h" />
+    <ClInclude Include="..\message\MessageAlive.pb.h" />
+    <ClInclude Include="..\message\MessageBlockAccept.pb.h" />
+    <ClInclude Include="..\message\MessageBlockData.pb.h" />
+    <ClInclude Include="..\message\MessageBlockList.pb.h" />
+    <ClInclude Include="..\message\MessageBlockMeta.pb.h" />
+    <ClInclude Include="..\message\MessageError.pb.h" />
+    <ClInclude Include="..\message\MessageOpenACK.pb.h" />
+    <ClInclude Include="..\message\MessageOpenFile.pb.h" />
+    <ClInclude Include="..\message\MessagePrepareRead.pb.h" />
+    <ClInclude Include="..\message\MessagePrepareReadACK.pb.h" />
+    <ClInclude Include="..\message\MessagePrepareWrite.pb.h" />
+    <ClInclude Include="..\message\MessagePrepareWriteACK.pb.h" />
+    <ClInclude Include="..\message\MessageRead.pb.h" />
+    <ClInclude Include="..\message\MessageReadBlock.pb.h" />
+    <ClInclude Include="..\message\MessageSyncBlock.pb.h" />
+    <ClInclude Include="..\message\MessageWrite.pb.h" />
+    <ClInclude Include="MelotonNode.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
