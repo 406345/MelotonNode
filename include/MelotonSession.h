@@ -29,7 +29,6 @@ limitations under the License.
 
 #include <MRT.h>
 #include <google/protobuf/message.h>
-
 #include <MelotonNode.h>
 
 using MRT::Session;

@@ -36,8 +36,8 @@ struct BlockIndex
     size_t  Location;
     size_t  FileOffset;
     size_t  Size;
-    char    Path[BLOCK_PATH_SIZE] = { 0 };
+    char    Path[BLOCK_PATH_SIZE];
     bool    Used;
-};
+}  ;
 
 #endif // !BLOCK_INDEX_H_ 

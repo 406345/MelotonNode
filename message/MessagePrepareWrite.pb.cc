@@ -78,7 +78,7 @@ void protobuf_AddDesc_MessagePrepareWrite_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\031MessagePrepareWrite.proto\"6\n\023MessagePr"
-    "epareWrite\022\020\n\010ClientId\030\001 \002(\t\022\r\n\005Index\030\002 "
+    "epareWrite\022\020\n\010ClientId\030\001 \002(\003\022\r\n\005Index\030\002 "
     "\002(\003", 83);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessagePrepareWrite.proto", &protobuf_RegisterTypes);
@@ -118,9 +118,8 @@ MessagePrepareWrite::MessagePrepareWrite(const MessagePrepareWrite& from)
 }
 
 void MessagePrepareWrite::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  clientid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clientid_ = GOOGLE_LONGLONG(0);
   index_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -131,9 +130,6 @@ MessagePrepareWrite::~MessagePrepareWrite() {
 }
 
 void MessagePrepareWrite::SharedDtor() {
-  if (clientid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete clientid_;
-  }
   if (this != default_instance_) {
   }
 }
@@ -160,14 +156,21 @@ MessagePrepareWrite* MessagePrepareWrite::New() const {
 }
 
 void MessagePrepareWrite::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
-    if (has_clientid()) {
-      if (clientid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        clientid_->clear();
-      }
-    }
-    index_ = GOOGLE_LONGLONG(0);
-  }
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<MessagePrepareWrite*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(clientid_, index_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -182,15 +185,13 @@ bool MessagePrepareWrite::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string ClientId = 1;
+      // required int64 ClientId = 1;
       case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_clientid()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->clientid().data(), this->clientid().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "clientid");
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &clientid_)));
+          set_has_clientid();
         } else {
           goto handle_unusual;
         }
@@ -238,14 +239,9 @@ failure:
 void MessagePrepareWrite::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessagePrepareWrite)
-  // required string ClientId = 1;
+  // required int64 ClientId = 1;
   if (has_clientid()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->clientid().data(), this->clientid().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "clientid");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->clientid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->clientid(), output);
   }
 
   // required int64 Index = 2;
@@ -263,15 +259,9 @@ void MessagePrepareWrite::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessagePrepareWrite::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessagePrepareWrite)
-  // required string ClientId = 1;
+  // required int64 ClientId = 1;
   if (has_clientid()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->clientid().data(), this->clientid().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "clientid");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->clientid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->clientid(), target);
   }
 
   // required int64 Index = 2;
@@ -291,10 +281,10 @@ int MessagePrepareWrite::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string ClientId = 1;
+    // required int64 ClientId = 1;
     if (has_clientid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->clientid());
     }
 

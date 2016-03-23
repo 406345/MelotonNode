@@ -24,7 +24,6 @@
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/unknown_field_set.h>
-#include "MessageBlockMeta.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Internal implementation detail -- do not call these.
@@ -101,28 +100,26 @@ class MessagePrepareReadACK : public ::google::protobuf::Message {
   inline ::std::string* release_token();
   inline void set_allocated_token(::std::string* token);
 
-  // required .MessageBlockMeta Block = 2;
-  inline bool has_block() const;
-  inline void clear_block();
-  static const int kBlockFieldNumber = 2;
-  inline const ::MessageBlockMeta& block() const;
-  inline ::MessageBlockMeta* mutable_block();
-  inline ::MessageBlockMeta* release_block();
-  inline void set_allocated_block(::MessageBlockMeta* block);
+  // required int64 ClientId = 2;
+  inline bool has_clientid() const;
+  inline void clear_clientid();
+  static const int kClientIdFieldNumber = 2;
+  inline ::google::protobuf::int64 clientid() const;
+  inline void set_clientid(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:MessagePrepareReadACK)
  private:
   inline void set_has_token();
   inline void clear_has_token();
-  inline void set_has_block();
-  inline void clear_has_block();
+  inline void set_has_clientid();
+  inline void clear_has_clientid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::std::string* token_;
-  ::MessageBlockMeta* block_;
+  ::google::protobuf::int64 clientid_;
   friend void  protobuf_AddDesc_MessagePrepareReadACK_2eproto();
   friend void protobuf_AssignDesc_MessagePrepareReadACK_2eproto();
   friend void protobuf_ShutdownFile_MessagePrepareReadACK_2eproto();
@@ -213,45 +210,28 @@ inline void MessagePrepareReadACK::set_allocated_token(::std::string* token) {
   // @@protoc_insertion_point(field_set_allocated:MessagePrepareReadACK.Token)
 }
 
-// required .MessageBlockMeta Block = 2;
-inline bool MessagePrepareReadACK::has_block() const {
+// required int64 ClientId = 2;
+inline bool MessagePrepareReadACK::has_clientid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void MessagePrepareReadACK::set_has_block() {
+inline void MessagePrepareReadACK::set_has_clientid() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void MessagePrepareReadACK::clear_has_block() {
+inline void MessagePrepareReadACK::clear_has_clientid() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void MessagePrepareReadACK::clear_block() {
-  if (block_ != NULL) block_->::MessageBlockMeta::Clear();
-  clear_has_block();
+inline void MessagePrepareReadACK::clear_clientid() {
+  clientid_ = GOOGLE_LONGLONG(0);
+  clear_has_clientid();
 }
-inline const ::MessageBlockMeta& MessagePrepareReadACK::block() const {
-  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.Block)
-  return block_ != NULL ? *block_ : *default_instance_->block_;
+inline ::google::protobuf::int64 MessagePrepareReadACK::clientid() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.ClientId)
+  return clientid_;
 }
-inline ::MessageBlockMeta* MessagePrepareReadACK::mutable_block() {
-  set_has_block();
-  if (block_ == NULL) block_ = new ::MessageBlockMeta;
-  // @@protoc_insertion_point(field_mutable:MessagePrepareReadACK.Block)
-  return block_;
-}
-inline ::MessageBlockMeta* MessagePrepareReadACK::release_block() {
-  clear_has_block();
-  ::MessageBlockMeta* temp = block_;
-  block_ = NULL;
-  return temp;
-}
-inline void MessagePrepareReadACK::set_allocated_block(::MessageBlockMeta* block) {
-  delete block_;
-  block_ = block;
-  if (block) {
-    set_has_block();
-  } else {
-    clear_has_block();
-  }
-  // @@protoc_insertion_point(field_set_allocated:MessagePrepareReadACK.Block)
+inline void MessagePrepareReadACK::set_clientid(::google::protobuf::int64 value) {
+  set_has_clientid();
+  clientid_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.ClientId)
 }
 
 

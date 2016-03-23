@@ -23,8 +23,46 @@ limitations under the License.
 #include <string>
 #include <MRT.h>
 #include <MessageBlockData.pb.h>
-
+#include <MessageBlockAccept.pb.h>
+#include <TokenPool.h>
+#include <BlockHub.h>
+#include <ClientSession.h>
 static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockData> message )
 {
+
+    auto client = scast<ClientSession*>( session );
+    auto token  = TokenPool::Instance()->CheckToken( message->token() );
+    
+    if ( token == nullptr )
+    {
+        // Invailed access, disconnect it
+        return -1;
+    }
+
+    auto block = BlockHub::Instance()->FindBlock( token->Index() );
+     
+    if ( block == nullptr )
+    {
+        // Check if the block is exist
+        return -1;
+    }
+
+    size_t size   = message->size();
+    size_t offset = message->offset();
+
+    size = size > BLOCK_SIZE ? BLOCK_SIZE : size;
+    size = ( offset + size ) > BLOCK_SIZE ? ( BLOCK_SIZE - offset + 1 ) : size;
+
+    BlockHub::Instance()->WriteBlock( block->Index , 
+                                      offset , 
+                                      message->data().c_str() , 
+                                      size );
+
+    uptr<MessageBlockAccept> reply = make_uptr( MessageBlockAccept );
+    reply->set_size( size );
+    reply->set_token( token->TokenStr() );
+    reply->set_checksum( 0 );
+    client->SendMessage( move_ptr( reply ) );
+
     return 0;
 }

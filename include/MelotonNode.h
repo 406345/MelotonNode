@@ -42,6 +42,8 @@ static const size_t ALIVE_TIME              = 1000;
 static const size_t BLOCK_INDEX_ARRAY_SIZE  = 1024 * 1024 * 10;
 static const size_t BLOCK_SIZE              = 1024 * 1024 * 16;
 static const size_t BLOCK_PATH_SIZE         = 256;
+static const int    TOKEN_EXPIRE_TIME       = 6000 * 60 * 24;
+static const size_t MAX_TRANSFER_SIZE       = 1024 * 1024 * 5; // 5MB
  
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Enum Section

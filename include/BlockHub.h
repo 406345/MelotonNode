@@ -56,7 +56,7 @@ public:
 
     bool             RemoveBlock    ( size_t index );
 
-    int              WriteBlock     ( int blockid , 
+    size_t           WriteBlock     ( int blockid , 
                                       size_t offset ,
                                       const char* data ,
                                       size_t len );

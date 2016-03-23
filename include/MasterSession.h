@@ -35,6 +35,12 @@ class MasterSession :
 {
 public:
 
+    MasterSession ();
+    ~MasterSession();
+
+private:
+
+    MRT::SyncWorker* alive_worker_ = nullptr;
 };
 
 #endif // !MASTER_SESSION_H_ 

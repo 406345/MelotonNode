@@ -1,11 +1,15 @@
 /***********************************************************************************
 This file is part of Project for Meloton
 For the latest info, see  https://github.com/Yhgenomics/MelotonNode.git
+
 Copyright 2016 Yhgenomics
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
+
 http://www.apache.org/licenses/LICENSE-2.0
+
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,29 +18,23 @@ limitations under the License.
 ***********************************************************************************/
 
 /***********************************************************************************
-* Description   : MessagePrepareWrite handler.
-* Creator       : Shubo Yang(shuboyang@yhgenomics.com)
-* Date          : 2016-03-22
-* Modifed       : 2016-03-22      | Shubo Yang      | Create
+* Description   :
+* Creator       : Shubo Yang
+* Date          :
+* Modifed       : When      | Who       | What
 ***********************************************************************************/
 
-#include <string>
-#include <MRT.h>
-#include <MessagePrepareWrite.pb.h>
-#include <TokenPool.h>
-#include <MessagePrepareWriteACK.pb.h>
-#include <ClientSession.h>
+#ifndef CLIENT_SESSION_H_
+#define CLIENT_SESSION_H_
 
-static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrepareWrite> message )
+#include <MelotonSession.h>
+
+class ClientSession :
+    public MelotonSession
 {
-    auto client = scast<ClientSession*>( session );
-    auto token  = TokenPool::Instance()->CreateToken( message->clientid() , message->index() , TOKEN_EXPIRE_TIME );
-    auto reply  = make_uptr( MessagePrepareWriteACK );
+public:
 
-    reply->set_clientid( message->clientid() );
-    reply->set_token   ( token );
 
-    client->SendMessage( move_ptr( reply ) );
+};
 
-    return 0;
-}
+#endif // !CLIENT_SESSION_H_ 

@@ -81,10 +81,10 @@ bool BlockHub::RemoveBlock( size_t index )
     return false;
 }
 
-int BlockHub::WriteBlock( int blockid , 
-                          size_t offset , 
-                          const char* data , 
-                          size_t len )
+size_t BlockHub::WriteBlock( int blockid , 
+                             size_t offset , 
+                             const char* data , 
+                             size_t len )
 {
     auto    block        =  this->index_list_[blockid];
     size_t  write_size   =  (offset + len) > BLOCK_SIZE ? 

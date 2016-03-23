@@ -79,6 +79,15 @@
     <ClCompile Include="..\source\Path.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\TokenPool.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ClientListener.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\MasterSession.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\handler\MessageAliveHandler.h">
@@ -197,6 +206,18 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Path.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TokenPool.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ObjectPool.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ClientListener.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ClientSession.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

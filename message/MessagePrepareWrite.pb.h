@@ -88,17 +88,12 @@ class MessagePrepareWrite : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string ClientId = 1;
+  // required int64 ClientId = 1;
   inline bool has_clientid() const;
   inline void clear_clientid();
   static const int kClientIdFieldNumber = 1;
-  inline const ::std::string& clientid() const;
-  inline void set_clientid(const ::std::string& value);
-  inline void set_clientid(const char* value);
-  inline void set_clientid(const char* value, size_t size);
-  inline ::std::string* mutable_clientid();
-  inline ::std::string* release_clientid();
-  inline void set_allocated_clientid(::std::string* clientid);
+  inline ::google::protobuf::int64 clientid() const;
+  inline void set_clientid(::google::protobuf::int64 value);
 
   // required int64 Index = 2;
   inline bool has_index() const;
@@ -118,7 +113,7 @@ class MessagePrepareWrite : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* clientid_;
+  ::google::protobuf::int64 clientid_;
   ::google::protobuf::int64 index_;
   friend void  protobuf_AddDesc_MessagePrepareWrite_2eproto();
   friend void protobuf_AssignDesc_MessagePrepareWrite_2eproto();
@@ -134,7 +129,7 @@ class MessagePrepareWrite : public ::google::protobuf::Message {
 
 // MessagePrepareWrite
 
-// required string ClientId = 1;
+// required int64 ClientId = 1;
 inline bool MessagePrepareWrite::has_clientid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -145,69 +140,17 @@ inline void MessagePrepareWrite::clear_has_clientid() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void MessagePrepareWrite::clear_clientid() {
-  if (clientid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    clientid_->clear();
-  }
+  clientid_ = GOOGLE_LONGLONG(0);
   clear_has_clientid();
 }
-inline const ::std::string& MessagePrepareWrite::clientid() const {
+inline ::google::protobuf::int64 MessagePrepareWrite::clientid() const {
   // @@protoc_insertion_point(field_get:MessagePrepareWrite.ClientId)
-  return *clientid_;
-}
-inline void MessagePrepareWrite::set_clientid(const ::std::string& value) {
-  set_has_clientid();
-  if (clientid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    clientid_ = new ::std::string;
-  }
-  clientid_->assign(value);
-  // @@protoc_insertion_point(field_set:MessagePrepareWrite.ClientId)
-}
-inline void MessagePrepareWrite::set_clientid(const char* value) {
-  set_has_clientid();
-  if (clientid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    clientid_ = new ::std::string;
-  }
-  clientid_->assign(value);
-  // @@protoc_insertion_point(field_set_char:MessagePrepareWrite.ClientId)
-}
-inline void MessagePrepareWrite::set_clientid(const char* value, size_t size) {
-  set_has_clientid();
-  if (clientid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    clientid_ = new ::std::string;
-  }
-  clientid_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:MessagePrepareWrite.ClientId)
-}
-inline ::std::string* MessagePrepareWrite::mutable_clientid() {
-  set_has_clientid();
-  if (clientid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    clientid_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:MessagePrepareWrite.ClientId)
   return clientid_;
 }
-inline ::std::string* MessagePrepareWrite::release_clientid() {
-  clear_has_clientid();
-  if (clientid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = clientid_;
-    clientid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void MessagePrepareWrite::set_allocated_clientid(::std::string* clientid) {
-  if (clientid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete clientid_;
-  }
-  if (clientid) {
-    set_has_clientid();
-    clientid_ = clientid;
-  } else {
-    clear_has_clientid();
-    clientid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:MessagePrepareWrite.ClientId)
+inline void MessagePrepareWrite::set_clientid(::google::protobuf::int64 value) {
+  set_has_clientid();
+  clientid_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareWrite.ClientId)
 }
 
 // required int64 Index = 2;

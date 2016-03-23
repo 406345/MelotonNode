@@ -1,11 +1,15 @@
 /***********************************************************************************
 This file is part of Project for Meloton
 For the latest info, see  https://github.com/Yhgenomics/MelotonNode.git
+
 Copyright 2016 Yhgenomics
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
+
 http://www.apache.org/licenses/LICENSE-2.0
+
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,29 +18,43 @@ limitations under the License.
 ***********************************************************************************/
 
 /***********************************************************************************
-* Description   : MessagePrepareWrite handler.
-* Creator       : Shubo Yang(shuboyang@yhgenomics.com)
-* Date          : 2016-03-22
-* Modifed       : 2016-03-22      | Shubo Yang      | Create
+* Description   :
+* Creator       : Shubo Yang
+* Date          :
+* Modifed       : When      | Who       | What
 ***********************************************************************************/
+
+#ifndef CLIENT_LISTENER_H_
+#define CLIENT_LISTENER_H_
 
 #include <string>
 #include <MRT.h>
-#include <MessagePrepareWrite.pb.h>
-#include <TokenPool.h>
-#include <MessagePrepareWriteACK.pb.h>
-#include <ClientSession.h>
 
-static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrepareWrite> message )
+using MRT::Session;
+using MRT::Listener;
+using std::string;
+
+class ClientListener :
+    public MRT::Listener
 {
-    auto client = scast<ClientSession*>( session );
-    auto token  = TokenPool::Instance()->CreateToken( message->clientid() , message->index() , TOKEN_EXPIRE_TIME );
-    auto reply  = make_uptr( MessagePrepareWriteACK );
+public:
 
-    reply->set_clientid( message->clientid() );
-    reply->set_token   ( token );
+    ClientListener ( string ip , int port );
+    ~ClientListener();
 
-    client->SendMessage( move_ptr( reply ) );
+protected:
 
-    return 0;
-}
+    virtual Session * CreateSession    ( ) override;
+
+    // Callback when a session is created
+    virtual void      OnSessionOpen   ( Session * session ) override;
+
+    // Callback after a session is closed
+    virtual void      OnSessionClose  ( Session * session ) override;
+
+    // Close a session
+    virtual void      CloseSession     ( Session* session ) override;
+
+};
+
+#endif // !CLIENT_LISTENER_H_ 

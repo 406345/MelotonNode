@@ -23,8 +23,21 @@ limitations under the License.
 #include <string>
 #include <MRT.h>
 #include <MessagePrepareRead.pb.h>
+#include <MessagePrepareReadACK.pb.h>
+#include <TokenPool.h>
+#include <MRT.h>
+#include <MelotonNode.h>
 
 static int MessagePrepareReadHandler( MRT::Session * session , uptr<MessagePrepareRead> message )
 {
+    uptr<MessagePrepareReadACK> reply = make_uptr( MessagePrepareReadACK );
+
+    auto t = TokenPool::Instance()->CreateToken( message->clientid() , 
+                                                 message->index() ,
+                                                 TOKEN_EXPIRE_TIME );
+
+    reply->set_clientid( message->clientid() );
+    reply->set_token( t );
+
     return 0;
 }

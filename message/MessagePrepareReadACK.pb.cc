@@ -34,7 +34,7 @@ void protobuf_AssignDesc_MessagePrepareReadACK_2eproto() {
   MessagePrepareReadACK_descriptor_ = file->message_type(0);
   static const int MessagePrepareReadACK_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, token_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, block_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, clientid_),
   };
   MessagePrepareReadACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -76,12 +76,10 @@ void protobuf_AddDesc_MessagePrepareReadACK_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::protobuf_AddDesc_MessageBlockMeta_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\033MessagePrepareReadACK.proto\032\026MessageBl"
-    "ockMeta.proto\"H\n\025MessagePrepareReadACK\022\r"
-    "\n\005Token\030\001 \002(\t\022 \n\005Block\030\002 \002(\0132\021.MessageBl"
-    "ockMeta", 127);
+    "\n\033MessagePrepareReadACK.proto\"8\n\025Message"
+    "PrepareReadACK\022\r\n\005Token\030\001 \002(\t\022\020\n\010ClientI"
+    "d\030\002 \002(\003", 87);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessagePrepareReadACK.proto", &protobuf_RegisterTypes);
   MessagePrepareReadACK::default_instance_ = new MessagePrepareReadACK();
@@ -100,7 +98,7 @@ struct StaticDescriptorInitializer_MessagePrepareReadACK_2eproto {
 
 #ifndef _MSC_VER
 const int MessagePrepareReadACK::kTokenFieldNumber;
-const int MessagePrepareReadACK::kBlockFieldNumber;
+const int MessagePrepareReadACK::kClientIdFieldNumber;
 #endif  // !_MSC_VER
 
 MessagePrepareReadACK::MessagePrepareReadACK()
@@ -110,7 +108,6 @@ MessagePrepareReadACK::MessagePrepareReadACK()
 }
 
 void MessagePrepareReadACK::InitAsDefaultInstance() {
-  block_ = const_cast< ::MessageBlockMeta*>(&::MessageBlockMeta::default_instance());
 }
 
 MessagePrepareReadACK::MessagePrepareReadACK(const MessagePrepareReadACK& from)
@@ -124,7 +121,7 @@ void MessagePrepareReadACK::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  block_ = NULL;
+  clientid_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -138,7 +135,6 @@ void MessagePrepareReadACK::SharedDtor() {
     delete token_;
   }
   if (this != default_instance_) {
-    delete block_;
   }
 }
 
@@ -170,9 +166,7 @@ void MessagePrepareReadACK::Clear() {
         token_->clear();
       }
     }
-    if (has_block()) {
-      if (block_ != NULL) block_->::MessageBlockMeta::Clear();
-    }
+    clientid_ = GOOGLE_LONGLONG(0);
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -200,16 +194,18 @@ bool MessagePrepareReadACK::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_Block;
+        if (input->ExpectTag(16)) goto parse_ClientId;
         break;
       }
 
-      // required .MessageBlockMeta Block = 2;
+      // required int64 ClientId = 2;
       case 2: {
-        if (tag == 18) {
-         parse_Block:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_block()));
+        if (tag == 16) {
+         parse_ClientId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &clientid_)));
+          set_has_clientid();
         } else {
           goto handle_unusual;
         }
@@ -252,10 +248,9 @@ void MessagePrepareReadACK::SerializeWithCachedSizes(
       1, this->token(), output);
   }
 
-  // required .MessageBlockMeta Block = 2;
-  if (has_block()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->block(), output);
+  // required int64 ClientId = 2;
+  if (has_clientid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->clientid(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -279,11 +274,9 @@ void MessagePrepareReadACK::SerializeWithCachedSizes(
         1, this->token(), target);
   }
 
-  // required .MessageBlockMeta Block = 2;
-  if (has_block()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->block(), target);
+  // required int64 ClientId = 2;
+  if (has_clientid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->clientid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -305,11 +298,11 @@ int MessagePrepareReadACK::ByteSize() const {
           this->token());
     }
 
-    // required .MessageBlockMeta Block = 2;
-    if (has_block()) {
+    // required int64 ClientId = 2;
+    if (has_clientid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->block());
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->clientid());
     }
 
   }
@@ -342,8 +335,8 @@ void MessagePrepareReadACK::MergeFrom(const MessagePrepareReadACK& from) {
     if (from.has_token()) {
       set_token(from.token());
     }
-    if (from.has_block()) {
-      mutable_block()->::MessageBlockMeta::MergeFrom(from.block());
+    if (from.has_clientid()) {
+      set_clientid(from.clientid());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -364,16 +357,13 @@ void MessagePrepareReadACK::CopyFrom(const MessagePrepareReadACK& from) {
 bool MessagePrepareReadACK::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
-  if (has_block()) {
-    if (!this->block().IsInitialized()) return false;
-  }
   return true;
 }
 
 void MessagePrepareReadACK::Swap(MessagePrepareReadACK* other) {
   if (other != this) {
     std::swap(token_, other->token_);
-    std::swap(block_, other->block_);
+    std::swap(clientid_, other->clientid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

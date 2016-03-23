@@ -23,8 +23,44 @@ limitations under the License.
 #include <string>
 #include <MRT.h>
 #include <MessageReadBlock.pb.h>
+#include <TokenPool.h>
+#include <MessageBlockData.pb.h>
+#include <BlockHub.h>
+#include <MelotonNode.h>
+#include <ClientSession.h>
 
 static int MessageReadBlockHandler( MRT::Session * session , uptr<MessageReadBlock> message )
 {
+    auto token_str  = message->token();
+    auto token      = TokenPool::Instance()->CheckToken( token_str );
+    auto client     = scast<ClientSession*>( session );
+
+    // Check the token is exist or not
+    if ( token == nullptr )
+    {
+        return -1;
+    }
+
+    auto size   = message->size();
+    auto offset = message->offset();
+    auto block  = BlockHub::Instance()->FindBlock( token->Index() );
+    
+    // Check if the size is out of range
+    size = ( offset + size ) > block->Size ? ( block->Size - size ) : size;
+
+    // Check if the size is bigger than the max tranfer size
+    size = size > MAX_TRANSFER_SIZE ? MAX_TRANSFER_SIZE : size;
+
+    auto data = BlockHub::Instance()->ReadBlock( block->Index , offset , size );
+
+    uptr<MessageBlockData> reply = make_uptr( MessageBlockData );
+    reply->set_token ( token->TokenStr() );
+    reply->set_size  ( size );
+    reply->set_offset( offset );
+    reply->set_data  ( data->Data() , 
+                       data->Size() );
+    
+    client->SendMessage( move_ptr( reply ) );
+
     return 0;
 }
