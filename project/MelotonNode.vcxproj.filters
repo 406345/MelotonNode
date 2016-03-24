@@ -220,5 +220,8 @@
     <ClInclude Include="..\include\ClientSession.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Settings.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -58,6 +58,12 @@ static const size_t MAX_TRANSFER_SIZE       = 1024 * 1024 * 5; // 5MB
 
 #endif // DEBUG
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Function Section
+ * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#define PP_GET_DEF( __type__ , __name__ , __vailable__ ) __type__ __name__(){ return __vailable__;}
+#define PP_SET_DEF( __type__ , __name__ , __vailable__ ) void __name__( __type__ value ){ __vailable__ = value; }
+
 #endif // !MELOTON_NODE_H_
 
 

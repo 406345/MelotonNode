@@ -2,16 +2,22 @@
 #include <MasterConnector.h>
 #include <ClientListener.h>
 #include <BlockHub.h>
+#include <Settings.h>
 
 using std::string;
 
 int main( int argc , char* argv[] )
 {
-    string ip   = "127.0.0.1";
-    int    port = 100;
 
-    sptr<MasterConnector> connector = make_sptr( MasterConnector , ip , port );
-    sptr<ClientListener>  client    = make_sptr( ClientListener , ip , 101 );
+    BlockHub::Instance()->LoadIndex();
+
+    sptr<MasterConnector> connector = make_sptr( MasterConnector ,
+                                                 Settings::Instance()->MasterAddress() ,
+                                                 Settings::Instance()->MasterPort() );
+
+    sptr<ClientListener>  client    = make_sptr( ClientListener ,
+                                                 Settings::Instance()->ListenerAddress() ,
+                                                 Settings::Instance()->ListenerPort() );
 
     while ( true )
     {

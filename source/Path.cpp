@@ -107,7 +107,7 @@ void Path::ParsePath()
 
     for ( int pos = 0; pos < this->original_path_.size(); pos++ )
     {
-        if ( this->original_path_[pos] == '/' )
+        if ( this->original_path_[pos] == default_spliter )
         {
             if ( last_spliter_pos > this->original_path_.size() )
             {

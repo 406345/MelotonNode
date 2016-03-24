@@ -1,23 +1,39 @@
 #include <BlockHub.h>
 #include <Path.h>
 
-void BlockHub::LoadIndex( string path )
+void BlockHub::LoadIndex()
 {
-    Path p( path );
     int index = 0;
+    this->index_file_.open( "index.dat" , ios::binary | ios::out |  ios::in );
 
-    auto folder = p.ToPath();
+    if ( !this->index_file_.is_open())
+    {
+        this->index_file_.open( "index.dat" , ios::binary |  ios::out );
+        this->index_file_.close();
+        this->index_file_.open( "index.dat" , ios::binary | ios::out |  ios::in);
+        this->index_file_.seekg( 0 , ios::beg );
+    }
 
-    this->index_file_.open( path.c_str() , ios::binary | ios::in | ios::out );
+    this->data_file_.open ( "block.dat" , ios::binary | ios::out |  ios::in);
+
+    if ( !this->data_file_.is_open() )
+    {
+        this->data_file_.open( "block.dat" , ios::binary |  ios::out );
+        this->data_file_.close();
+        this->data_file_.open( "block.dat" , ios::binary | ios::out |  ios::in);
+        this->data_file_.seekg( 0 , ios::beg );
+    }
 
     while ( !this->index_file_.eof() )
     {
         auto bi = make_sptr( BlockIndex );
-        bi->Index       = index;
-        bi->FileOffset  = 0;
-        bi->Location    = 0;
+        index_file_.read( ( char* ) bi.get() , sizeof( BlockIndex ) );
 
-        this->index_file_.read( ( char* ) bi.get() , sizeof( BlockIndex ) );
+        if ( !index_file_.good() )
+        {
+            break;
+        }
+
         this->index_list_[index] = bi;
 
         if( bi->Used == false )
@@ -29,10 +45,7 @@ void BlockHub::LoadIndex( string path )
         index++;
     }
 
-    this->block_count_ = index;
-
-    index_file_.open( ( folder + "data.data" ).c_str() , ios::binary | ios::in | ios::out );
-
+    this->block_count_ = index; 
 }
 
 sptr<BlockIndex> BlockHub::FindBlock( size_t index )

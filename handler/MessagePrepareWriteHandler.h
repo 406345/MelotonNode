@@ -26,17 +26,29 @@ limitations under the License.
 #include <TokenPool.h>
 #include <MessagePrepareWriteACK.pb.h>
 #include <ClientSession.h>
+#include <BlockHub.h>
 
 static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrepareWrite> message )
 {
+    auto index  = message->index();
     auto client = scast<ClientSession*>( session );
-    auto token  = TokenPool::Instance()->CreateToken( message->clientid() , message->index() , TOKEN_EXPIRE_TIME );
+    
+    if ( index == 0 )
+    {
+        auto block = BlockHub::Instance()->CreateBlock( message->partid() ,
+                                                        message->fileoffset() ,
+                                                        message->path() );
+        index = block->Index;
+    }
+    
+    auto token  = TokenPool::Instance()->CreateToken( message->clientid() , 
+                                                      index , 
+                                                      TOKEN_EXPIRE_TIME );
+
     auto reply  = make_uptr( MessagePrepareWriteACK );
-
-    reply->set_clientid( message->clientid() );
-    reply->set_token   ( token );
-
-    client->SendMessage( move_ptr( reply ) );
+    reply->set_clientid    ( message->clientid() );
+    reply->set_token       ( token );
+    client->SendMessage    ( move_ptr( reply ) );
 
     return 0;
 }

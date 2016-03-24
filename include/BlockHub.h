@@ -44,7 +44,7 @@ public:
 
     MAKE_SINGLETON( BlockHub );
 
-    void             LoadIndex      ( string path );
+    void             LoadIndex      ();
     sptr<BlockIndex> FindBlock      ( size_t index );
 
     size_t           BlockCount     () { return this->block_count_; };

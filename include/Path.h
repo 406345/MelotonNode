@@ -55,7 +55,7 @@ public:
 
         for ( auto s : this->path_list_ )
         {
-            ret = ret + s + "/";
+            ret = ret + s + default_spliter;
         }
 
         return ret;
@@ -66,13 +66,19 @@ public:
 
         for ( auto s : this->path_list_ )
         {
-            ret = ret + s + "/";
+            ret = ret + s + default_spliter;
         }
 
         return (ret + this->filename_);
     };
 
 private:
+
+#if _WIN32
+    const char      default_spliter             = '\\';
+#else
+    const char      default_spliter             = '/';
+#endif
 
     string          original_path_              = "";
     string          original_filename_          = "";

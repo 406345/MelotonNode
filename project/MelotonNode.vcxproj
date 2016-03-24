@@ -202,6 +202,7 @@
     <ClInclude Include="..\include\MelotonSession.h" />
     <ClInclude Include="..\include\ObjectPool.h" />
     <ClInclude Include="..\include\Path.h" />
+    <ClInclude Include="..\include\Settings.h" />
     <ClInclude Include="..\include\TokenPool.h" />
     <ClInclude Include="..\message\MessageAlive.pb.h" />
     <ClInclude Include="..\message\MessageBlockAccept.pb.h" />
