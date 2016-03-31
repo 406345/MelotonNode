@@ -107,10 +107,24 @@ class MessageBlockAccept : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 size() const;
   inline void set_size(::google::protobuf::int64 value);
 
-  // required int64 Checksum = 3;
+  // required int64 NextOffset = 3;
+  inline bool has_nextoffset() const;
+  inline void clear_nextoffset();
+  static const int kNextOffsetFieldNumber = 3;
+  inline ::google::protobuf::int64 nextoffset() const;
+  inline void set_nextoffset(::google::protobuf::int64 value);
+
+  // required int64 NextSize = 4;
+  inline bool has_nextsize() const;
+  inline void clear_nextsize();
+  static const int kNextSizeFieldNumber = 4;
+  inline ::google::protobuf::int64 nextsize() const;
+  inline void set_nextsize(::google::protobuf::int64 value);
+
+  // required int64 Checksum = 5;
   inline bool has_checksum() const;
   inline void clear_checksum();
-  static const int kChecksumFieldNumber = 3;
+  static const int kChecksumFieldNumber = 5;
   inline ::google::protobuf::int64 checksum() const;
   inline void set_checksum(::google::protobuf::int64 value);
 
@@ -120,6 +134,10 @@ class MessageBlockAccept : public ::google::protobuf::Message {
   inline void clear_has_token();
   inline void set_has_size();
   inline void clear_has_size();
+  inline void set_has_nextoffset();
+  inline void clear_has_nextoffset();
+  inline void set_has_nextsize();
+  inline void clear_has_nextsize();
   inline void set_has_checksum();
   inline void clear_has_checksum();
 
@@ -129,6 +147,8 @@ class MessageBlockAccept : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::std::string* token_;
   ::google::protobuf::int64 size_;
+  ::google::protobuf::int64 nextoffset_;
+  ::google::protobuf::int64 nextsize_;
   ::google::protobuf::int64 checksum_;
   friend void  protobuf_AddDesc_MessageBlockAccept_2eproto();
   friend void protobuf_AssignDesc_MessageBlockAccept_2eproto();
@@ -244,15 +264,63 @@ inline void MessageBlockAccept::set_size(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:MessageBlockAccept.Size)
 }
 
-// required int64 Checksum = 3;
-inline bool MessageBlockAccept::has_checksum() const {
+// required int64 NextOffset = 3;
+inline bool MessageBlockAccept::has_nextoffset() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void MessageBlockAccept::set_has_checksum() {
+inline void MessageBlockAccept::set_has_nextoffset() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void MessageBlockAccept::clear_has_checksum() {
+inline void MessageBlockAccept::clear_has_nextoffset() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessageBlockAccept::clear_nextoffset() {
+  nextoffset_ = GOOGLE_LONGLONG(0);
+  clear_has_nextoffset();
+}
+inline ::google::protobuf::int64 MessageBlockAccept::nextoffset() const {
+  // @@protoc_insertion_point(field_get:MessageBlockAccept.NextOffset)
+  return nextoffset_;
+}
+inline void MessageBlockAccept::set_nextoffset(::google::protobuf::int64 value) {
+  set_has_nextoffset();
+  nextoffset_ = value;
+  // @@protoc_insertion_point(field_set:MessageBlockAccept.NextOffset)
+}
+
+// required int64 NextSize = 4;
+inline bool MessageBlockAccept::has_nextsize() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageBlockAccept::set_has_nextsize() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageBlockAccept::clear_has_nextsize() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageBlockAccept::clear_nextsize() {
+  nextsize_ = GOOGLE_LONGLONG(0);
+  clear_has_nextsize();
+}
+inline ::google::protobuf::int64 MessageBlockAccept::nextsize() const {
+  // @@protoc_insertion_point(field_get:MessageBlockAccept.NextSize)
+  return nextsize_;
+}
+inline void MessageBlockAccept::set_nextsize(::google::protobuf::int64 value) {
+  set_has_nextsize();
+  nextsize_ = value;
+  // @@protoc_insertion_point(field_set:MessageBlockAccept.NextSize)
+}
+
+// required int64 Checksum = 5;
+inline bool MessageBlockAccept::has_checksum() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessageBlockAccept::set_has_checksum() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessageBlockAccept::clear_has_checksum() {
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void MessageBlockAccept::clear_checksum() {
   checksum_ = GOOGLE_LONGLONG(0);

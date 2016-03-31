@@ -27,9 +27,9 @@ limitations under the License.
 #include <TokenPool.h>
 #include <BlockHub.h>
 #include <ClientSession.h>
+
 static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockData> message )
 {
-
     auto client = scast<ClientSession*>( session );
     auto token  = TokenPool::Instance()->CheckToken( message->token() );
     
@@ -40,7 +40,7 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     }
 
     auto block = BlockHub::Instance()->FindBlock( token->Index() );
-     
+    
     if ( block == nullptr )
     {
         // Check if the block is exist
@@ -51,18 +51,27 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     size_t offset = message->offset();
 
     size = size > BLOCK_SIZE ? BLOCK_SIZE : size;
-    size = ( offset + size ) > BLOCK_SIZE ? ( BLOCK_SIZE - offset + 1 ) : size;
+    size = ( offset + size ) > BLOCK_SIZE ? ( BLOCK_SIZE - offset ) : size;
+
+    if ( size == 0 )
+    {
+        return -1;
+    }
 
     BlockHub::Instance()->WriteBlock( block->Index , 
                                       offset , 
                                       message->data().c_str() , 
                                       size );
+    block->Size += size;
+    BlockHub::Instance()->SaveBlockIndex( block );
 
     uptr<MessageBlockAccept> reply = make_uptr( MessageBlockAccept );
-    reply->set_size( size );
-    reply->set_token( token->TokenStr() );
-    reply->set_checksum( 0 );
-    client->SendMessage( move_ptr( reply ) );
+    reply->set_size         ( size );
+    reply->set_token        ( token->TokenStr() );
+    reply->set_checksum     ( 0 );
+    reply->set_nextoffset   ( offset + size );
+    reply->set_nextsize     ( BLOCK_TRANSFER_SIZE );
+    client->SendMessage     ( move_ptr( reply ) );
 
     return 0;
 }

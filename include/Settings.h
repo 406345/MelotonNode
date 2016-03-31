@@ -65,8 +65,8 @@ private:
 
     string master_address_          = "127.0.0.1";
     int    master_port_             = 100;
-    string client_listener_address_ = "0.0.0.0";
-    int    client_listener_port_    = 101;
+    string client_listener_address_ = "127.0.0.1";
+    int    client_listener_port_    = 102;
 };
 
 #endif // !SETTINGS_H_ 

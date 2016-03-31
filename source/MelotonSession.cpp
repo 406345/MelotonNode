@@ -127,6 +127,9 @@ void MelotonSession::dispatch_message( MRT::CircleBuffer & buffer )
                     this->parse_state_  = MelotonSessionParseState::kHead;
                 }break;
             default:
+                {
+                    this->parse_state_ = MelotonSessionParseState::kHead;
+                }
                 break;
         }
     }

@@ -51,10 +51,6 @@ protected:
 
     // Callback after a session is closed
     virtual void      OnSessionClose  ( Session * session ) override;
-
-    // Close a session
-    virtual void      CloseSession     ( Session* session ) override;
-
 };
 
 #endif // !CLIENT_LISTENER_H_ 

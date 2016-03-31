@@ -27,18 +27,27 @@ limitations under the License.
 #include <MessagePrepareWriteACK.pb.h>
 #include <ClientSession.h>
 #include <BlockHub.h>
+#include <MessageBlockMeta.pb.h>
+#include <MasterSession.h>
+#include <MessageSyncBlock.pb.h>
+#include <Settings.h>
 
 static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrepareWrite> message )
 {
-    auto index  = message->index();
-    auto client = scast<ClientSession*>( session );
-    
+    auto index              = message->index();
+    auto master             = scast<MasterSession*>( session );
+    sptr<BlockIndex> block  = nullptr;
+
     if ( index == 0 )
     {
-        auto block = BlockHub::Instance()->CreateBlock( message->partid() ,
-                                                        message->fileoffset() ,
-                                                        message->path() );
+        block = BlockHub::Instance()->CreateBlock( message->partid() ,
+                                                   message->fileoffset() ,
+                                                   message->path() );
         index = block->Index;
+    }
+    else
+    {
+        block = BlockHub::Instance()->FindBlock( index );
     }
     
     auto token  = TokenPool::Instance()->CreateToken( message->clientid() , 
@@ -48,7 +57,11 @@ static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrep
     auto reply  = make_uptr( MessagePrepareWriteACK );
     reply->set_clientid    ( message->clientid() );
     reply->set_token       ( token );
-    client->SendMessage    ( move_ptr( reply ) );
+    reply->set_fileoffset  ( block->FileOffset );
+    reply->set_partid      ( block->PartId );
+    reply->set_size        ( block->Size );
+    reply->set_port        ( Settings::Instance()->ListenerPort() ); 
+    master->SendMessage    ( move_ptr( reply ) );
 
     return 0;
 }

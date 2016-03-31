@@ -32,9 +32,11 @@ void protobuf_AssignDesc_MessageBlockAccept_2eproto() {
       "MessageBlockAccept.proto");
   GOOGLE_CHECK(file != NULL);
   MessageBlockAccept_descriptor_ = file->message_type(0);
-  static const int MessageBlockAccept_offsets_[3] = {
+  static const int MessageBlockAccept_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockAccept, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockAccept, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockAccept, nextoffset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockAccept, nextsize_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockAccept, checksum_),
   };
   MessageBlockAccept_reflection_ =
@@ -78,9 +80,10 @@ void protobuf_AddDesc_MessageBlockAccept_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\030MessageBlockAccept.proto\"C\n\022MessageBlo"
-    "ckAccept\022\r\n\005Token\030\001 \002(\t\022\014\n\004Size\030\002 \002(\003\022\020\n"
-    "\010Checksum\030\003 \002(\003", 95);
+    "\n\030MessageBlockAccept.proto\"i\n\022MessageBlo"
+    "ckAccept\022\r\n\005Token\030\001 \002(\t\022\014\n\004Size\030\002 \002(\003\022\022\n"
+    "\nNextOffset\030\003 \002(\003\022\020\n\010NextSize\030\004 \002(\003\022\020\n\010C"
+    "hecksum\030\005 \002(\003", 133);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageBlockAccept.proto", &protobuf_RegisterTypes);
   MessageBlockAccept::default_instance_ = new MessageBlockAccept();
@@ -100,6 +103,8 @@ struct StaticDescriptorInitializer_MessageBlockAccept_2eproto {
 #ifndef _MSC_VER
 const int MessageBlockAccept::kTokenFieldNumber;
 const int MessageBlockAccept::kSizeFieldNumber;
+const int MessageBlockAccept::kNextOffsetFieldNumber;
+const int MessageBlockAccept::kNextSizeFieldNumber;
 const int MessageBlockAccept::kChecksumFieldNumber;
 #endif  // !_MSC_VER
 
@@ -124,6 +129,8 @@ void MessageBlockAccept::SharedCtor() {
   _cached_size_ = 0;
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   size_ = GOOGLE_LONGLONG(0);
+  nextoffset_ = GOOGLE_LONGLONG(0);
+  nextsize_ = GOOGLE_LONGLONG(0);
   checksum_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -173,7 +180,7 @@ void MessageBlockAccept::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
+  if (_has_bits_[0 / 32] & 31) {
     ZR_(size_, checksum_);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -226,13 +233,43 @@ bool MessageBlockAccept::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_Checksum;
+        if (input->ExpectTag(24)) goto parse_NextOffset;
         break;
       }
 
-      // required int64 Checksum = 3;
+      // required int64 NextOffset = 3;
       case 3: {
         if (tag == 24) {
+         parse_NextOffset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &nextoffset_)));
+          set_has_nextoffset();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_NextSize;
+        break;
+      }
+
+      // required int64 NextSize = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_NextSize:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &nextsize_)));
+          set_has_nextsize();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_Checksum;
+        break;
+      }
+
+      // required int64 Checksum = 5;
+      case 5: {
+        if (tag == 40) {
          parse_Checksum:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -285,9 +322,19 @@ void MessageBlockAccept::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->size(), output);
   }
 
-  // required int64 Checksum = 3;
+  // required int64 NextOffset = 3;
+  if (has_nextoffset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->nextoffset(), output);
+  }
+
+  // required int64 NextSize = 4;
+  if (has_nextsize()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->nextsize(), output);
+  }
+
+  // required int64 Checksum = 5;
   if (has_checksum()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->checksum(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->checksum(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -316,9 +363,19 @@ void MessageBlockAccept::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->size(), target);
   }
 
-  // required int64 Checksum = 3;
+  // required int64 NextOffset = 3;
+  if (has_nextoffset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->nextoffset(), target);
+  }
+
+  // required int64 NextSize = 4;
+  if (has_nextsize()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->nextsize(), target);
+  }
+
+  // required int64 Checksum = 5;
   if (has_checksum()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->checksum(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->checksum(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -347,7 +404,21 @@ int MessageBlockAccept::ByteSize() const {
           this->size());
     }
 
-    // required int64 Checksum = 3;
+    // required int64 NextOffset = 3;
+    if (has_nextoffset()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->nextoffset());
+    }
+
+    // required int64 NextSize = 4;
+    if (has_nextsize()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->nextsize());
+    }
+
+    // required int64 Checksum = 5;
     if (has_checksum()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -387,6 +458,12 @@ void MessageBlockAccept::MergeFrom(const MessageBlockAccept& from) {
     if (from.has_size()) {
       set_size(from.size());
     }
+    if (from.has_nextoffset()) {
+      set_nextoffset(from.nextoffset());
+    }
+    if (from.has_nextsize()) {
+      set_nextsize(from.nextsize());
+    }
     if (from.has_checksum()) {
       set_checksum(from.checksum());
     }
@@ -407,7 +484,7 @@ void MessageBlockAccept::CopyFrom(const MessageBlockAccept& from) {
 }
 
 bool MessageBlockAccept::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
@@ -416,6 +493,8 @@ void MessageBlockAccept::Swap(MessageBlockAccept* other) {
   if (other != this) {
     std::swap(token_, other->token_);
     std::swap(size_, other->size_);
+    std::swap(nextoffset_, other->nextoffset_);
+    std::swap(nextsize_, other->nextsize_);
     std::swap(checksum_, other->checksum_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

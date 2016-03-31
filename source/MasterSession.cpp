@@ -14,7 +14,6 @@ MasterSession::MasterSession()
 
         return false;
     } , nullptr , nullptr );
-
 }
 
 MasterSession::~MasterSession()

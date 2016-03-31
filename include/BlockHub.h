@@ -64,7 +64,7 @@ public:
     uptr<Buffer>     ReadBlock      ( int blockid , 
                                       size_t offset ,
                                       size_t len);
-
+    void             SaveBlockIndex ( sptr<BlockIndex> block );
 private:
 
     BlockHub ();
@@ -80,7 +80,7 @@ private:
     int     block_empty_count_   = 0;
 
 
-    void SaveBlockIndex( sptr<BlockIndex> block );
+    
 };
 
 

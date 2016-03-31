@@ -32,11 +32,8 @@ void protobuf_AssignDesc_MessageOpenACK_2eproto() {
       "MessageOpenACK.proto");
   GOOGLE_CHECK(file != NULL);
   MessageOpenACK_descriptor_ = file->message_type(0);
-  static const int MessageOpenACK_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageOpenACK, blockcount_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageOpenACK, filesize_),
+  static const int MessageOpenACK_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageOpenACK, token_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageOpenACK, list_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageOpenACK, code_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageOpenACK, message_),
   };
@@ -80,13 +77,10 @@ void protobuf_AddDesc_MessageOpenACK_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::protobuf_AddDesc_MessageBlockList_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\024MessageOpenACK.proto\032\026MessageBlockList"
-    ".proto\"\205\001\n\016MessageOpenACK\022\022\n\nBlockCount\030"
-    "\001 \001(\003\022\020\n\010FileSize\030\002 \001(\003\022\r\n\005Token\030\003 \001(\t\022\037"
-    "\n\004List\030\004 \001(\0132\021.MessageBlockList\022\014\n\004Code\030"
-    "\005 \002(\005\022\017\n\007Message\030\006 \002(\t", 182);
+    "\n\024MessageOpenACK.proto\">\n\016MessageOpenACK"
+    "\022\r\n\005Token\030\001 \002(\t\022\014\n\004Code\030\002 \002(\005\022\017\n\007Message"
+    "\030\003 \002(\t", 86);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageOpenACK.proto", &protobuf_RegisterTypes);
   MessageOpenACK::default_instance_ = new MessageOpenACK();
@@ -104,10 +98,7 @@ struct StaticDescriptorInitializer_MessageOpenACK_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MessageOpenACK::kBlockCountFieldNumber;
-const int MessageOpenACK::kFileSizeFieldNumber;
 const int MessageOpenACK::kTokenFieldNumber;
-const int MessageOpenACK::kListFieldNumber;
 const int MessageOpenACK::kCodeFieldNumber;
 const int MessageOpenACK::kMessageFieldNumber;
 #endif  // !_MSC_VER
@@ -119,7 +110,6 @@ MessageOpenACK::MessageOpenACK()
 }
 
 void MessageOpenACK::InitAsDefaultInstance() {
-  list_ = const_cast< ::MessageBlockList*>(&::MessageBlockList::default_instance());
 }
 
 MessageOpenACK::MessageOpenACK(const MessageOpenACK& from)
@@ -132,10 +122,7 @@ MessageOpenACK::MessageOpenACK(const MessageOpenACK& from)
 void MessageOpenACK::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  blockcount_ = GOOGLE_LONGLONG(0);
-  filesize_ = GOOGLE_LONGLONG(0);
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  list_ = NULL;
   code_ = 0;
   message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -154,7 +141,6 @@ void MessageOpenACK::SharedDtor() {
     delete message_;
   }
   if (this != default_instance_) {
-    delete list_;
   }
 }
 
@@ -180,25 +166,11 @@ MessageOpenACK* MessageOpenACK::New() const {
 }
 
 void MessageOpenACK::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<MessageOpenACK*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 63) {
-    ZR_(blockcount_, filesize_);
+  if (_has_bits_[0 / 32] & 7) {
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         token_->clear();
       }
-    }
-    if (has_list()) {
-      if (list_ != NULL) list_->::MessageBlockList::Clear();
     }
     code_ = 0;
     if (has_message()) {
@@ -207,10 +179,6 @@ void MessageOpenACK::Clear() {
       }
     }
   }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -225,39 +193,9 @@ bool MessageOpenACK::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 BlockCount = 1;
+      // required string Token = 1;
       case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &blockcount_)));
-          set_has_blockcount();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_FileSize;
-        break;
-      }
-
-      // optional int64 FileSize = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_FileSize:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &filesize_)));
-          set_has_filesize();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Token;
-        break;
-      }
-
-      // optional string Token = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Token:
+        if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_token()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -267,26 +205,13 @@ bool MessageOpenACK::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_List;
+        if (input->ExpectTag(16)) goto parse_Code;
         break;
       }
 
-      // optional .MessageBlockList List = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_List:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_list()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(40)) goto parse_Code;
-        break;
-      }
-
-      // required int32 Code = 5;
-      case 5: {
-        if (tag == 40) {
+      // required int32 Code = 2;
+      case 2: {
+        if (tag == 16) {
          parse_Code:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -295,13 +220,13 @@ bool MessageOpenACK::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_Message;
+        if (input->ExpectTag(26)) goto parse_Message;
         break;
       }
 
-      // required string Message = 6;
-      case 6: {
-        if (tag == 50) {
+      // required string Message = 3;
+      case 3: {
+        if (tag == 26) {
          parse_Message:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_message()));
@@ -341,45 +266,29 @@ failure:
 void MessageOpenACK::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessageOpenACK)
-  // optional int64 BlockCount = 1;
-  if (has_blockcount()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->blockcount(), output);
-  }
-
-  // optional int64 FileSize = 2;
-  if (has_filesize()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->filesize(), output);
-  }
-
-  // optional string Token = 3;
+  // required string Token = 1;
   if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->token().data(), this->token().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "token");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->token(), output);
+      1, this->token(), output);
   }
 
-  // optional .MessageBlockList List = 4;
-  if (has_list()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->list(), output);
-  }
-
-  // required int32 Code = 5;
+  // required int32 Code = 2;
   if (has_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->code(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->code(), output);
   }
 
-  // required string Message = 6;
+  // required string Message = 3;
   if (has_message()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->message(), output);
+      3, this->message(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -392,17 +301,7 @@ void MessageOpenACK::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessageOpenACK::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessageOpenACK)
-  // optional int64 BlockCount = 1;
-  if (has_blockcount()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->blockcount(), target);
-  }
-
-  // optional int64 FileSize = 2;
-  if (has_filesize()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->filesize(), target);
-  }
-
-  // optional string Token = 3;
+  // required string Token = 1;
   if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->token().data(), this->token().length(),
@@ -410,22 +309,15 @@ void MessageOpenACK::SerializeWithCachedSizes(
       "token");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->token(), target);
+        1, this->token(), target);
   }
 
-  // optional .MessageBlockList List = 4;
-  if (has_list()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->list(), target);
-  }
-
-  // required int32 Code = 5;
+  // required int32 Code = 2;
   if (has_code()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->code(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->code(), target);
   }
 
-  // required string Message = 6;
+  // required string Message = 3;
   if (has_message()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->message().data(), this->message().length(),
@@ -433,7 +325,7 @@ void MessageOpenACK::SerializeWithCachedSizes(
       "message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->message(), target);
+        3, this->message(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -448,42 +340,21 @@ int MessageOpenACK::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional int64 BlockCount = 1;
-    if (has_blockcount()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->blockcount());
-    }
-
-    // optional int64 FileSize = 2;
-    if (has_filesize()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->filesize());
-    }
-
-    // optional string Token = 3;
+    // required string Token = 1;
     if (has_token()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->token());
     }
 
-    // optional .MessageBlockList List = 4;
-    if (has_list()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->list());
-    }
-
-    // required int32 Code = 5;
+    // required int32 Code = 2;
     if (has_code()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->code());
     }
 
-    // required string Message = 6;
+    // required string Message = 3;
     if (has_message()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -517,17 +388,8 @@ void MessageOpenACK::MergeFrom(const ::google::protobuf::Message& from) {
 void MessageOpenACK::MergeFrom(const MessageOpenACK& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_blockcount()) {
-      set_blockcount(from.blockcount());
-    }
-    if (from.has_filesize()) {
-      set_filesize(from.filesize());
-    }
     if (from.has_token()) {
       set_token(from.token());
-    }
-    if (from.has_list()) {
-      mutable_list()->::MessageBlockList::MergeFrom(from.list());
     }
     if (from.has_code()) {
       set_code(from.code());
@@ -552,20 +414,14 @@ void MessageOpenACK::CopyFrom(const MessageOpenACK& from) {
 }
 
 bool MessageOpenACK::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000030) != 0x00000030) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
-  if (has_list()) {
-    if (!this->list().IsInitialized()) return false;
-  }
   return true;
 }
 
 void MessageOpenACK::Swap(MessageOpenACK* other) {
   if (other != this) {
-    std::swap(blockcount_, other->blockcount_);
-    std::swap(filesize_, other->filesize_);
     std::swap(token_, other->token_);
-    std::swap(list_, other->list_);
     std::swap(code_, other->code_);
     std::swap(message_, other->message_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);

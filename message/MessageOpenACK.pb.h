@@ -24,7 +24,6 @@
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/unknown_field_set.h>
-#include "MessageBlockList.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Internal implementation detail -- do not call these.
@@ -89,24 +88,10 @@ class MessageOpenACK : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional int64 BlockCount = 1;
-  inline bool has_blockcount() const;
-  inline void clear_blockcount();
-  static const int kBlockCountFieldNumber = 1;
-  inline ::google::protobuf::int64 blockcount() const;
-  inline void set_blockcount(::google::protobuf::int64 value);
-
-  // optional int64 FileSize = 2;
-  inline bool has_filesize() const;
-  inline void clear_filesize();
-  static const int kFileSizeFieldNumber = 2;
-  inline ::google::protobuf::int64 filesize() const;
-  inline void set_filesize(::google::protobuf::int64 value);
-
-  // optional string Token = 3;
+  // required string Token = 1;
   inline bool has_token() const;
   inline void clear_token();
-  static const int kTokenFieldNumber = 3;
+  static const int kTokenFieldNumber = 1;
   inline const ::std::string& token() const;
   inline void set_token(const ::std::string& value);
   inline void set_token(const char* value);
@@ -115,26 +100,17 @@ class MessageOpenACK : public ::google::protobuf::Message {
   inline ::std::string* release_token();
   inline void set_allocated_token(::std::string* token);
 
-  // optional .MessageBlockList List = 4;
-  inline bool has_list() const;
-  inline void clear_list();
-  static const int kListFieldNumber = 4;
-  inline const ::MessageBlockList& list() const;
-  inline ::MessageBlockList* mutable_list();
-  inline ::MessageBlockList* release_list();
-  inline void set_allocated_list(::MessageBlockList* list);
-
-  // required int32 Code = 5;
+  // required int32 Code = 2;
   inline bool has_code() const;
   inline void clear_code();
-  static const int kCodeFieldNumber = 5;
+  static const int kCodeFieldNumber = 2;
   inline ::google::protobuf::int32 code() const;
   inline void set_code(::google::protobuf::int32 value);
 
-  // required string Message = 6;
+  // required string Message = 3;
   inline bool has_message() const;
   inline void clear_message();
-  static const int kMessageFieldNumber = 6;
+  static const int kMessageFieldNumber = 3;
   inline const ::std::string& message() const;
   inline void set_message(const ::std::string& value);
   inline void set_message(const char* value);
@@ -145,14 +121,8 @@ class MessageOpenACK : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:MessageOpenACK)
  private:
-  inline void set_has_blockcount();
-  inline void clear_has_blockcount();
-  inline void set_has_filesize();
-  inline void clear_has_filesize();
   inline void set_has_token();
   inline void clear_has_token();
-  inline void set_has_list();
-  inline void clear_has_list();
   inline void set_has_code();
   inline void clear_has_code();
   inline void set_has_message();
@@ -162,10 +132,7 @@ class MessageOpenACK : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int64 blockcount_;
-  ::google::protobuf::int64 filesize_;
   ::std::string* token_;
-  ::MessageBlockList* list_;
   ::std::string* message_;
   ::google::protobuf::int32 code_;
   friend void  protobuf_AddDesc_MessageOpenACK_2eproto();
@@ -182,63 +149,15 @@ class MessageOpenACK : public ::google::protobuf::Message {
 
 // MessageOpenACK
 
-// optional int64 BlockCount = 1;
-inline bool MessageOpenACK::has_blockcount() const {
+// required string Token = 1;
+inline bool MessageOpenACK::has_token() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MessageOpenACK::set_has_blockcount() {
+inline void MessageOpenACK::set_has_token() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MessageOpenACK::clear_has_blockcount() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void MessageOpenACK::clear_blockcount() {
-  blockcount_ = GOOGLE_LONGLONG(0);
-  clear_has_blockcount();
-}
-inline ::google::protobuf::int64 MessageOpenACK::blockcount() const {
-  // @@protoc_insertion_point(field_get:MessageOpenACK.BlockCount)
-  return blockcount_;
-}
-inline void MessageOpenACK::set_blockcount(::google::protobuf::int64 value) {
-  set_has_blockcount();
-  blockcount_ = value;
-  // @@protoc_insertion_point(field_set:MessageOpenACK.BlockCount)
-}
-
-// optional int64 FileSize = 2;
-inline bool MessageOpenACK::has_filesize() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void MessageOpenACK::set_has_filesize() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void MessageOpenACK::clear_has_filesize() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void MessageOpenACK::clear_filesize() {
-  filesize_ = GOOGLE_LONGLONG(0);
-  clear_has_filesize();
-}
-inline ::google::protobuf::int64 MessageOpenACK::filesize() const {
-  // @@protoc_insertion_point(field_get:MessageOpenACK.FileSize)
-  return filesize_;
-}
-inline void MessageOpenACK::set_filesize(::google::protobuf::int64 value) {
-  set_has_filesize();
-  filesize_ = value;
-  // @@protoc_insertion_point(field_set:MessageOpenACK.FileSize)
-}
-
-// optional string Token = 3;
-inline bool MessageOpenACK::has_token() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void MessageOpenACK::set_has_token() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void MessageOpenACK::clear_has_token() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void MessageOpenACK::clear_token() {
   if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -306,56 +225,15 @@ inline void MessageOpenACK::set_allocated_token(::std::string* token) {
   // @@protoc_insertion_point(field_set_allocated:MessageOpenACK.Token)
 }
 
-// optional .MessageBlockList List = 4;
-inline bool MessageOpenACK::has_list() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void MessageOpenACK::set_has_list() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void MessageOpenACK::clear_has_list() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void MessageOpenACK::clear_list() {
-  if (list_ != NULL) list_->::MessageBlockList::Clear();
-  clear_has_list();
-}
-inline const ::MessageBlockList& MessageOpenACK::list() const {
-  // @@protoc_insertion_point(field_get:MessageOpenACK.List)
-  return list_ != NULL ? *list_ : *default_instance_->list_;
-}
-inline ::MessageBlockList* MessageOpenACK::mutable_list() {
-  set_has_list();
-  if (list_ == NULL) list_ = new ::MessageBlockList;
-  // @@protoc_insertion_point(field_mutable:MessageOpenACK.List)
-  return list_;
-}
-inline ::MessageBlockList* MessageOpenACK::release_list() {
-  clear_has_list();
-  ::MessageBlockList* temp = list_;
-  list_ = NULL;
-  return temp;
-}
-inline void MessageOpenACK::set_allocated_list(::MessageBlockList* list) {
-  delete list_;
-  list_ = list;
-  if (list) {
-    set_has_list();
-  } else {
-    clear_has_list();
-  }
-  // @@protoc_insertion_point(field_set_allocated:MessageOpenACK.List)
-}
-
-// required int32 Code = 5;
+// required int32 Code = 2;
 inline bool MessageOpenACK::has_code() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
 inline void MessageOpenACK::set_has_code() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000002u;
 }
 inline void MessageOpenACK::clear_has_code() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void MessageOpenACK::clear_code() {
   code_ = 0;
@@ -371,15 +249,15 @@ inline void MessageOpenACK::set_code(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:MessageOpenACK.Code)
 }
 
-// required string Message = 6;
+// required string Message = 3;
 inline bool MessageOpenACK::has_message() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void MessageOpenACK::set_has_message() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void MessageOpenACK::clear_has_message() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void MessageOpenACK::clear_message() {
   if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
