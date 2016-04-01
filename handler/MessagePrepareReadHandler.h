@@ -27,17 +27,31 @@ limitations under the License.
 #include <TokenPool.h>
 #include <MRT.h>
 #include <MelotonNode.h>
+#include <MasterSession.h>
+#include <Settings.h>
 
 static int MessagePrepareReadHandler( MRT::Session * session , uptr<MessagePrepareRead> message )
 {
+    auto master = scast<MasterSession*>( session );
+     
+    auto block = BlockHub::Instance()->FindBlock( message->index() );
+
+    if ( block == nullptr )
+    {
+        return 0;
+    }
+
+    auto token = TokenPool::Instance()->CreateToken( message->clientid() , 
+                                                     message->index() ,
+                                                     TOKEN_EXPIRE_TIME );
     uptr<MessagePrepareReadACK> reply = make_uptr( MessagePrepareReadACK );
-
-    auto t = TokenPool::Instance()->CreateToken( message->clientid() , 
-                                                 message->index() ,
-                                                 TOKEN_EXPIRE_TIME );
-
     reply->set_clientid( message->clientid() );
-    reply->set_token( t );
+    reply->set_token( token );
+    reply->set_fileoffset( block->FileOffset );
+    reply->set_partid( block->PartId );
+    reply->set_size( block->Size );
+    reply->set_port( Settings::Instance()->ListenerPort() );
+    master->SendMessage( move_ptr( reply ) );
 
     return 0;
 }

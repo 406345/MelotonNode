@@ -38,7 +38,7 @@ static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrep
     auto master             = scast<MasterSession*>( session );
     sptr<BlockIndex> block  = nullptr;
 
-    if ( index == 0 )
+    if ( message->isnew() )
     {
         block = BlockHub::Instance()->CreateBlock( message->partid() ,
                                                    message->fileoffset() ,
@@ -53,6 +53,8 @@ static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrep
     auto token  = TokenPool::Instance()->CreateToken( message->clientid() , 
                                                       index , 
                                                       TOKEN_EXPIRE_TIME );
+
+    block->Size = 0;
 
     auto reply  = make_uptr( MessagePrepareWriteACK );
     reply->set_clientid    ( message->clientid() );

@@ -32,9 +32,10 @@ void protobuf_AssignDesc_MessagePrepareWrite_2eproto() {
       "MessagePrepareWrite.proto");
   GOOGLE_CHECK(file != NULL);
   MessagePrepareWrite_descriptor_ = file->message_type(0);
-  static const int MessagePrepareWrite_offsets_[5] = {
+  static const int MessagePrepareWrite_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareWrite, clientid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareWrite, index_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareWrite, isnew_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareWrite, fileoffset_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareWrite, partid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareWrite, path_),
@@ -80,10 +81,10 @@ void protobuf_AddDesc_MessagePrepareWrite_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\031MessagePrepareWrite.proto\"h\n\023MessagePr"
+    "\n\031MessagePrepareWrite.proto\"w\n\023MessagePr"
     "epareWrite\022\020\n\010ClientId\030\001 \002(\003\022\r\n\005Index\030\002 "
-    "\002(\003\022\022\n\nFileOffset\030\003 \001(\003\022\016\n\006PartId\030\004 \001(\003\022"
-    "\014\n\004Path\030\005 \001(\t", 133);
+    "\002(\003\022\r\n\005IsNew\030\003 \002(\010\022\022\n\nFileOffset\030\004 \001(\003\022\016"
+    "\n\006PartId\030\005 \001(\003\022\014\n\004Path\030\006 \001(\t", 148);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessagePrepareWrite.proto", &protobuf_RegisterTypes);
   MessagePrepareWrite::default_instance_ = new MessagePrepareWrite();
@@ -103,6 +104,7 @@ struct StaticDescriptorInitializer_MessagePrepareWrite_2eproto {
 #ifndef _MSC_VER
 const int MessagePrepareWrite::kClientIdFieldNumber;
 const int MessagePrepareWrite::kIndexFieldNumber;
+const int MessagePrepareWrite::kIsNewFieldNumber;
 const int MessagePrepareWrite::kFileOffsetFieldNumber;
 const int MessagePrepareWrite::kPartIdFieldNumber;
 const int MessagePrepareWrite::kPathFieldNumber;
@@ -129,6 +131,7 @@ void MessagePrepareWrite::SharedCtor() {
   _cached_size_ = 0;
   clientid_ = GOOGLE_LONGLONG(0);
   index_ = GOOGLE_LONGLONG(0);
+  isnew_ = false;
   fileoffset_ = GOOGLE_LONGLONG(0);
   partid_ = GOOGLE_LONGLONG(0);
   path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -180,8 +183,9 @@ void MessagePrepareWrite::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 63) {
     ZR_(clientid_, partid_);
+    isnew_ = false;
     if (has_path()) {
       if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         path_->clear();
@@ -231,13 +235,28 @@ bool MessagePrepareWrite::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_FileOffset;
+        if (input->ExpectTag(24)) goto parse_IsNew;
         break;
       }
 
-      // optional int64 FileOffset = 3;
+      // required bool IsNew = 3;
       case 3: {
         if (tag == 24) {
+         parse_IsNew:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &isnew_)));
+          set_has_isnew();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_FileOffset;
+        break;
+      }
+
+      // optional int64 FileOffset = 4;
+      case 4: {
+        if (tag == 32) {
          parse_FileOffset:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -246,13 +265,13 @@ bool MessagePrepareWrite::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_PartId;
+        if (input->ExpectTag(40)) goto parse_PartId;
         break;
       }
 
-      // optional int64 PartId = 4;
-      case 4: {
-        if (tag == 32) {
+      // optional int64 PartId = 5;
+      case 5: {
+        if (tag == 40) {
          parse_PartId:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -261,13 +280,13 @@ bool MessagePrepareWrite::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_Path;
+        if (input->ExpectTag(50)) goto parse_Path;
         break;
       }
 
-      // optional string Path = 5;
-      case 5: {
-        if (tag == 42) {
+      // optional string Path = 6;
+      case 6: {
+        if (tag == 50) {
          parse_Path:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_path()));
@@ -317,24 +336,29 @@ void MessagePrepareWrite::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->index(), output);
   }
 
-  // optional int64 FileOffset = 3;
+  // required bool IsNew = 3;
+  if (has_isnew()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->isnew(), output);
+  }
+
+  // optional int64 FileOffset = 4;
   if (has_fileoffset()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->fileoffset(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->fileoffset(), output);
   }
 
-  // optional int64 PartId = 4;
+  // optional int64 PartId = 5;
   if (has_partid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->partid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->partid(), output);
   }
 
-  // optional string Path = 5;
+  // optional string Path = 6;
   if (has_path()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->path().data(), this->path().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "path");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->path(), output);
+      6, this->path(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -357,17 +381,22 @@ void MessagePrepareWrite::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->index(), target);
   }
 
-  // optional int64 FileOffset = 3;
+  // required bool IsNew = 3;
+  if (has_isnew()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->isnew(), target);
+  }
+
+  // optional int64 FileOffset = 4;
   if (has_fileoffset()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->fileoffset(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->fileoffset(), target);
   }
 
-  // optional int64 PartId = 4;
+  // optional int64 PartId = 5;
   if (has_partid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->partid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->partid(), target);
   }
 
-  // optional string Path = 5;
+  // optional string Path = 6;
   if (has_path()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->path().data(), this->path().length(),
@@ -375,7 +404,7 @@ void MessagePrepareWrite::SerializeWithCachedSizes(
       "path");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->path(), target);
+        6, this->path(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -404,21 +433,26 @@ int MessagePrepareWrite::ByteSize() const {
           this->index());
     }
 
-    // optional int64 FileOffset = 3;
+    // required bool IsNew = 3;
+    if (has_isnew()) {
+      total_size += 1 + 1;
+    }
+
+    // optional int64 FileOffset = 4;
     if (has_fileoffset()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->fileoffset());
     }
 
-    // optional int64 PartId = 4;
+    // optional int64 PartId = 5;
     if (has_partid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->partid());
     }
 
-    // optional string Path = 5;
+    // optional string Path = 6;
     if (has_path()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -458,6 +492,9 @@ void MessagePrepareWrite::MergeFrom(const MessagePrepareWrite& from) {
     if (from.has_index()) {
       set_index(from.index());
     }
+    if (from.has_isnew()) {
+      set_isnew(from.isnew());
+    }
     if (from.has_fileoffset()) {
       set_fileoffset(from.fileoffset());
     }
@@ -484,7 +521,7 @@ void MessagePrepareWrite::CopyFrom(const MessagePrepareWrite& from) {
 }
 
 bool MessagePrepareWrite::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   return true;
 }
@@ -493,6 +530,7 @@ void MessagePrepareWrite::Swap(MessagePrepareWrite* other) {
   if (other != this) {
     std::swap(clientid_, other->clientid_);
     std::swap(index_, other->index_);
+    std::swap(isnew_, other->isnew_);
     std::swap(fileoffset_, other->fileoffset_);
     std::swap(partid_, other->partid_);
     std::swap(path_, other->path_);

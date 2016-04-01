@@ -133,6 +133,13 @@ class MessageBlockData : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 checksum() const;
   inline void set_checksum(::google::protobuf::int64 value);
 
+  // required bool IsLast = 6;
+  inline bool has_islast() const;
+  inline void clear_islast();
+  static const int kIsLastFieldNumber = 6;
+  inline bool islast() const;
+  inline void set_islast(bool value);
+
   // @@protoc_insertion_point(class_scope:MessageBlockData)
  private:
   inline void set_has_token();
@@ -145,6 +152,8 @@ class MessageBlockData : public ::google::protobuf::Message {
   inline void clear_has_offset();
   inline void set_has_checksum();
   inline void clear_has_checksum();
+  inline void set_has_islast();
+  inline void clear_has_islast();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -155,6 +164,7 @@ class MessageBlockData : public ::google::protobuf::Message {
   ::google::protobuf::int64 size_;
   ::google::protobuf::int64 offset_;
   ::google::protobuf::int64 checksum_;
+  bool islast_;
   friend void  protobuf_AddDesc_MessageBlockData_2eproto();
   friend void protobuf_AssignDesc_MessageBlockData_2eproto();
   friend void protobuf_ShutdownFile_MessageBlockData_2eproto();
@@ -391,6 +401,30 @@ inline void MessageBlockData::set_checksum(::google::protobuf::int64 value) {
   set_has_checksum();
   checksum_ = value;
   // @@protoc_insertion_point(field_set:MessageBlockData.Checksum)
+}
+
+// required bool IsLast = 6;
+inline bool MessageBlockData::has_islast() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void MessageBlockData::set_has_islast() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void MessageBlockData::clear_has_islast() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void MessageBlockData::clear_islast() {
+  islast_ = false;
+  clear_has_islast();
+}
+inline bool MessageBlockData::islast() const {
+  // @@protoc_insertion_point(field_get:MessageBlockData.IsLast)
+  return islast_;
+}
+inline void MessageBlockData::set_islast(bool value) {
+  set_has_islast();
+  islast_ = value;
+  // @@protoc_insertion_point(field_set:MessageBlockData.IsLast)
 }
 
 

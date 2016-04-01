@@ -35,12 +35,21 @@ class MasterSession :
 {
 public:
 
+    static MasterSession* Instance();
+
     MasterSession ();
     ~MasterSession();
 
+protected:
+
+     void OnConnect  () override;
+
 private:
 
-    MRT::SyncWorker* alive_worker_ = nullptr;
+    static MasterSession* instance_;
+    MRT::SyncWorker* alive_worker_  = nullptr;
+
+
 };
 
 #endif // !MASTER_SESSION_H_ 

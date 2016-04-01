@@ -54,12 +54,14 @@ static int MessageReadBlockHandler( MRT::Session * session , uptr<MessageReadBlo
     auto data = BlockHub::Instance()->ReadBlock( block->Index , offset , size );
 
     uptr<MessageBlockData> reply = make_uptr( MessageBlockData );
-    reply->set_token ( token->TokenStr() );
-    reply->set_size  ( size );
-    reply->set_offset( offset );
-    reply->set_data  ( data->Data() , 
-                       data->Size() );
-    
+    reply->set_token   ( token->TokenStr() );
+    reply->set_size    ( data->Size() );
+    reply->set_offset  ( offset );
+    reply->set_data    ( data->Data() , 
+                         data->Size() );
+    reply->set_checksum( 0 );
+    reply->set_islast  ( data->Size() == 0 );
+
     client->SendMessage( move_ptr( reply ) );
 
     return 0;

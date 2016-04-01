@@ -9,7 +9,7 @@ using std::string;
 int main( int argc , char* argv[] )
 {
 
-    BlockHub::Instance()->LoadIndex();
+    BlockHub::Instance()->LoadFromDisk();
 
     sptr<MasterConnector> connector = make_sptr( MasterConnector ,
                                                  Settings::Instance()->MasterAddress() ,

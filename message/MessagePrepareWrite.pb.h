@@ -102,24 +102,31 @@ class MessagePrepareWrite : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 index() const;
   inline void set_index(::google::protobuf::int64 value);
 
-  // optional int64 FileOffset = 3;
+  // required bool IsNew = 3;
+  inline bool has_isnew() const;
+  inline void clear_isnew();
+  static const int kIsNewFieldNumber = 3;
+  inline bool isnew() const;
+  inline void set_isnew(bool value);
+
+  // optional int64 FileOffset = 4;
   inline bool has_fileoffset() const;
   inline void clear_fileoffset();
-  static const int kFileOffsetFieldNumber = 3;
+  static const int kFileOffsetFieldNumber = 4;
   inline ::google::protobuf::int64 fileoffset() const;
   inline void set_fileoffset(::google::protobuf::int64 value);
 
-  // optional int64 PartId = 4;
+  // optional int64 PartId = 5;
   inline bool has_partid() const;
   inline void clear_partid();
-  static const int kPartIdFieldNumber = 4;
+  static const int kPartIdFieldNumber = 5;
   inline ::google::protobuf::int64 partid() const;
   inline void set_partid(::google::protobuf::int64 value);
 
-  // optional string Path = 5;
+  // optional string Path = 6;
   inline bool has_path() const;
   inline void clear_path();
-  static const int kPathFieldNumber = 5;
+  static const int kPathFieldNumber = 6;
   inline const ::std::string& path() const;
   inline void set_path(const ::std::string& value);
   inline void set_path(const char* value);
@@ -134,6 +141,8 @@ class MessagePrepareWrite : public ::google::protobuf::Message {
   inline void clear_has_clientid();
   inline void set_has_index();
   inline void clear_has_index();
+  inline void set_has_isnew();
+  inline void clear_has_isnew();
   inline void set_has_fileoffset();
   inline void clear_has_fileoffset();
   inline void set_has_partid();
@@ -150,6 +159,7 @@ class MessagePrepareWrite : public ::google::protobuf::Message {
   ::google::protobuf::int64 fileoffset_;
   ::google::protobuf::int64 partid_;
   ::std::string* path_;
+  bool isnew_;
   friend void  protobuf_AddDesc_MessagePrepareWrite_2eproto();
   friend void protobuf_AssignDesc_MessagePrepareWrite_2eproto();
   friend void protobuf_ShutdownFile_MessagePrepareWrite_2eproto();
@@ -212,15 +222,39 @@ inline void MessagePrepareWrite::set_index(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:MessagePrepareWrite.Index)
 }
 
-// optional int64 FileOffset = 3;
-inline bool MessagePrepareWrite::has_fileoffset() const {
+// required bool IsNew = 3;
+inline bool MessagePrepareWrite::has_isnew() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void MessagePrepareWrite::set_has_fileoffset() {
+inline void MessagePrepareWrite::set_has_isnew() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void MessagePrepareWrite::clear_has_fileoffset() {
+inline void MessagePrepareWrite::clear_has_isnew() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessagePrepareWrite::clear_isnew() {
+  isnew_ = false;
+  clear_has_isnew();
+}
+inline bool MessagePrepareWrite::isnew() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareWrite.IsNew)
+  return isnew_;
+}
+inline void MessagePrepareWrite::set_isnew(bool value) {
+  set_has_isnew();
+  isnew_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareWrite.IsNew)
+}
+
+// optional int64 FileOffset = 4;
+inline bool MessagePrepareWrite::has_fileoffset() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessagePrepareWrite::set_has_fileoffset() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessagePrepareWrite::clear_has_fileoffset() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void MessagePrepareWrite::clear_fileoffset() {
   fileoffset_ = GOOGLE_LONGLONG(0);
@@ -236,15 +270,15 @@ inline void MessagePrepareWrite::set_fileoffset(::google::protobuf::int64 value)
   // @@protoc_insertion_point(field_set:MessagePrepareWrite.FileOffset)
 }
 
-// optional int64 PartId = 4;
+// optional int64 PartId = 5;
 inline bool MessagePrepareWrite::has_partid() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void MessagePrepareWrite::set_has_partid() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void MessagePrepareWrite::clear_has_partid() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void MessagePrepareWrite::clear_partid() {
   partid_ = GOOGLE_LONGLONG(0);
@@ -260,15 +294,15 @@ inline void MessagePrepareWrite::set_partid(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:MessagePrepareWrite.PartId)
 }
 
-// optional string Path = 5;
+// optional string Path = 6;
 inline bool MessagePrepareWrite::has_path() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void MessagePrepareWrite::set_has_path() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void MessagePrepareWrite::clear_has_path() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void MessagePrepareWrite::clear_path() {
   if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {

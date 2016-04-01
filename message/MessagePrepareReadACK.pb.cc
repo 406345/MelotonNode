@@ -32,9 +32,14 @@ void protobuf_AssignDesc_MessagePrepareReadACK_2eproto() {
       "MessagePrepareReadACK.proto");
   GOOGLE_CHECK(file != NULL);
   MessagePrepareReadACK_descriptor_ = file->message_type(0);
-  static const int MessagePrepareReadACK_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, token_),
+  static const int MessagePrepareReadACK_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, clientid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, token_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, fileoffset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, partid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, address_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePrepareReadACK, port_),
   };
   MessagePrepareReadACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -77,9 +82,11 @@ void protobuf_AddDesc_MessagePrepareReadACK_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\033MessagePrepareReadACK.proto\"8\n\025Message"
-    "PrepareReadACK\022\r\n\005Token\030\001 \002(\t\022\020\n\010ClientI"
-    "d\030\002 \002(\003", 87);
+    "\n\033MessagePrepareReadACK.proto\"\211\001\n\025Messag"
+    "ePrepareReadACK\022\020\n\010ClientId\030\001 \002(\003\022\r\n\005Tok"
+    "en\030\002 \002(\t\022\022\n\nFileOffset\030\003 \002(\003\022\016\n\006PartId\030\004"
+    " \002(\003\022\014\n\004Size\030\005 \002(\003\022\017\n\007Address\030\006 \001(\t\022\014\n\004P"
+    "ort\030\007 \001(\005", 169);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessagePrepareReadACK.proto", &protobuf_RegisterTypes);
   MessagePrepareReadACK::default_instance_ = new MessagePrepareReadACK();
@@ -97,8 +104,13 @@ struct StaticDescriptorInitializer_MessagePrepareReadACK_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MessagePrepareReadACK::kTokenFieldNumber;
 const int MessagePrepareReadACK::kClientIdFieldNumber;
+const int MessagePrepareReadACK::kTokenFieldNumber;
+const int MessagePrepareReadACK::kFileOffsetFieldNumber;
+const int MessagePrepareReadACK::kPartIdFieldNumber;
+const int MessagePrepareReadACK::kSizeFieldNumber;
+const int MessagePrepareReadACK::kAddressFieldNumber;
+const int MessagePrepareReadACK::kPortFieldNumber;
 #endif  // !_MSC_VER
 
 MessagePrepareReadACK::MessagePrepareReadACK()
@@ -120,8 +132,13 @@ MessagePrepareReadACK::MessagePrepareReadACK(const MessagePrepareReadACK& from)
 void MessagePrepareReadACK::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clientid_ = GOOGLE_LONGLONG(0);
+  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  fileoffset_ = GOOGLE_LONGLONG(0);
+  partid_ = GOOGLE_LONGLONG(0);
+  size_ = GOOGLE_LONGLONG(0);
+  address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  port_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -133,6 +150,9 @@ MessagePrepareReadACK::~MessagePrepareReadACK() {
 void MessagePrepareReadACK::SharedDtor() {
   if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete token_;
+  }
+  if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete address_;
   }
   if (this != default_instance_) {
   }
@@ -160,14 +180,35 @@ MessagePrepareReadACK* MessagePrepareReadACK::New() const {
 }
 
 void MessagePrepareReadACK::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<MessagePrepareReadACK*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(fileoffset_, size_);
+    clientid_ = GOOGLE_LONGLONG(0);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         token_->clear();
       }
     }
-    clientid_ = GOOGLE_LONGLONG(0);
+    if (has_address()) {
+      if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        address_->clear();
+      }
+    }
+    port_ = 0;
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -182,9 +223,24 @@ bool MessagePrepareReadACK::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string Token = 1;
+      // required int64 ClientId = 1;
       case 1: {
-        if (tag == 10) {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &clientid_)));
+          set_has_clientid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Token;
+        break;
+      }
+
+      // required string Token = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Token:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_token()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -194,18 +250,80 @@ bool MessagePrepareReadACK::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_ClientId;
+        if (input->ExpectTag(24)) goto parse_FileOffset;
         break;
       }
 
-      // required int64 ClientId = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_ClientId:
+      // required int64 FileOffset = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_FileOffset:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &clientid_)));
-          set_has_clientid();
+                 input, &fileoffset_)));
+          set_has_fileoffset();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_PartId;
+        break;
+      }
+
+      // required int64 PartId = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_PartId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &partid_)));
+          set_has_partid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_Size;
+        break;
+      }
+
+      // required int64 Size = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_Size:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &size_)));
+          set_has_size();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_Address;
+        break;
+      }
+
+      // optional string Address = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_Address:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_address()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->address().data(), this->address().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "address");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_Port;
+        break;
+      }
+
+      // optional int32 Port = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_Port:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &port_)));
+          set_has_port();
         } else {
           goto handle_unusual;
         }
@@ -238,19 +356,49 @@ failure:
 void MessagePrepareReadACK::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessagePrepareReadACK)
-  // required string Token = 1;
+  // required int64 ClientId = 1;
+  if (has_clientid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->clientid(), output);
+  }
+
+  // required string Token = 2;
   if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->token().data(), this->token().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "token");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->token(), output);
+      2, this->token(), output);
   }
 
-  // required int64 ClientId = 2;
-  if (has_clientid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->clientid(), output);
+  // required int64 FileOffset = 3;
+  if (has_fileoffset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->fileoffset(), output);
+  }
+
+  // required int64 PartId = 4;
+  if (has_partid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->partid(), output);
+  }
+
+  // required int64 Size = 5;
+  if (has_size()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->size(), output);
+  }
+
+  // optional string Address = 6;
+  if (has_address()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->address().data(), this->address().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "address");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->address(), output);
+  }
+
+  // optional int32 Port = 7;
+  if (has_port()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->port(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -263,7 +411,12 @@ void MessagePrepareReadACK::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessagePrepareReadACK::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessagePrepareReadACK)
-  // required string Token = 1;
+  // required int64 ClientId = 1;
+  if (has_clientid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->clientid(), target);
+  }
+
+  // required string Token = 2;
   if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->token().data(), this->token().length(),
@@ -271,12 +424,38 @@ void MessagePrepareReadACK::SerializeWithCachedSizes(
       "token");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->token(), target);
+        2, this->token(), target);
   }
 
-  // required int64 ClientId = 2;
-  if (has_clientid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->clientid(), target);
+  // required int64 FileOffset = 3;
+  if (has_fileoffset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->fileoffset(), target);
+  }
+
+  // required int64 PartId = 4;
+  if (has_partid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->partid(), target);
+  }
+
+  // required int64 Size = 5;
+  if (has_size()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->size(), target);
+  }
+
+  // optional string Address = 6;
+  if (has_address()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->address().data(), this->address().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "address");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->address(), target);
+  }
+
+  // optional int32 Port = 7;
+  if (has_port()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->port(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -291,18 +470,53 @@ int MessagePrepareReadACK::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string Token = 1;
+    // required int64 ClientId = 1;
+    if (has_clientid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->clientid());
+    }
+
+    // required string Token = 2;
     if (has_token()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->token());
     }
 
-    // required int64 ClientId = 2;
-    if (has_clientid()) {
+    // required int64 FileOffset = 3;
+    if (has_fileoffset()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->clientid());
+          this->fileoffset());
+    }
+
+    // required int64 PartId = 4;
+    if (has_partid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->partid());
+    }
+
+    // required int64 Size = 5;
+    if (has_size()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->size());
+    }
+
+    // optional string Address = 6;
+    if (has_address()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->address());
+    }
+
+    // optional int32 Port = 7;
+    if (has_port()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->port());
     }
 
   }
@@ -332,11 +546,26 @@ void MessagePrepareReadACK::MergeFrom(const ::google::protobuf::Message& from) {
 void MessagePrepareReadACK::MergeFrom(const MessagePrepareReadACK& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_clientid()) {
+      set_clientid(from.clientid());
+    }
     if (from.has_token()) {
       set_token(from.token());
     }
-    if (from.has_clientid()) {
-      set_clientid(from.clientid());
+    if (from.has_fileoffset()) {
+      set_fileoffset(from.fileoffset());
+    }
+    if (from.has_partid()) {
+      set_partid(from.partid());
+    }
+    if (from.has_size()) {
+      set_size(from.size());
+    }
+    if (from.has_address()) {
+      set_address(from.address());
+    }
+    if (from.has_port()) {
+      set_port(from.port());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -355,15 +584,20 @@ void MessagePrepareReadACK::CopyFrom(const MessagePrepareReadACK& from) {
 }
 
 bool MessagePrepareReadACK::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
 
 void MessagePrepareReadACK::Swap(MessagePrepareReadACK* other) {
   if (other != this) {
-    std::swap(token_, other->token_);
     std::swap(clientid_, other->clientid_);
+    std::swap(token_, other->token_);
+    std::swap(fileoffset_, other->fileoffset_);
+    std::swap(partid_, other->partid_);
+    std::swap(size_, other->size_);
+    std::swap(address_, other->address_);
+    std::swap(port_, other->port_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -27,12 +27,15 @@ limitations under the License.
 #include <TokenPool.h>
 #include <BlockHub.h>
 #include <ClientSession.h>
+#include <MasterSession.h>
+#include <MessageSyncBlock.pb.h>
+#include <MessageBlockMeta.pb.h>
 
 static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockData> message )
 {
     auto client = scast<ClientSession*>( session );
     auto token  = TokenPool::Instance()->CheckToken( message->token() );
-    
+
     if ( token == nullptr )
     {
         // Invailed access, disconnect it
@@ -40,10 +43,17 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     }
 
     auto block = BlockHub::Instance()->FindBlock( token->Index() );
-    
+
     if ( block == nullptr )
     {
         // Check if the block is exist
+        return -1;
+    }
+
+    if ( message->islast() )
+    {
+        block->Size = message->offset();
+        BlockHub::Instance()->SaveBlockIndex( block );
         return -1;
     }
 
@@ -58,11 +68,10 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
         return -1;
     }
 
-    BlockHub::Instance()->WriteBlock( block->Index , 
-                                      offset , 
-                                      message->data().c_str() , 
-                                      size );
-    block->Size += size;
+    block->Size += BlockHub::Instance()->WriteBlock( block->Index ,
+                                                     offset ,
+                                                     message->data().c_str() ,
+                                                     size );
     BlockHub::Instance()->SaveBlockIndex( block );
 
     uptr<MessageBlockAccept> reply = make_uptr( MessageBlockAccept );
@@ -72,6 +81,15 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     reply->set_nextoffset   ( offset + size );
     reply->set_nextsize     ( BLOCK_TRANSFER_SIZE );
     client->SendMessage     ( move_ptr( reply ) );
+
+    auto sync = make_uptr   ( MessageBlockMeta );
+    sync->set_fileoffset    ( block->FileOffset );
+    sync->set_index         ( block->Index );
+    sync->set_partid        ( block->PartId );
+    sync->set_path          ( block->Path );
+    sync->set_size          ( block->Size );
+    sync->set_status        ( 0 );
+    MasterSession::Instance()->SendMessage( move_ptr( sync ) );
 
     return 0;
 }

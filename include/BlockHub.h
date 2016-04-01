@@ -44,7 +44,8 @@ public:
 
     MAKE_SINGLETON( BlockHub );
 
-    void             LoadIndex      ();
+    void             LoadFromDisk      ();
+    void             LoadIndex         ();
     sptr<BlockIndex> FindBlock      ( size_t index );
 
     size_t           BlockCount     () { return this->block_count_; };
@@ -73,8 +74,8 @@ private:
     array<sptr<BlockIndex>,BLOCK_INDEX_ARRAY_SIZE> index_list_;
     array<sptr<BlockIndex>,BLOCK_INDEX_ARRAY_SIZE> empty_list_;
     
-    fstream index_file_;
-    fstream data_file_;
+    FILE*   index_file_;
+    FILE*   data_file_;
 
     int     block_count_         = 0;
     int     block_empty_count_   = 0;

@@ -32,12 +32,13 @@ void protobuf_AssignDesc_MessageBlockData_2eproto() {
       "MessageBlockData.proto");
   GOOGLE_CHECK(file != NULL);
   MessageBlockData_descriptor_ = file->message_type(0);
-  static const int MessageBlockData_offsets_[5] = {
+  static const int MessageBlockData_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, offset_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, checksum_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, islast_),
   };
   MessageBlockData_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -80,10 +81,10 @@ void protobuf_AddDesc_MessageBlockData_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\026MessageBlockData.proto\"_\n\020MessageBlock"
+    "\n\026MessageBlockData.proto\"o\n\020MessageBlock"
     "Data\022\r\n\005Token\030\001 \002(\t\022\014\n\004Data\030\002 \002(\014\022\014\n\004Siz"
     "e\030\003 \002(\003\022\016\n\006Offset\030\004 \002(\003\022\020\n\010Checksum\030\005 \002("
-    "\003", 121);
+    "\003\022\016\n\006IsLast\030\006 \002(\010", 137);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageBlockData.proto", &protobuf_RegisterTypes);
   MessageBlockData::default_instance_ = new MessageBlockData();
@@ -106,6 +107,7 @@ const int MessageBlockData::kDataFieldNumber;
 const int MessageBlockData::kSizeFieldNumber;
 const int MessageBlockData::kOffsetFieldNumber;
 const int MessageBlockData::kChecksumFieldNumber;
+const int MessageBlockData::kIsLastFieldNumber;
 #endif  // !_MSC_VER
 
 MessageBlockData::MessageBlockData()
@@ -132,6 +134,7 @@ void MessageBlockData::SharedCtor() {
   size_ = GOOGLE_LONGLONG(0);
   offset_ = GOOGLE_LONGLONG(0);
   checksum_ = GOOGLE_LONGLONG(0);
+  islast_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -183,8 +186,8 @@ void MessageBlockData::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
-    ZR_(size_, checksum_);
+  if (_has_bits_[0 / 32] & 63) {
+    ZR_(size_, islast_);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         token_->clear();
@@ -284,6 +287,21 @@ bool MessageBlockData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(48)) goto parse_IsLast;
+        break;
+      }
+
+      // required bool IsLast = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_IsLast:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &islast_)));
+          set_has_islast();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -344,6 +362,11 @@ void MessageBlockData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->checksum(), output);
   }
 
+  // required bool IsLast = 6;
+  if (has_islast()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->islast(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -385,6 +408,11 @@ void MessageBlockData::SerializeWithCachedSizes(
   // required int64 Checksum = 5;
   if (has_checksum()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->checksum(), target);
+  }
+
+  // required bool IsLast = 6;
+  if (has_islast()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->islast(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -434,6 +462,11 @@ int MessageBlockData::ByteSize() const {
           this->checksum());
     }
 
+    // required bool IsLast = 6;
+    if (has_islast()) {
+      total_size += 1 + 1;
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -476,6 +509,9 @@ void MessageBlockData::MergeFrom(const MessageBlockData& from) {
     if (from.has_checksum()) {
       set_checksum(from.checksum());
     }
+    if (from.has_islast()) {
+      set_islast(from.islast());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -493,7 +529,7 @@ void MessageBlockData::CopyFrom(const MessageBlockData& from) {
 }
 
 bool MessageBlockData::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
 
   return true;
 }
@@ -505,6 +541,7 @@ void MessageBlockData::Swap(MessageBlockData* other) {
     std::swap(size_, other->size_);
     std::swap(offset_, other->offset_);
     std::swap(checksum_, other->checksum_);
+    std::swap(islast_, other->islast_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
