@@ -32,7 +32,7 @@ limitations under the License.
 #include <MessageBlockMeta.pb.h>
 
 static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockData> message )
-{
+{ 
     auto client = scast<ClientSession*>( session );
     auto token  = TokenPool::Instance()->CheckToken( message->token() );
 
@@ -44,18 +44,25 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
 
     auto block = BlockHub::Instance()->FindBlock( token->Index() );
 
+    if ( message->islast() )
+    {
+        auto sync = make_uptr   ( MessageBlockMeta );
+        sync->set_fileoffset    ( block->FileOffset );
+        sync->set_index         ( block->Index );
+        sync->set_partid        ( block->PartId );
+        sync->set_path          ( block->Path );
+        sync->set_size          ( block->Size );
+        sync->set_status        ( 0 );
+        MasterSession::Instance()->SendMessage( move_ptr( sync ) );
+        return -1;
+    }
+
+
     if ( block == nullptr )
     {
         // Check if the block is exist
         return -1;
-    }
-
-    if ( message->islast() )
-    {
-        block->Size = message->offset();
-        BlockHub::Instance()->SaveBlockIndex( block );
-        return -1;
-    }
+    } 
 
     size_t size   = message->size();
     size_t offset = message->offset();
@@ -81,15 +88,6 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     reply->set_nextoffset   ( offset + size );
     reply->set_nextsize     ( BLOCK_TRANSFER_SIZE );
     client->SendMessage     ( move_ptr( reply ) );
-
-    auto sync = make_uptr   ( MessageBlockMeta );
-    sync->set_fileoffset    ( block->FileOffset );
-    sync->set_index         ( block->Index );
-    sync->set_partid        ( block->PartId );
-    sync->set_path          ( block->Path );
-    sync->set_size          ( block->Size );
-    sync->set_status        ( 0 );
-    MasterSession::Instance()->SendMessage( move_ptr( sync ) );
-
+     
     return 0;
 }

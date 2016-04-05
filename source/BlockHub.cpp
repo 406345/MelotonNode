@@ -108,16 +108,17 @@ size_t BlockHub::WriteBlock( int blockid ,
                              const char* data ,
                              size_t len )
 {
-    auto    block        =  this->index_list_[blockid];
-    size_t  write_size   =  ( offset + len ) > BLOCK_SIZE ?
-                            ( BLOCK_SIZE - offset + 1 ) : len;
-
+    auto block = this->index_list_[blockid];
+    
     if ( block == nullptr )
         return 0;
 
-    fseek( this->data_file_ , block->Location + offset , SEEK_SET );
-    fwrite( data , 1 , write_size , this->data_file_ );
+    size_t  write_size   =  ( offset + len ) > BLOCK_SIZE ?
+                            ( BLOCK_SIZE - offset + 1 ) : len;
 
+    fseek( this->data_file_ , block->Location + offset , SEEK_SET );
+    write_size = fwrite( data , 1 , write_size , this->data_file_ );
+    fflush( this->data_file_ );
     return write_size;
 }
 

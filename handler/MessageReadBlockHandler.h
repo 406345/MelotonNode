@@ -44,12 +44,18 @@ static int MessageReadBlockHandler( MRT::Session * session , uptr<MessageReadBlo
     auto size   = message->size();
     auto offset = message->offset();
     auto block  = BlockHub::Instance()->FindBlock( token->Index() );
-    
+    auto reads  = size + offset;
+    auto islast = false;
     // Check if the size is out of range
-    size = ( offset + size ) > block->Size ? ( block->Size - size ) : size;
+    size = ( offset + size ) > block->Size ? block->Size : size;
 
     // Check if the size is bigger than the max tranfer size
     size = size > MAX_TRANSFER_SIZE ? MAX_TRANSFER_SIZE : size;
+
+    if ( reads >= block->Size )
+    {
+        islast = true;
+    }
 
     auto data = BlockHub::Instance()->ReadBlock( block->Index , offset , size );
 
@@ -60,7 +66,7 @@ static int MessageReadBlockHandler( MRT::Session * session , uptr<MessageReadBlo
     reply->set_data    ( data->Data() , 
                          data->Size() );
     reply->set_checksum( 0 );
-    reply->set_islast  ( data->Size() == 0 );
+    reply->set_islast  ( islast );
 
     client->SendMessage( move_ptr( reply ) );
 

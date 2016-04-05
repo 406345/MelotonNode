@@ -2,6 +2,7 @@
 #include <MessageAlive.pb.h>
 #include <BlockHub.h>
 #include <MessageBlockMeta.pb.h>
+#include <MessageSyncBlock.pb.h>
 
 MasterSession* MasterSession::instance_ = nullptr;
 MasterSession * MasterSession::Instance()
@@ -49,4 +50,7 @@ void MasterSession::OnConnect()
         sync->set_status        ( 0 );
         MasterSession::Instance()->SendMessage( move_ptr( sync ) );
     }
+
+    Logger::Log( "sync % blocks " , block_count );
+
 }
