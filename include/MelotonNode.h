@@ -46,6 +46,10 @@ static const int    TOKEN_EXPIRE_TIME       = 6000 * 60 * 24;
 static const size_t MAX_TRANSFER_SIZE       = 1024 * 1024 * 5; // 5MB
 static const size_t BLOCK_TRANSFER_SIZE     = 1024 * 1024 * 2;
 
+static const int    MASTER_NODE_PORT        = 110;
+static const int    MASTER_CLIENT_PORT      = 111;
+static const int    NODE_CLIENT_PORT        = 112;
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Enum Section
  * * * * * * * * * * * * * * * * * * * * * * * * * * */

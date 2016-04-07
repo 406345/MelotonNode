@@ -154,7 +154,11 @@
     <ClCompile Include="..\message\MessageBlockData.pb.cc" />
     <ClCompile Include="..\message\MessageBlockList.pb.cc" />
     <ClCompile Include="..\message\MessageBlockMeta.pb.cc" />
+    <ClCompile Include="..\message\MessageDuplicateBlock.pb.cc" />
+    <ClCompile Include="..\message\MessageDuplicateData.pb.cc" />
+    <ClCompile Include="..\message\MessageDuplicateDataAccept.pb.cc" />
     <ClCompile Include="..\message\MessageError.pb.cc" />
+    <ClCompile Include="..\message\MessageNewBlock.pb.cc" />
     <ClCompile Include="..\message\MessageOpenACK.pb.cc" />
     <ClCompile Include="..\message\MessageOpenFile.pb.cc" />
     <ClCompile Include="..\message\MessagePrepareRead.pb.cc" />
@@ -164,6 +168,8 @@
     <ClCompile Include="..\message\MessageRead.pb.cc" />
     <ClCompile Include="..\message\MessageReadBlock.pb.cc" />
     <ClCompile Include="..\message\MessageSyncBlock.pb.cc" />
+    <ClCompile Include="..\message\MessageTell.pb.cc" />
+    <ClCompile Include="..\message\MessageTellACK.pb.cc" />
     <ClCompile Include="..\message\MessageWrite.pb.cc" />
     <ClCompile Include="..\source\BlockHub.cpp" />
     <ClCompile Include="..\source\ClientListener.cpp" />
@@ -180,8 +186,12 @@
     <ClInclude Include="..\handler\MessageBlockDataHandler.h" />
     <ClInclude Include="..\handler\MessageBlockListHandler.h" />
     <ClInclude Include="..\handler\MessageBlockMetaHandler.h" />
+    <ClInclude Include="..\handler\MessageDuplicateBlockHandler.h" />
+    <ClInclude Include="..\handler\MessageDuplicateDataAcceptHandler.h" />
+    <ClInclude Include="..\handler\MessageDuplicateDataHandler.h" />
     <ClInclude Include="..\handler\MessageErrorHandler.h" />
     <ClInclude Include="..\handler\MessageHub.h" />
+    <ClInclude Include="..\handler\MessageNewBlockHandler.h" />
     <ClInclude Include="..\handler\MessageOpenACKHandler.h" />
     <ClInclude Include="..\handler\MessageOpenFileHandler.h" />
     <ClInclude Include="..\handler\MessagePrepareReadACKHandler.h" />
@@ -191,11 +201,14 @@
     <ClInclude Include="..\handler\MessageReadBlockHandler.h" />
     <ClInclude Include="..\handler\MessageReadHandler.h" />
     <ClInclude Include="..\handler\MessageSyncBlockHandler.h" />
+    <ClInclude Include="..\handler\MessageTellACKHandler.h" />
+    <ClInclude Include="..\handler\MessageTellHandler.h" />
     <ClInclude Include="..\handler\MessageWriteHandler.h" />
     <ClInclude Include="..\include\BlockHub.h" />
     <ClInclude Include="..\include\BlockIndex.h" />
     <ClInclude Include="..\include\ClientListener.h" />
     <ClInclude Include="..\include\ClientSession.h" />
+    <ClInclude Include="..\include\ErrorCode.h" />
     <ClInclude Include="..\include\MasterConnector.h" />
     <ClInclude Include="..\include\MasterSession.h" />
     <ClInclude Include="..\include\MelotonNode.h" />
@@ -209,7 +222,11 @@
     <ClInclude Include="..\message\MessageBlockData.pb.h" />
     <ClInclude Include="..\message\MessageBlockList.pb.h" />
     <ClInclude Include="..\message\MessageBlockMeta.pb.h" />
+    <ClInclude Include="..\message\MessageDuplicateBlock.pb.h" />
+    <ClInclude Include="..\message\MessageDuplicateData.pb.h" />
+    <ClInclude Include="..\message\MessageDuplicateDataAccept.pb.h" />
     <ClInclude Include="..\message\MessageError.pb.h" />
+    <ClInclude Include="..\message\MessageNewBlock.pb.h" />
     <ClInclude Include="..\message\MessageOpenACK.pb.h" />
     <ClInclude Include="..\message\MessageOpenFile.pb.h" />
     <ClInclude Include="..\message\MessagePrepareRead.pb.h" />
@@ -219,6 +236,8 @@
     <ClInclude Include="..\message\MessageRead.pb.h" />
     <ClInclude Include="..\message\MessageReadBlock.pb.h" />
     <ClInclude Include="..\message\MessageSyncBlock.pb.h" />
+    <ClInclude Include="..\message\MessageTell.pb.h" />
+    <ClInclude Include="..\message\MessageTellACK.pb.h" />
     <ClInclude Include="..\message\MessageWrite.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

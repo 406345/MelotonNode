@@ -3,6 +3,7 @@
 ClientListener::ClientListener( string ip , int port )
     : Listener( ip , port )
 {
+    Logger::Log( "client listener on %:%" , ip , port );
 }
 
 ClientListener::~ClientListener()

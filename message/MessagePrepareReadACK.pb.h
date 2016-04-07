@@ -88,10 +88,17 @@ class MessagePrepareReadACK : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string Token = 1;
+  // required int64 ClientId = 1;
+  inline bool has_clientid() const;
+  inline void clear_clientid();
+  static const int kClientIdFieldNumber = 1;
+  inline ::google::protobuf::int64 clientid() const;
+  inline void set_clientid(::google::protobuf::int64 value);
+
+  // required string Token = 2;
   inline bool has_token() const;
   inline void clear_token();
-  static const int kTokenFieldNumber = 1;
+  static const int kTokenFieldNumber = 2;
   inline const ::std::string& token() const;
   inline void set_token(const ::std::string& value);
   inline void set_token(const char* value);
@@ -100,26 +107,74 @@ class MessagePrepareReadACK : public ::google::protobuf::Message {
   inline ::std::string* release_token();
   inline void set_allocated_token(::std::string* token);
 
-  // required int64 ClientId = 2;
-  inline bool has_clientid() const;
-  inline void clear_clientid();
-  static const int kClientIdFieldNumber = 2;
-  inline ::google::protobuf::int64 clientid() const;
-  inline void set_clientid(::google::protobuf::int64 value);
+  // required int64 FileOffset = 3;
+  inline bool has_fileoffset() const;
+  inline void clear_fileoffset();
+  static const int kFileOffsetFieldNumber = 3;
+  inline ::google::protobuf::int64 fileoffset() const;
+  inline void set_fileoffset(::google::protobuf::int64 value);
+
+  // required int64 PartId = 4;
+  inline bool has_partid() const;
+  inline void clear_partid();
+  static const int kPartIdFieldNumber = 4;
+  inline ::google::protobuf::int64 partid() const;
+  inline void set_partid(::google::protobuf::int64 value);
+
+  // required int64 Size = 5;
+  inline bool has_size() const;
+  inline void clear_size();
+  static const int kSizeFieldNumber = 5;
+  inline ::google::protobuf::int64 size() const;
+  inline void set_size(::google::protobuf::int64 value);
+
+  // optional string Address = 6;
+  inline bool has_address() const;
+  inline void clear_address();
+  static const int kAddressFieldNumber = 6;
+  inline const ::std::string& address() const;
+  inline void set_address(const ::std::string& value);
+  inline void set_address(const char* value);
+  inline void set_address(const char* value, size_t size);
+  inline ::std::string* mutable_address();
+  inline ::std::string* release_address();
+  inline void set_allocated_address(::std::string* address);
+
+  // optional int32 Port = 7;
+  inline bool has_port() const;
+  inline void clear_port();
+  static const int kPortFieldNumber = 7;
+  inline ::google::protobuf::int32 port() const;
+  inline void set_port(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:MessagePrepareReadACK)
  private:
-  inline void set_has_token();
-  inline void clear_has_token();
   inline void set_has_clientid();
   inline void clear_has_clientid();
+  inline void set_has_token();
+  inline void clear_has_token();
+  inline void set_has_fileoffset();
+  inline void clear_has_fileoffset();
+  inline void set_has_partid();
+  inline void clear_has_partid();
+  inline void set_has_size();
+  inline void clear_has_size();
+  inline void set_has_address();
+  inline void clear_has_address();
+  inline void set_has_port();
+  inline void clear_has_port();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* token_;
   ::google::protobuf::int64 clientid_;
+  ::std::string* token_;
+  ::google::protobuf::int64 fileoffset_;
+  ::google::protobuf::int64 partid_;
+  ::google::protobuf::int64 size_;
+  ::std::string* address_;
+  ::google::protobuf::int32 port_;
   friend void  protobuf_AddDesc_MessagePrepareReadACK_2eproto();
   friend void protobuf_AssignDesc_MessagePrepareReadACK_2eproto();
   friend void protobuf_ShutdownFile_MessagePrepareReadACK_2eproto();
@@ -134,15 +189,39 @@ class MessagePrepareReadACK : public ::google::protobuf::Message {
 
 // MessagePrepareReadACK
 
-// required string Token = 1;
-inline bool MessagePrepareReadACK::has_token() const {
+// required int64 ClientId = 1;
+inline bool MessagePrepareReadACK::has_clientid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MessagePrepareReadACK::set_has_token() {
+inline void MessagePrepareReadACK::set_has_clientid() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MessagePrepareReadACK::clear_has_token() {
+inline void MessagePrepareReadACK::clear_has_clientid() {
   _has_bits_[0] &= ~0x00000001u;
+}
+inline void MessagePrepareReadACK::clear_clientid() {
+  clientid_ = GOOGLE_LONGLONG(0);
+  clear_has_clientid();
+}
+inline ::google::protobuf::int64 MessagePrepareReadACK::clientid() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.ClientId)
+  return clientid_;
+}
+inline void MessagePrepareReadACK::set_clientid(::google::protobuf::int64 value) {
+  set_has_clientid();
+  clientid_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.ClientId)
+}
+
+// required string Token = 2;
+inline bool MessagePrepareReadACK::has_token() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MessagePrepareReadACK::set_has_token() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MessagePrepareReadACK::clear_has_token() {
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void MessagePrepareReadACK::clear_token() {
   if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -210,28 +289,176 @@ inline void MessagePrepareReadACK::set_allocated_token(::std::string* token) {
   // @@protoc_insertion_point(field_set_allocated:MessagePrepareReadACK.Token)
 }
 
-// required int64 ClientId = 2;
-inline bool MessagePrepareReadACK::has_clientid() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+// required int64 FileOffset = 3;
+inline bool MessagePrepareReadACK::has_fileoffset() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void MessagePrepareReadACK::set_has_clientid() {
-  _has_bits_[0] |= 0x00000002u;
+inline void MessagePrepareReadACK::set_has_fileoffset() {
+  _has_bits_[0] |= 0x00000004u;
 }
-inline void MessagePrepareReadACK::clear_has_clientid() {
-  _has_bits_[0] &= ~0x00000002u;
+inline void MessagePrepareReadACK::clear_has_fileoffset() {
+  _has_bits_[0] &= ~0x00000004u;
 }
-inline void MessagePrepareReadACK::clear_clientid() {
-  clientid_ = GOOGLE_LONGLONG(0);
-  clear_has_clientid();
+inline void MessagePrepareReadACK::clear_fileoffset() {
+  fileoffset_ = GOOGLE_LONGLONG(0);
+  clear_has_fileoffset();
 }
-inline ::google::protobuf::int64 MessagePrepareReadACK::clientid() const {
-  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.ClientId)
-  return clientid_;
+inline ::google::protobuf::int64 MessagePrepareReadACK::fileoffset() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.FileOffset)
+  return fileoffset_;
 }
-inline void MessagePrepareReadACK::set_clientid(::google::protobuf::int64 value) {
-  set_has_clientid();
-  clientid_ = value;
-  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.ClientId)
+inline void MessagePrepareReadACK::set_fileoffset(::google::protobuf::int64 value) {
+  set_has_fileoffset();
+  fileoffset_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.FileOffset)
+}
+
+// required int64 PartId = 4;
+inline bool MessagePrepareReadACK::has_partid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessagePrepareReadACK::set_has_partid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessagePrepareReadACK::clear_has_partid() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessagePrepareReadACK::clear_partid() {
+  partid_ = GOOGLE_LONGLONG(0);
+  clear_has_partid();
+}
+inline ::google::protobuf::int64 MessagePrepareReadACK::partid() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.PartId)
+  return partid_;
+}
+inline void MessagePrepareReadACK::set_partid(::google::protobuf::int64 value) {
+  set_has_partid();
+  partid_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.PartId)
+}
+
+// required int64 Size = 5;
+inline bool MessagePrepareReadACK::has_size() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessagePrepareReadACK::set_has_size() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessagePrepareReadACK::clear_has_size() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void MessagePrepareReadACK::clear_size() {
+  size_ = GOOGLE_LONGLONG(0);
+  clear_has_size();
+}
+inline ::google::protobuf::int64 MessagePrepareReadACK::size() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.Size)
+  return size_;
+}
+inline void MessagePrepareReadACK::set_size(::google::protobuf::int64 value) {
+  set_has_size();
+  size_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.Size)
+}
+
+// optional string Address = 6;
+inline bool MessagePrepareReadACK::has_address() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void MessagePrepareReadACK::set_has_address() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void MessagePrepareReadACK::clear_has_address() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void MessagePrepareReadACK::clear_address() {
+  if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    address_->clear();
+  }
+  clear_has_address();
+}
+inline const ::std::string& MessagePrepareReadACK::address() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.Address)
+  return *address_;
+}
+inline void MessagePrepareReadACK::set_address(const ::std::string& value) {
+  set_has_address();
+  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    address_ = new ::std::string;
+  }
+  address_->assign(value);
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.Address)
+}
+inline void MessagePrepareReadACK::set_address(const char* value) {
+  set_has_address();
+  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    address_ = new ::std::string;
+  }
+  address_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessagePrepareReadACK.Address)
+}
+inline void MessagePrepareReadACK::set_address(const char* value, size_t size) {
+  set_has_address();
+  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    address_ = new ::std::string;
+  }
+  address_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessagePrepareReadACK.Address)
+}
+inline ::std::string* MessagePrepareReadACK::mutable_address() {
+  set_has_address();
+  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    address_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:MessagePrepareReadACK.Address)
+  return address_;
+}
+inline ::std::string* MessagePrepareReadACK::release_address() {
+  clear_has_address();
+  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = address_;
+    address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void MessagePrepareReadACK::set_allocated_address(::std::string* address) {
+  if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete address_;
+  }
+  if (address) {
+    set_has_address();
+    address_ = address;
+  } else {
+    clear_has_address();
+    address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:MessagePrepareReadACK.Address)
+}
+
+// optional int32 Port = 7;
+inline bool MessagePrepareReadACK::has_port() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void MessagePrepareReadACK::set_has_port() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void MessagePrepareReadACK::clear_has_port() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void MessagePrepareReadACK::clear_port() {
+  port_ = 0;
+  clear_has_port();
+}
+inline ::google::protobuf::int32 MessagePrepareReadACK::port() const {
+  // @@protoc_insertion_point(field_get:MessagePrepareReadACK.Port)
+  return port_;
+}
+inline void MessagePrepareReadACK::set_port(::google::protobuf::int32 value) {
+  set_has_port();
+  port_ = value;
+  // @@protoc_insertion_point(field_set:MessagePrepareReadACK.Port)
 }
 
 

@@ -88,6 +88,24 @@
     <ClCompile Include="..\source\MasterSession.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\message\MessageDuplicateBlock.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageDuplicateData.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageDuplicateDataAccept.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageNewBlock.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageTell.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageTellACK.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\handler\MessageAliveHandler.h">
@@ -222,6 +240,45 @@
     </ClInclude>
     <ClInclude Include="..\include\Settings.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ErrorCode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageDuplicateBlockHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageDuplicateDataAcceptHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageDuplicateDataHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageNewBlockHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageDuplicateBlock.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageDuplicateData.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageDuplicateDataAccept.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageNewBlock.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTell.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageTellACK.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageTellACKHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageTellHandler.h">
+      <Filter>handler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

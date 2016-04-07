@@ -30,6 +30,9 @@ limitations under the License.
 #include <MasterSession.h>
 #include <MessageSyncBlock.pb.h>
 #include <MessageBlockMeta.pb.h>
+#include <MessageError.pb.h>
+#include <ErrorCode.h>
+#include <MessageNewBlock.pb.h>
 
 static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockData> message )
 { 
@@ -39,6 +42,11 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     if ( token == nullptr )
     {
         // Invailed access, disconnect it
+        auto error = make_uptr( MessageError );
+        error->set_code( ERROR_BAD_TOKEN );
+        error->set_message( "bad token" );
+        client->SendMessage( move_ptr( error ) );
+
         return -1;
     }
 
@@ -53,14 +61,30 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
         sync->set_path          ( block->Path );
         sync->set_size          ( block->Size );
         sync->set_status        ( 0 );
-        MasterSession::Instance()->SendMessage( move_ptr( sync ) );
+        MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
+
+        // Duplicate Block
+        auto new_block = make_uptr( MessageNewBlock );
+        new_block->set_fileoffset ( block->FileOffset );
+        new_block->set_index      ( block->Index );
+        new_block->set_partid     ( block->PartId );
+        new_block->set_path       ( block->Path );
+        new_block->set_size       ( block->Size );
+        new_block->set_status     ( 0 );
+        new_block->set_token      ( TokenPool::Instance()->CreateToken( 0 , 
+                                    block->Index ,
+                                    TOKEN_EXPIRE_TIME ) );
+        MasterSession::Instance()->SendMessage( move_ptr( new_block ) );
         return -1;
     }
 
-
+    // Check if the block is exist
     if ( block == nullptr )
     {
-        // Check if the block is exist
+        auto error = make_uptr( MessageError );
+        error->set_code( ERROR_BLOCK_NOT_EXIST );
+        error->set_message( "block is not exist" );
+        client->SendMessage( move_ptr( error ) );
         return -1;
     } 
 
@@ -72,6 +96,10 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
 
     if ( size == 0 )
     {
+        auto error = make_uptr( MessageError );
+        error->set_code( ERROR_SIZE_NOT_AVAILABLE );
+        error->set_message( "block size is not available" );
+        client->SendMessage( move_ptr( error ) );
         return -1;
     }
 

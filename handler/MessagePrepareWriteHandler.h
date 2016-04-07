@@ -61,8 +61,8 @@ static int MessagePrepareWriteHandler( MRT::Session * session , uptr<MessagePrep
     reply->set_token       ( token );
     reply->set_fileoffset  ( block->FileOffset );
     reply->set_partid      ( block->PartId );
-    reply->set_size        ( block->Size );
-    reply->set_port        ( Settings::Instance()->ListenerPort() ); 
+    reply->set_size        ( BLOCK_SIZE );
+    reply->set_port        ( NODE_CLIENT_PORT ); 
     master->SendMessage    ( move_ptr( reply ) );
 
     return 0;

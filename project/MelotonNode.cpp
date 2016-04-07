@@ -7,17 +7,16 @@
 using std::string;
 
 int main( int argc , char* argv[] )
-{
-
+{ 
     BlockHub::Instance()->LoadFromDisk();
 
     sptr<MasterConnector> connector = make_sptr( MasterConnector ,
-                                                 Settings::Instance()->MasterAddress() ,
-                                                 Settings::Instance()->MasterPort() );
+                                                 "127.0.0.1" ,
+                                                 MASTER_NODE_PORT );
 
     sptr<ClientListener>  client    = make_sptr( ClientListener ,
-                                                 Settings::Instance()->ListenerAddress() ,
-                                                 Settings::Instance()->ListenerPort() );
+                                                 "0.0.0.0" ,
+                                                 NODE_CLIENT_PORT );
 
     while ( true )
     {

@@ -15,8 +15,16 @@
 #include "MessageBlockList.pb.h"
 #include "MessageBlockMetaHandler.h"
 #include "MessageBlockMeta.pb.h"
+#include "MessageDuplicateBlockHandler.h"
+#include "MessageDuplicateBlock.pb.h"
+#include "MessageDuplicateDataHandler.h"
+#include "MessageDuplicateData.pb.h"
+#include "MessageDuplicateDataAcceptHandler.h"
+#include "MessageDuplicateDataAccept.pb.h"
 #include "MessageErrorHandler.h"
 #include "MessageError.pb.h"
+#include "MessageNewBlockHandler.h"
+#include "MessageNewBlock.pb.h"
 #include "MessageOpenACKHandler.h"
 #include "MessageOpenACK.pb.h"
 #include "MessageOpenFileHandler.h"
@@ -35,6 +43,10 @@
 #include "MessageReadBlock.pb.h"
 #include "MessageSyncBlockHandler.h"
 #include "MessageSyncBlock.pb.h"
+#include "MessageTellHandler.h"
+#include "MessageTell.pb.h"
+#include "MessageTellACKHandler.h"
+#include "MessageTellACK.pb.h"
 #include "MessageWriteHandler.h"
 #include "MessageWrite.pb.h"
 
@@ -109,11 +121,35 @@ public:
                 msg->ParseFromArray( data, msg_len );
                 return MessageBlockMetaHandler( session , std::move( std::unique_ptr<MessageBlockMeta>( msg ) ) );
             }break;
+        case 0x6575676B7B7F7D7F : 
+            {
+                auto msg = new MessageDuplicateBlock( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageDuplicateBlockHandler( session , std::move( std::unique_ptr<MessageDuplicateBlock>( msg ) ) );
+            }break;
+        case 0x657567637B7F757F : 
+            {
+                auto msg = new MessageDuplicateData( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageDuplicateDataHandler( session , std::move( std::unique_ptr<MessageDuplicateData>( msg ) ) );
+            }break;
+        case 0x657767637B7F757F : 
+            {
+                auto msg = new MessageDuplicateDataAccept( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageDuplicateDataAcceptHandler( session , std::move( std::unique_ptr<MessageDuplicateDataAccept>( msg ) ) );
+            }break;
         case 0x45656761737F777F : 
             {
                 auto msg = new MessageError( );
                 msg->ParseFromArray( data, msg_len );
                 return MessageErrorHandler( session , std::move( std::unique_ptr<MessageError>( msg ) ) );
+            }break;
+        case 0x4E6F676F7F73776F : 
+            {
+                auto msg = new MessageNewBlock( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageNewBlockHandler( session , std::move( std::unique_ptr<MessageNewBlock>( msg ) ) );
             }break;
         case 0x4F656F63737F657F : 
             {
@@ -168,6 +204,18 @@ public:
                 auto msg = new MessageSyncBlock( );
                 msg->ParseFromArray( data, msg_len );
                 return MessageSyncBlockHandler( session , std::move( std::unique_ptr<MessageSyncBlock>( msg ) ) );
+            }break;
+        case 0x54656761737F6D6F : 
+            {
+                auto msg = new MessageTell( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageTellHandler( session , std::move( std::unique_ptr<MessageTell>( msg ) ) );
+            }break;
+        case 0x54656F63737F6D6F : 
+            {
+                auto msg = new MessageTellACK( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageTellACKHandler( session , std::move( std::unique_ptr<MessageTellACK>( msg ) ) );
             }break;
         case 0x5765676177776D7F : 
             {

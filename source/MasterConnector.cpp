@@ -5,7 +5,7 @@
 MasterConnector::MasterConnector( string ip , int port )
     : MRT::Connector( ip , port )
 {
-    Logger::Sys( "try connnect master %:%" , ip , port );
+    Logger::Sys( "connnecting master %:%" , ip , port );
 }
 
 MasterConnector::~MasterConnector()
