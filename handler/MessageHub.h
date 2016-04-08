@@ -21,6 +21,8 @@
 #include "MessageDuplicateData.pb.h"
 #include "MessageDuplicateDataAcceptHandler.h"
 #include "MessageDuplicateDataAccept.pb.h"
+#include "MessageDuplicateDataRequestHandler.h"
+#include "MessageDuplicateDataRequest.pb.h"
 #include "MessageErrorHandler.h"
 #include "MessageError.pb.h"
 #include "MessageNewBlockHandler.h"
@@ -138,6 +140,12 @@ public:
                 auto msg = new MessageDuplicateDataAccept( );
                 msg->ParseFromArray( data, msg_len );
                 return MessageDuplicateDataAcceptHandler( session , std::move( std::unique_ptr<MessageDuplicateDataAccept>( msg ) ) );
+            }break;
+        case 0x757567737B7F777F : 
+            {
+                auto msg = new MessageDuplicateDataRequest( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageDuplicateDataRequestHandler( session , std::move( std::unique_ptr<MessageDuplicateDataRequest>( msg ) ) );
             }break;
         case 0x45656761737F777F : 
             {

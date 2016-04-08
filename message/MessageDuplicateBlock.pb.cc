@@ -32,11 +32,14 @@ void protobuf_AssignDesc_MessageDuplicateBlock_2eproto() {
       "MessageDuplicateBlock.proto");
   GOOGLE_CHECK(file != NULL);
   MessageDuplicateBlock_descriptor_ = file->message_type(0);
-  static const int MessageDuplicateBlock_offsets_[4] = {
+  static const int MessageDuplicateBlock_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, port_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, index_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, partid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, fileoffset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateBlock, path_),
   };
   MessageDuplicateBlock_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -79,9 +82,11 @@ void protobuf_AddDesc_MessageDuplicateBlock_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\033MessageDuplicateBlock.proto\"T\n\025Message"
-    "DuplicateBlock\022\r\n\005Token\030\001 \002(\t\022\017\n\007Address"
-    "\030\002 \002(\t\022\014\n\004Port\030\003 \002(\005\022\r\n\005Index\030\004 \002(\003", 115);
+    "\n\033MessageDuplicateBlock.proto\"\206\001\n\025Messag"
+    "eDuplicateBlock\022\r\n\005Token\030\001 \002(\t\022\017\n\007Addres"
+    "s\030\002 \002(\t\022\014\n\004Port\030\003 \002(\005\022\r\n\005Index\030\004 \002(\003\022\016\n\006"
+    "PartId\030\005 \002(\003\022\022\n\nFileOffset\030\006 \002(\003\022\014\n\004Path"
+    "\030\007 \002(\t", 166);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageDuplicateBlock.proto", &protobuf_RegisterTypes);
   MessageDuplicateBlock::default_instance_ = new MessageDuplicateBlock();
@@ -103,6 +108,9 @@ const int MessageDuplicateBlock::kTokenFieldNumber;
 const int MessageDuplicateBlock::kAddressFieldNumber;
 const int MessageDuplicateBlock::kPortFieldNumber;
 const int MessageDuplicateBlock::kIndexFieldNumber;
+const int MessageDuplicateBlock::kPartIdFieldNumber;
+const int MessageDuplicateBlock::kFileOffsetFieldNumber;
+const int MessageDuplicateBlock::kPathFieldNumber;
 #endif  // !_MSC_VER
 
 MessageDuplicateBlock::MessageDuplicateBlock()
@@ -128,6 +136,9 @@ void MessageDuplicateBlock::SharedCtor() {
   address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   port_ = 0;
   index_ = GOOGLE_LONGLONG(0);
+  partid_ = GOOGLE_LONGLONG(0);
+  fileoffset_ = GOOGLE_LONGLONG(0);
+  path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -142,6 +153,9 @@ void MessageDuplicateBlock::SharedDtor() {
   }
   if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete address_;
+  }
+  if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete path_;
   }
   if (this != default_instance_) {
   }
@@ -179,8 +193,8 @@ void MessageDuplicateBlock::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 15) {
-    ZR_(index_, port_);
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(index_, fileoffset_);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         token_->clear();
@@ -189,6 +203,12 @@ void MessageDuplicateBlock::Clear() {
     if (has_address()) {
       if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         address_->clear();
+      }
+    }
+    port_ = 0;
+    if (has_path()) {
+      if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        path_->clear();
       }
     }
   }
@@ -269,6 +289,53 @@ bool MessageDuplicateBlock::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_PartId;
+        break;
+      }
+
+      // required int64 PartId = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_PartId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &partid_)));
+          set_has_partid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_FileOffset;
+        break;
+      }
+
+      // required int64 FileOffset = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_FileOffset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &fileoffset_)));
+          set_has_fileoffset();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_Path;
+        break;
+      }
+
+      // required string Path = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_Path:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_path()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->path().data(), this->path().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "path");
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -328,6 +395,26 @@ void MessageDuplicateBlock::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->index(), output);
   }
 
+  // required int64 PartId = 5;
+  if (has_partid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->partid(), output);
+  }
+
+  // required int64 FileOffset = 6;
+  if (has_fileoffset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->fileoffset(), output);
+  }
+
+  // required string Path = 7;
+  if (has_path()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "path");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      7, this->path(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -370,6 +457,27 @@ void MessageDuplicateBlock::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->index(), target);
   }
 
+  // required int64 PartId = 5;
+  if (has_partid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->partid(), target);
+  }
+
+  // required int64 FileOffset = 6;
+  if (has_fileoffset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->fileoffset(), target);
+  }
+
+  // required string Path = 7;
+  if (has_path()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "path");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        7, this->path(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -408,6 +516,27 @@ int MessageDuplicateBlock::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->index());
+    }
+
+    // required int64 PartId = 5;
+    if (has_partid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->partid());
+    }
+
+    // required int64 FileOffset = 6;
+    if (has_fileoffset()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->fileoffset());
+    }
+
+    // required string Path = 7;
+    if (has_path()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->path());
     }
 
   }
@@ -449,6 +578,15 @@ void MessageDuplicateBlock::MergeFrom(const MessageDuplicateBlock& from) {
     if (from.has_index()) {
       set_index(from.index());
     }
+    if (from.has_partid()) {
+      set_partid(from.partid());
+    }
+    if (from.has_fileoffset()) {
+      set_fileoffset(from.fileoffset());
+    }
+    if (from.has_path()) {
+      set_path(from.path());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -466,7 +604,7 @@ void MessageDuplicateBlock::CopyFrom(const MessageDuplicateBlock& from) {
 }
 
 bool MessageDuplicateBlock::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
 
   return true;
 }
@@ -477,6 +615,9 @@ void MessageDuplicateBlock::Swap(MessageDuplicateBlock* other) {
     std::swap(address_, other->address_);
     std::swap(port_, other->port_);
     std::swap(index_, other->index_);
+    std::swap(partid_, other->partid_);
+    std::swap(fileoffset_, other->fileoffset_);
+    std::swap(path_, other->path_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

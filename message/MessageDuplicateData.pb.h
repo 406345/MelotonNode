@@ -140,6 +140,20 @@ class MessageDuplicateData : public ::google::protobuf::Message {
   inline bool islast() const;
   inline void set_islast(bool value);
 
+  // required int64 Index = 7;
+  inline bool has_index() const;
+  inline void clear_index();
+  static const int kIndexFieldNumber = 7;
+  inline ::google::protobuf::int64 index() const;
+  inline void set_index(::google::protobuf::int64 value);
+
+  // required int64 Sessionid = 8;
+  inline bool has_sessionid() const;
+  inline void clear_sessionid();
+  static const int kSessionidFieldNumber = 8;
+  inline ::google::protobuf::int64 sessionid() const;
+  inline void set_sessionid(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageDuplicateData)
  private:
   inline void set_has_token();
@@ -154,6 +168,10 @@ class MessageDuplicateData : public ::google::protobuf::Message {
   inline void clear_has_checksum();
   inline void set_has_islast();
   inline void clear_has_islast();
+  inline void set_has_index();
+  inline void clear_has_index();
+  inline void set_has_sessionid();
+  inline void clear_has_sessionid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -164,6 +182,8 @@ class MessageDuplicateData : public ::google::protobuf::Message {
   ::google::protobuf::int64 size_;
   ::google::protobuf::int64 offset_;
   ::google::protobuf::int64 checksum_;
+  ::google::protobuf::int64 index_;
+  ::google::protobuf::int64 sessionid_;
   bool islast_;
   friend void  protobuf_AddDesc_MessageDuplicateData_2eproto();
   friend void protobuf_AssignDesc_MessageDuplicateData_2eproto();
@@ -425,6 +445,54 @@ inline void MessageDuplicateData::set_islast(bool value) {
   set_has_islast();
   islast_ = value;
   // @@protoc_insertion_point(field_set:MessageDuplicateData.IsLast)
+}
+
+// required int64 Index = 7;
+inline bool MessageDuplicateData::has_index() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void MessageDuplicateData::set_has_index() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void MessageDuplicateData::clear_has_index() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void MessageDuplicateData::clear_index() {
+  index_ = GOOGLE_LONGLONG(0);
+  clear_has_index();
+}
+inline ::google::protobuf::int64 MessageDuplicateData::index() const {
+  // @@protoc_insertion_point(field_get:MessageDuplicateData.Index)
+  return index_;
+}
+inline void MessageDuplicateData::set_index(::google::protobuf::int64 value) {
+  set_has_index();
+  index_ = value;
+  // @@protoc_insertion_point(field_set:MessageDuplicateData.Index)
+}
+
+// required int64 Sessionid = 8;
+inline bool MessageDuplicateData::has_sessionid() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void MessageDuplicateData::set_has_sessionid() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void MessageDuplicateData::clear_has_sessionid() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void MessageDuplicateData::clear_sessionid() {
+  sessionid_ = GOOGLE_LONGLONG(0);
+  clear_has_sessionid();
+}
+inline ::google::protobuf::int64 MessageDuplicateData::sessionid() const {
+  // @@protoc_insertion_point(field_get:MessageDuplicateData.Sessionid)
+  return sessionid_;
+}
+inline void MessageDuplicateData::set_sessionid(::google::protobuf::int64 value) {
+  set_has_sessionid();
+  sessionid_ = value;
+  // @@protoc_insertion_point(field_set:MessageDuplicateData.Sessionid)
 }
 
 

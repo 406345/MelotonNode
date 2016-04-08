@@ -23,8 +23,13 @@ limitations under the License.
 #include <string>
 #include <MRT.h>
 #include <MessageDuplicateBlock.pb.h>
+#include <DuplicateConnector.h>
+#include <MRT.h>
 
 static int MessageDuplicateBlockHandler( MRT::Session * session , uptr<MessageDuplicateBlock> message )
 {
+    sptr<DuplicateConnector> connector = make_sptr( DuplicateConnector , move_ptr( message ) );
+    MRT::Maraton::Instance()->Regist( connector );
+
     return 0;
 }

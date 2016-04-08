@@ -49,6 +49,7 @@ static const size_t BLOCK_TRANSFER_SIZE     = 1024 * 1024 * 2;
 static const int    MASTER_NODE_PORT        = 110;
 static const int    MASTER_CLIENT_PORT      = 111;
 static const int    NODE_CLIENT_PORT        = 112;
+static const int    DUPLICATE_PORT          = 113;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Enum Section
@@ -60,7 +61,7 @@ static const int    NODE_CLIENT_PORT        = 112;
 #ifdef _DEBUG
 
 #define DEBUG_LOG(FMT,... ) Logger::Log( FMT,__VA_ARGS__)
-
+#define MASTER_IP "10.0.0.234"
 #endif // DEBUG
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

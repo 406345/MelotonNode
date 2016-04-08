@@ -51,33 +51,7 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     }
 
     auto block = BlockHub::Instance()->FindBlock( token->Index() );
-
-    if ( message->islast() )
-    {
-        auto sync = make_uptr   ( MessageBlockMeta );
-        sync->set_fileoffset    ( block->FileOffset );
-        sync->set_index         ( block->Index );
-        sync->set_partid        ( block->PartId );
-        sync->set_path          ( block->Path );
-        sync->set_size          ( block->Size );
-        sync->set_status        ( 0 );
-        MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
-
-        // Duplicate Block
-        auto new_block = make_uptr( MessageNewBlock );
-        new_block->set_fileoffset ( block->FileOffset );
-        new_block->set_index      ( block->Index );
-        new_block->set_partid     ( block->PartId );
-        new_block->set_path       ( block->Path );
-        new_block->set_size       ( block->Size );
-        new_block->set_status     ( 0 );
-        new_block->set_token      ( TokenPool::Instance()->CreateToken( 0 , 
-                                    block->Index ,
-                                    TOKEN_EXPIRE_TIME ) );
-        MasterSession::Instance()->SendMessage( move_ptr( new_block ) );
-        return -1;
-    }
-
+     
     // Check if the block is exist
     if ( block == nullptr )
     {
@@ -109,6 +83,26 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
                                                      size );
     BlockHub::Instance()->SaveBlockIndex( block );
 
+    if ( message->islast() )
+    {
+        BlockHub::Instance()->SyncBlock( block );
+
+        // Duplicate Block
+        auto new_block = make_uptr( MessageNewBlock );
+        new_block->set_fileoffset ( block->FileOffset );
+        new_block->set_index      ( block->Index );
+        new_block->set_partid     ( block->PartId );
+        new_block->set_path       ( block->Path );
+        new_block->set_size       ( block->Size );
+        new_block->set_status     ( 0 );
+        new_block->set_token      ( TokenPool::Instance()->CreateToken( 0 , 
+                                    block->Index ,
+                                    TOKEN_EXPIRE_TIME ) );
+
+        MasterSession::Instance()->SendMessage( move_ptr( new_block ) );
+        return -1;
+    }
+
     uptr<MessageBlockAccept> reply = make_uptr( MessageBlockAccept );
     reply->set_size         ( size );
     reply->set_token        ( token->TokenStr() );
@@ -116,6 +110,6 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     reply->set_nextoffset   ( offset + size );
     reply->set_nextsize     ( BLOCK_TRANSFER_SIZE );
     client->SendMessage     ( move_ptr( reply ) );
-     
+
     return 0;
 }

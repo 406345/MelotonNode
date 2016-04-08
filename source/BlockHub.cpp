@@ -1,5 +1,8 @@
 #include <BlockHub.h>
 #include <Path.h>
+#include <MasterSession.h>
+#include <MRT.h>
+#include <MessageBlockMeta.pb.h>
 
 #ifdef _WIN32
 #define fseek _fseeki64 
@@ -64,6 +67,19 @@ sptr<BlockIndex> BlockHub::FindBlock( size_t index )
         return nullptr;
 
     return this->index_list_[index];
+} 
+
+sptr<BlockIndex> BlockHub::FindBlock( string path , size_t partid )
+{
+    for ( size_t i = 0; i < this->block_count_; i++ )
+    {
+        if ( this->index_list_[i]->PartId == partid &&
+             strcmp( this->index_list_[i]->Path , path.c_str() ) == 0 )
+        {
+            return this->index_list_[i];
+        }
+    }
+    return nullptr;
 }
 
 sptr<BlockIndex> BlockHub::CreateBlock( int partId , size_t fileOffset , string path )
@@ -126,9 +142,17 @@ uptr<Buffer> BlockHub::ReadBlock( int blockid ,
                                   size_t offset ,
                                   size_t len )
 {
+    auto         block_size   = this->index_list_[blockid]->Size == 0 ? 
+                                BLOCK_SIZE : this->index_list_[blockid]->Size;
     auto         block        = this->index_list_[blockid];
-    size_t       read_size    = ( offset + len ) > BLOCK_SIZE ?
-        ( BLOCK_SIZE - offset + 1 ) : len;
+
+    if ( offset > block_size )
+    {
+        offset = block_size;
+    }
+
+    size_t       read_size    = ( offset + len ) > block_size ?
+                                ( block_size - offset ) : len;
 
     if ( block == nullptr )
         return nullptr;
@@ -163,4 +187,25 @@ void BlockHub::SaveBlockIndex( sptr<BlockIndex> block )
                          sizeof( BlockIndex ) ,
                          this->index_file_ );
     fflush( this->index_file_ );
+}
+
+void BlockHub::SyncBlock( size_t index )
+{
+    auto b = this->FindBlock( index );
+    this->SyncBlock( b );
+}
+
+void BlockHub::SyncBlock( sptr<BlockIndex> block )
+{
+    if ( block == nullptr )
+        return;
+    
+    auto sync = make_uptr   ( MessageBlockMeta );
+    sync->set_fileoffset    ( block->FileOffset );
+    sync->set_index         ( block->Index );
+    sync->set_partid        ( block->PartId );
+    sync->set_path          ( block->Path );
+    sync->set_size          ( block->Size );
+    sync->set_status        ( 0 );
+    MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
 }

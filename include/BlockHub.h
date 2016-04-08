@@ -44,9 +44,11 @@ public:
 
     MAKE_SINGLETON( BlockHub );
 
-    void             LoadFromDisk      ();
-    void             LoadIndex         ();
+    void             LoadFromDisk   ();
+    void             LoadIndex      ();
+
     sptr<BlockIndex> FindBlock      ( size_t index );
+    sptr<BlockIndex> FindBlock      ( string path , size_t partid );
 
     size_t           BlockCount     () { return this->block_count_; };
     size_t           BlockEmptyCount() { return this->block_empty_count_; };
@@ -65,7 +67,12 @@ public:
     uptr<Buffer>     ReadBlock      ( int blockid , 
                                       size_t offset ,
                                       size_t len);
+
     void             SaveBlockIndex ( sptr<BlockIndex> block );
+
+    void             SyncBlock      ( size_t index );
+    void             SyncBlock      ( sptr<BlockIndex> block  );
+
 private:
 
     BlockHub ();

@@ -32,13 +32,15 @@ void protobuf_AssignDesc_MessageDuplicateData_2eproto() {
       "MessageDuplicateData.proto");
   GOOGLE_CHECK(file != NULL);
   MessageDuplicateData_descriptor_ = file->message_type(0);
-  static const int MessageDuplicateData_offsets_[6] = {
+  static const int MessageDuplicateData_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, offset_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, checksum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, islast_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, index_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageDuplicateData, sessionid_),
   };
   MessageDuplicateData_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -81,10 +83,11 @@ void protobuf_AddDesc_MessageDuplicateData_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\032MessageDuplicateData.proto\"s\n\024MessageD"
-    "uplicateData\022\r\n\005Token\030\001 \002(\t\022\014\n\004Data\030\002 \002("
-    "\014\022\014\n\004Size\030\003 \002(\003\022\016\n\006Offset\030\004 \002(\003\022\020\n\010Check"
-    "sum\030\005 \002(\003\022\016\n\006IsLast\030\006 \002(\010", 145);
+    "\n\032MessageDuplicateData.proto\"\225\001\n\024Message"
+    "DuplicateData\022\r\n\005Token\030\001 \002(\t\022\014\n\004Data\030\002 \002"
+    "(\014\022\014\n\004Size\030\003 \002(\003\022\016\n\006Offset\030\004 \002(\003\022\020\n\010Chec"
+    "ksum\030\005 \002(\003\022\016\n\006IsLast\030\006 \002(\010\022\r\n\005Index\030\007 \002("
+    "\003\022\021\n\tSessionid\030\010 \002(\003", 180);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageDuplicateData.proto", &protobuf_RegisterTypes);
   MessageDuplicateData::default_instance_ = new MessageDuplicateData();
@@ -108,6 +111,8 @@ const int MessageDuplicateData::kSizeFieldNumber;
 const int MessageDuplicateData::kOffsetFieldNumber;
 const int MessageDuplicateData::kChecksumFieldNumber;
 const int MessageDuplicateData::kIsLastFieldNumber;
+const int MessageDuplicateData::kIndexFieldNumber;
+const int MessageDuplicateData::kSessionidFieldNumber;
 #endif  // !_MSC_VER
 
 MessageDuplicateData::MessageDuplicateData()
@@ -135,6 +140,8 @@ void MessageDuplicateData::SharedCtor() {
   offset_ = GOOGLE_LONGLONG(0);
   checksum_ = GOOGLE_LONGLONG(0);
   islast_ = false;
+  index_ = GOOGLE_LONGLONG(0);
+  sessionid_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -186,7 +193,7 @@ void MessageDuplicateData::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 255) {
     ZR_(size_, islast_);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -302,6 +309,36 @@ bool MessageDuplicateData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(56)) goto parse_Index;
+        break;
+      }
+
+      // required int64 Index = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_Index:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &index_)));
+          set_has_index();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(64)) goto parse_Sessionid;
+        break;
+      }
+
+      // required int64 Sessionid = 8;
+      case 8: {
+        if (tag == 64) {
+         parse_Sessionid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &sessionid_)));
+          set_has_sessionid();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -367,6 +404,16 @@ void MessageDuplicateData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->islast(), output);
   }
 
+  // required int64 Index = 7;
+  if (has_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(7, this->index(), output);
+  }
+
+  // required int64 Sessionid = 8;
+  if (has_sessionid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(8, this->sessionid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -413,6 +460,16 @@ void MessageDuplicateData::SerializeWithCachedSizes(
   // required bool IsLast = 6;
   if (has_islast()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->islast(), target);
+  }
+
+  // required int64 Index = 7;
+  if (has_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(7, this->index(), target);
+  }
+
+  // required int64 Sessionid = 8;
+  if (has_sessionid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(8, this->sessionid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -467,6 +524,20 @@ int MessageDuplicateData::ByteSize() const {
       total_size += 1 + 1;
     }
 
+    // required int64 Index = 7;
+    if (has_index()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->index());
+    }
+
+    // required int64 Sessionid = 8;
+    if (has_sessionid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->sessionid());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -512,6 +583,12 @@ void MessageDuplicateData::MergeFrom(const MessageDuplicateData& from) {
     if (from.has_islast()) {
       set_islast(from.islast());
     }
+    if (from.has_index()) {
+      set_index(from.index());
+    }
+    if (from.has_sessionid()) {
+      set_sessionid(from.sessionid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -529,7 +606,7 @@ void MessageDuplicateData::CopyFrom(const MessageDuplicateData& from) {
 }
 
 bool MessageDuplicateData::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
 
   return true;
 }
@@ -542,6 +619,8 @@ void MessageDuplicateData::Swap(MessageDuplicateData* other) {
     std::swap(offset_, other->offset_);
     std::swap(checksum_, other->checksum_);
     std::swap(islast_, other->islast_);
+    std::swap(index_, other->index_);
+    std::swap(sessionid_, other->sessionid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

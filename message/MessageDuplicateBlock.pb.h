@@ -126,6 +126,32 @@ class MessageDuplicateBlock : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 index() const;
   inline void set_index(::google::protobuf::int64 value);
 
+  // required int64 PartId = 5;
+  inline bool has_partid() const;
+  inline void clear_partid();
+  static const int kPartIdFieldNumber = 5;
+  inline ::google::protobuf::int64 partid() const;
+  inline void set_partid(::google::protobuf::int64 value);
+
+  // required int64 FileOffset = 6;
+  inline bool has_fileoffset() const;
+  inline void clear_fileoffset();
+  static const int kFileOffsetFieldNumber = 6;
+  inline ::google::protobuf::int64 fileoffset() const;
+  inline void set_fileoffset(::google::protobuf::int64 value);
+
+  // required string Path = 7;
+  inline bool has_path() const;
+  inline void clear_path();
+  static const int kPathFieldNumber = 7;
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
+
   // @@protoc_insertion_point(class_scope:MessageDuplicateBlock)
  private:
   inline void set_has_token();
@@ -136,6 +162,12 @@ class MessageDuplicateBlock : public ::google::protobuf::Message {
   inline void clear_has_port();
   inline void set_has_index();
   inline void clear_has_index();
+  inline void set_has_partid();
+  inline void clear_has_partid();
+  inline void set_has_fileoffset();
+  inline void clear_has_fileoffset();
+  inline void set_has_path();
+  inline void clear_has_path();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -144,6 +176,9 @@ class MessageDuplicateBlock : public ::google::protobuf::Message {
   ::std::string* token_;
   ::std::string* address_;
   ::google::protobuf::int64 index_;
+  ::google::protobuf::int64 partid_;
+  ::google::protobuf::int64 fileoffset_;
+  ::std::string* path_;
   ::google::protobuf::int32 port_;
   friend void  protobuf_AddDesc_MessageDuplicateBlock_2eproto();
   friend void protobuf_AssignDesc_MessageDuplicateBlock_2eproto();
@@ -357,6 +392,130 @@ inline void MessageDuplicateBlock::set_index(::google::protobuf::int64 value) {
   set_has_index();
   index_ = value;
   // @@protoc_insertion_point(field_set:MessageDuplicateBlock.Index)
+}
+
+// required int64 PartId = 5;
+inline bool MessageDuplicateBlock::has_partid() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessageDuplicateBlock::set_has_partid() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessageDuplicateBlock::clear_has_partid() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void MessageDuplicateBlock::clear_partid() {
+  partid_ = GOOGLE_LONGLONG(0);
+  clear_has_partid();
+}
+inline ::google::protobuf::int64 MessageDuplicateBlock::partid() const {
+  // @@protoc_insertion_point(field_get:MessageDuplicateBlock.PartId)
+  return partid_;
+}
+inline void MessageDuplicateBlock::set_partid(::google::protobuf::int64 value) {
+  set_has_partid();
+  partid_ = value;
+  // @@protoc_insertion_point(field_set:MessageDuplicateBlock.PartId)
+}
+
+// required int64 FileOffset = 6;
+inline bool MessageDuplicateBlock::has_fileoffset() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void MessageDuplicateBlock::set_has_fileoffset() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void MessageDuplicateBlock::clear_has_fileoffset() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void MessageDuplicateBlock::clear_fileoffset() {
+  fileoffset_ = GOOGLE_LONGLONG(0);
+  clear_has_fileoffset();
+}
+inline ::google::protobuf::int64 MessageDuplicateBlock::fileoffset() const {
+  // @@protoc_insertion_point(field_get:MessageDuplicateBlock.FileOffset)
+  return fileoffset_;
+}
+inline void MessageDuplicateBlock::set_fileoffset(::google::protobuf::int64 value) {
+  set_has_fileoffset();
+  fileoffset_ = value;
+  // @@protoc_insertion_point(field_set:MessageDuplicateBlock.FileOffset)
+}
+
+// required string Path = 7;
+inline bool MessageDuplicateBlock::has_path() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void MessageDuplicateBlock::set_has_path() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void MessageDuplicateBlock::clear_has_path() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void MessageDuplicateBlock::clear_path() {
+  if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    path_->clear();
+  }
+  clear_has_path();
+}
+inline const ::std::string& MessageDuplicateBlock::path() const {
+  // @@protoc_insertion_point(field_get:MessageDuplicateBlock.Path)
+  return *path_;
+}
+inline void MessageDuplicateBlock::set_path(const ::std::string& value) {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    path_ = new ::std::string;
+  }
+  path_->assign(value);
+  // @@protoc_insertion_point(field_set:MessageDuplicateBlock.Path)
+}
+inline void MessageDuplicateBlock::set_path(const char* value) {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    path_ = new ::std::string;
+  }
+  path_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessageDuplicateBlock.Path)
+}
+inline void MessageDuplicateBlock::set_path(const char* value, size_t size) {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    path_ = new ::std::string;
+  }
+  path_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessageDuplicateBlock.Path)
+}
+inline ::std::string* MessageDuplicateBlock::mutable_path() {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    path_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:MessageDuplicateBlock.Path)
+  return path_;
+}
+inline ::std::string* MessageDuplicateBlock::release_path() {
+  clear_has_path();
+  if (path_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = path_;
+    path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void MessageDuplicateBlock::set_allocated_path(::std::string* path) {
+  if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete path_;
+  }
+  if (path) {
+    set_has_path();
+    path_ = path;
+  } else {
+    clear_has_path();
+    path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:MessageDuplicateBlock.Path)
 }
 
 

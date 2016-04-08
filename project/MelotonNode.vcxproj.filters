@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{d06d1f50-43ae-4b0a-99fe-dc1be0846ec5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source">
       <UniqueIdentifier>{9ce6b465-2f7e-4673-a32f-387ebcd8bd83}</UniqueIdentifier>
     </Filter>
@@ -15,6 +12,9 @@
     </Filter>
     <Filter Include="message">
       <UniqueIdentifier>{700f0627-d8a9-4767-81c9-147680ec3f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{d06d1f50-43ae-4b0a-99fe-dc1be0846ec5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +105,18 @@
     </ClCompile>
     <ClCompile Include="..\message\MessageTellACK.pb.cc">
       <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\DuplicateConnector.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\DuplicateSession.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageDuplicateDataRequest.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\DuplicateListener.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +291,24 @@
     </ClInclude>
     <ClInclude Include="..\handler\MessageTellHandler.h">
       <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DuplicateConnector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DuplicateSession.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageDuplicateDataRequestHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageDuplicateDataRequest.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DuplicateSessionPool.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DuplicateListener.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

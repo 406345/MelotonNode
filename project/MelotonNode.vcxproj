@@ -157,6 +157,7 @@
     <ClCompile Include="..\message\MessageDuplicateBlock.pb.cc" />
     <ClCompile Include="..\message\MessageDuplicateData.pb.cc" />
     <ClCompile Include="..\message\MessageDuplicateDataAccept.pb.cc" />
+    <ClCompile Include="..\message\MessageDuplicateDataRequest.pb.cc" />
     <ClCompile Include="..\message\MessageError.pb.cc" />
     <ClCompile Include="..\message\MessageNewBlock.pb.cc" />
     <ClCompile Include="..\message\MessageOpenACK.pb.cc" />
@@ -173,6 +174,9 @@
     <ClCompile Include="..\message\MessageWrite.pb.cc" />
     <ClCompile Include="..\source\BlockHub.cpp" />
     <ClCompile Include="..\source\ClientListener.cpp" />
+    <ClCompile Include="..\source\DuplicateConnector.cpp" />
+    <ClCompile Include="..\source\DuplicateListener.cpp" />
+    <ClCompile Include="..\source\DuplicateSession.cpp" />
     <ClCompile Include="..\source\MasterConnector.cpp" />
     <ClCompile Include="..\source\MasterSession.cpp" />
     <ClCompile Include="..\source\MelotonSession.cpp" />
@@ -189,6 +193,7 @@
     <ClInclude Include="..\handler\MessageDuplicateBlockHandler.h" />
     <ClInclude Include="..\handler\MessageDuplicateDataAcceptHandler.h" />
     <ClInclude Include="..\handler\MessageDuplicateDataHandler.h" />
+    <ClInclude Include="..\handler\MessageDuplicateDataRequestHandler.h" />
     <ClInclude Include="..\handler\MessageErrorHandler.h" />
     <ClInclude Include="..\handler\MessageHub.h" />
     <ClInclude Include="..\handler\MessageNewBlockHandler.h" />
@@ -208,6 +213,10 @@
     <ClInclude Include="..\include\BlockIndex.h" />
     <ClInclude Include="..\include\ClientListener.h" />
     <ClInclude Include="..\include\ClientSession.h" />
+    <ClInclude Include="..\include\DuplicateConnector.h" />
+    <ClInclude Include="..\include\DuplicateListener.h" />
+    <ClInclude Include="..\include\DuplicateSession.h" />
+    <ClInclude Include="..\include\DuplicateSessionPool.h" />
     <ClInclude Include="..\include\ErrorCode.h" />
     <ClInclude Include="..\include\MasterConnector.h" />
     <ClInclude Include="..\include\MasterSession.h" />
@@ -225,6 +234,7 @@
     <ClInclude Include="..\message\MessageDuplicateBlock.pb.h" />
     <ClInclude Include="..\message\MessageDuplicateData.pb.h" />
     <ClInclude Include="..\message\MessageDuplicateDataAccept.pb.h" />
+    <ClInclude Include="..\message\MessageDuplicateDataRequest.pb.h" />
     <ClInclude Include="..\message\MessageError.pb.h" />
     <ClInclude Include="..\message\MessageNewBlock.pb.h" />
     <ClInclude Include="..\message\MessageOpenACK.pb.h" />
