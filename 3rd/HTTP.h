@@ -36,8 +36,11 @@ limitations under the License.
 #include "Connector.h"
 #include "CircleBuffer.h"
 #include "Maraton.h"
+#include <vector>
 
 NS_MARATON_BEGIN
+
+using namespace std;
 
 class HTTPRequest;
 class HTTPResponse;
@@ -50,13 +53,14 @@ class Url
 {
 public:
 
-    Url                  ( std::string url );
-    ~Url                 ();
-                    
-    std::string Domain   ();
-    std::string Path     ();
-    std::string Protocol ();
-    int         Port     ();
+    Url                      ( std::string url );
+    ~Url                     ();
+                             
+    std::string Domain       ();
+    std::string Path         ();
+    std::string Protocol     ();
+    int         Port         ();
+    string      Parameter    ( string name );
 
 protected:
 
@@ -70,6 +74,8 @@ private:
     std::string protocol_ = "";
     int         port_     = 80;
     std::string tmp_      = "";
+
+    map<string,string> parameter_;
 };
 // ===========================================
 // HTTPRequest
@@ -86,6 +92,7 @@ public:
     void         WriteCallback  ( WriteCallbackType callback );
 
     void         Content        ( uptr<Buffer> content );
+    void         Content        ( std::string content );
     uptr<Buffer> Content        ();
     void         ContentLength  ( size_t size );
     size_t       ContentLength  ();
@@ -105,6 +112,7 @@ public:
     void         Data           ( void* value );
 
     bool         Finish         ();
+    sptr<Url>    Uri            ();
      
 private:
 
@@ -160,6 +168,7 @@ public:
     std::string  Header          ( std::string key );
                  
     void         Content         ( uptr<Buffer> content );
+    void         Content         ( std::string content );
     uptr<Buffer> Content         ();
     void         ContentLength   ( size_t size );
     size_t       ContentLength   ();

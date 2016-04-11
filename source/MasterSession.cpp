@@ -17,7 +17,7 @@ MasterSession::MasterSession()
     {
         auto msg = make_uptr( MessageAlive );
         msg->set_blockcount( BlockHub::Instance()->BlockCount() );
-        msg->set_cpu( 0 );
+        msg->set_cpu( SystemInfo::CPUNum() );
         msg->set_memory( MRT::SystemInfo::MemoryFreeSize() );
         this->SendMessage( move_ptr( msg ) );
 
