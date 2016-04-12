@@ -1,6 +1,7 @@
 #include <MasterConnector.h>
 #include <MasterSession.h>
 #include <MRT.h>
+#include <MelotonNode.h>
 
 MasterConnector::MasterConnector( string ip , int port )
     : MRT::Connector( ip , port )

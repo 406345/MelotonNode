@@ -41,8 +41,7 @@ public:
     DuplicateSession* FindById( size_t sessionid )
     {
         return this->Find( [sessionid] ( DuplicateSession* session ) { 
-            if ( session->Id() == sessionid )
-                return session;
+            return ( session->Id() == sessionid );
         } );
     }
 

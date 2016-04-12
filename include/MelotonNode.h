@@ -58,6 +58,8 @@ static const int    DUPLICATE_PORT          = 113;
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Debug Section
  * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#define _DEBUG
+
 #ifdef _DEBUG
 
 #define DEBUG_LOG(FMT,... ) Logger::Log( FMT,__VA_ARGS__)

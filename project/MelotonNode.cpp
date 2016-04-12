@@ -4,7 +4,7 @@
 #include <BlockHub.h>
 #include <Settings.h>
 #include <DuplicateListener.h>
-
+#include <MelotonNode.h>
 using std::string;
 
 int main( int argc , char* argv[] )
