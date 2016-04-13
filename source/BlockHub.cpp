@@ -3,6 +3,7 @@
 #include <MasterSession.h>
 #include <MRT.h>
 #include <MessageBlockMeta.pb.h>
+#include <MelotonNode.h>
 
 #ifdef _WIN32
 #define fseek _fseeki64 
@@ -111,12 +112,24 @@ sptr<BlockIndex> BlockHub::CreateBlock( int partId , size_t fileOffset , string 
 
 bool BlockHub::RemoveBlock( size_t index )
 {
-    this->empty_list_[this->block_empty_count_]         = this->index_list_[index];
+    if ( index >= this->block_count_ )
+    {
+        return false;
+    }
+
+    auto block = this->index_list_[index];
+    this->empty_list_[this->block_empty_count_]         = block;
     this->empty_list_[this->block_empty_count_]->Used   = false;
     this->index_list_[index] = nullptr;
     ++this->block_empty_count_;
 
-    return false;
+    block->Size         = 0;
+    block->FileOffset   = 0;
+    block->PartId       = 0;
+
+    memset( block->Path , 0 , BLOCK_PATH_SIZE );
+
+    return true;
 }
 
 size_t BlockHub::WriteBlock( int blockid ,

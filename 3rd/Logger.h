@@ -18,9 +18,9 @@ limitations under the License.
 ***********************************************************************************/
 
 /***********************************************************************************
-* Description   : 
-* Creator       : 
-* Date          : 
+* Description   :
+* Creator       :
+* Date          :
 * Modifed       : When      | Who       | What
 ***********************************************************************************/
 
@@ -38,85 +38,80 @@ class Logger
 {
 public:
 
-    // print message with sys channel
+    // Print message with sys channel
     // @fmt  : format, using % to indicate a parameter, not %d or something else.
     // @args : parameter values
     template<typename ...Types>
-    static void Sys( const char* fmt, Types... args)
+    static void Sys( const char* fmt , Types... args )
     {
-#ifdef _WIN32
-        Tprintf( "[%] ", Timer::Date() );
-#else
-        Tprintf( "\033[1;33m[%] ", Timer::Date() );
-#endif
-
-        Tprintf( fmt, args... );
-
-#ifdef _WIN32
-        Tprintf( "\r\n" );
-#else
-        Tprintf( "\033[0m\r\n" );
-#endif      
-
+        Tprintf( std::clog , "% [SYSTEM] " , Timer::Date() );
+        Tprintf( std::clog , fmt , args... );
+        Tprintf( std::clog , "\r\n" );
     }
 
-    // print message with error channel
+    // Print message with error channel
     // @fmt  : format, using % to indicate a parameter, not %d or something else.
     // @args : parameter values
     template<typename ...Types>
-    static void Error( const char* fmt, Types... args )
-    { 
-#ifdef _WIN32
-        Tprintf( "[%] ", Timer::Date() );
-#else
-        Tprintf( "\033[0;31m[%] ", Timer::Date() );
-#endif
-        Tprintf( fmt , args... );
-
-#ifdef _WIN32
-        Tprintf( "\r\n" );
-#else
-        Tprintf( "\033[0;31m\r\n" );
-#endif    
+    static void Error( const char* fmt , Types... args )
+    {
+        Tprintf( std::cerr , "% [ERROR] " , Timer::Date() );
+        Tprintf( std::cerr , fmt , args... );
+        Tprintf( std::cerr ,"\r\n" );
     }
 
-    // print message with normal channel
+    // Print message with normal channel
     // @fmt  : format, using % to indicate a parameter, not %d or something else.
     // @args : parameter values
     template<typename ...Types>
-    static void Log( const char* fmt, Types... args )
-    { 
-        Tprintf( "[%] ", Timer::Date() );
-        Tprintf( fmt , args... );
-        Tprintf( "\r\n" );
+    static void Log( const char* fmt , Types... args )
+    {
+        Tprintf( std::clog , "% [INFO] " , Timer::Date() );
+        Tprintf( std::clog , fmt , args... );
+        Tprintf( std::clog , "\r\n" );
     }
+
+    // Print message with debug channel
+    // !!!! This channel will be disabled in release version
+    // @fmt  : format, using % to indicate a parameter, not %d or something else.
+    // @args : parameter values
+    template<typename ...Types>
+    static void Debug( const char* fmt , Types... args )
+    {
+#ifdef _DEBUG
+        Tprintf( std::clog ,"% [DEBUG] " , Timer::Date() );
+        Tprintf( std::clog , fmt , args... );
+        Tprintf( std::clog ,"\r\n" );
+#endif
+    }
+
 
 private:
 
-    Logger( )
+    Logger()
     {
     };
-    ~Logger( )
+    ~Logger()
     {
     };
 
-    static void Tprintf( const char* format ) // base function
+    static void Tprintf( std::ostream & stream , const char* format ) // base function
     {
-        std::cout << format;
+        stream << format;
     }
 
     template<typename T , typename... Targs>
-    static void Tprintf( const char* format , T value , Targs... Fargs ) // recursive variadic function
+    static void Tprintf( std::ostream & stream , const char* format , T value , Targs... Fargs ) // recursive variadic function
     {
         for ( ; *format != '\0'; format++ )
         {
             if ( *format == '%' )
             {
-                std::cout << value;
-                Tprintf( format + 1 , Fargs... ); // recursive call
+                stream << value;
+                Tprintf( stream , format + 1 , Fargs... ); // recursive call
                 return;
             }
-            std::cout << *format;
+            stream << *format;
         }
     }
 };
