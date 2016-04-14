@@ -63,7 +63,7 @@ static const int    DUPLICATE_PORT          = 113;
 #ifdef _DEBUG
 
 #define DEBUG_LOG(FMT,... ) Logger::Log( FMT,__VA_ARGS__)
-#define MASTER_IP "10.0.0.40"
+#define MASTER_IP "10.0.0.11"
 #endif // DEBUG
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
