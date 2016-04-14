@@ -2,7 +2,7 @@
 #include <DuplicateSessionPool.h>
 
 DuplicateConnector::DuplicateConnector( uptr<MessageDuplicateBlock> msg )
-    : Connector( msg->address() , DUPLICATE_PORT )
+    : Connector( msg->address() , msg->port() )
 {
     this->message_ = move_ptr( msg );
 }
