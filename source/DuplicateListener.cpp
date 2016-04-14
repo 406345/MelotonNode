@@ -18,12 +18,12 @@ Session * DuplicateListener::CreateSession()
 
 void DuplicateListener::OnSessionOpen( Session * session )
 {
-    Logger::Log( "node(%:%) connected" , session->ip_address() , session->port() );
+    Logger::Log( "duplicate %:% connected" , session->ip_address() , session->port() );
 }
 
 void DuplicateListener::OnSessionClose( Session * session )
 {
-    Logger::Log( "node(%:%) disconnected" , session->ip_address() , session->port() );
+    Logger::Log( "duplicate %:% disconnected" , session->ip_address() , session->port() );
     SAFE_DELETE( session );
 }
  
