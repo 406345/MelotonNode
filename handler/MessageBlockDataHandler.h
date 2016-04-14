@@ -84,15 +84,17 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     BlockHub::Instance()->SaveBlockIndex( block );
     //BlockHub::Instance()->SyncBlock( block );
 
-    Logger::Log( "Accept Block %(size:% part:%) from %" , 
-                 block->Path , 
-                 block->Size ,
-                 block->PartId ,
-                 client->ip_address()
-                 );
+    
 
     if ( message->islast() )
     {
+        Logger::Log( "Accept Block path:% part:% size:% from %" , 
+                     block->Path , 
+                     block->Size ,
+                     block->PartId ,
+                     client->ip_address()
+                     );
+
         auto sync = make_uptr   ( MessageBlockMeta );
         sync->set_fileoffset    ( block->FileOffset );
         sync->set_index         ( block->Index );
