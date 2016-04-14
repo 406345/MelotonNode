@@ -262,9 +262,6 @@
     <ClInclude Include="..\message\MessageTellACK.pb.h" />
     <ClInclude Include="..\message\MessageWrite.pb.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\handler\.MessageHub.h.swp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

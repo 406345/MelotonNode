@@ -347,9 +347,4 @@
       <Filter>message</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\handler\.MessageHub.h.swp">
-      <Filter>handler</Filter>
-    </None>
-  </ItemGroup>
 </Project>

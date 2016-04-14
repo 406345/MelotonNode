@@ -52,7 +52,7 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
 
     auto block = BlockHub::Instance()->FindBlock( token->Index() );
      
-    // Check if the block is exist
+    // Check if the block exists
     if ( block == nullptr )
     {
         auto error = make_uptr( MessageError );
@@ -82,10 +82,26 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
                                                      message->data().c_str() ,
                                                      size );
     BlockHub::Instance()->SaveBlockIndex( block );
-    BlockHub::Instance()->SyncBlock( block );
+    //BlockHub::Instance()->SyncBlock( block );
+
+    Logger::Log( "Accept Block %(size:% part:%) from %" , 
+                 block->Path , 
+                 block->Size ,
+                 block->PartId ,
+                 client->ip_address()
+                 );
 
     if ( message->islast() )
     {
+        auto sync = make_uptr   ( MessageBlockMeta );
+        sync->set_fileoffset    ( block->FileOffset );
+        sync->set_index         ( block->Index );
+        sync->set_partid        ( block->PartId );
+        sync->set_path          ( block->Path );
+        sync->set_size          ( block->Size );
+        sync->set_status        ( 0 );
+        MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
+
         // Duplicate Block
         auto new_block = make_uptr( MessageNewBlock );
         new_block->set_fileoffset ( block->FileOffset );
@@ -109,6 +125,7 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
     reply->set_nextoffset   ( offset + size );
     reply->set_nextsize     ( BLOCK_TRANSFER_SIZE );
     client->SendMessage     ( move_ptr( reply ) );
+
 
     return 0;
 }

@@ -213,12 +213,5 @@ void BlockHub::SyncBlock( sptr<BlockIndex> block )
     if ( block == nullptr )
         return;
     
-    auto sync = make_uptr   ( MessageBlockMeta );
-    sync->set_fileoffset    ( block->FileOffset );
-    sync->set_index         ( block->Index );
-    sync->set_partid        ( block->PartId );
-    sync->set_path          ( block->Path );
-    sync->set_size          ( block->Size );
-    sync->set_status        ( 0 );
-    MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
+
 }
