@@ -88,10 +88,10 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
 
     if ( message->islast() )
     {
-        Logger::Log( "Accept Block path:% part:% size:% from %" , 
+        Logger::Log( "accept block path:% part:% size:% from %" , 
                      block->Path , 
-                     block->Size ,
                      block->PartId ,
+                     block->Size ,
                      client->ip_address()
                      );
 
