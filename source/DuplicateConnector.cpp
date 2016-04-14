@@ -1,5 +1,6 @@
 #include <DuplicateConnector.h>
 #include <DuplicateSessionPool.h>
+#include <MRT.h>
 
 DuplicateConnector::DuplicateConnector( uptr<MessageDuplicateBlock> msg )
     : Connector( msg->address() , msg->port() )
@@ -26,5 +27,22 @@ void DuplicateConnector::OnSessionOpen( Session * session )
 void DuplicateConnector::OnSessionClose( Session * session )
 {
     DuplicateSessionPool::Instance()->Pop( scast<DuplicateSession*>( session ) );
+
+    if ( session->LastError().Code() != 0 &&
+         session->LastError().Code() != -4095 )
+    {
+        Logger::Error( "duplicate error <%>%" , session->LastError().Code() ,
+                       session->LastError().Message() );
+    }
+
+    if ( session->LastError().Code() == -4078 )
+    {
+        Logger::Log( "retring duplicate % from %" ,
+                     this->message_->path() ,
+                     this->message_->address() );
+        auto connector = make_uptr( DuplicateConnector , move_ptr( this->message_ ) );
+        MRT::Maraton::Instance()->Regist( move_ptr( connector ) );
+    } 
+
     SAFE_DELETE( session );
 }

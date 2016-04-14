@@ -82,11 +82,10 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
                                                      message->data().c_str() ,
                                                      size );
     BlockHub::Instance()->SaveBlockIndex( block );
+    BlockHub::Instance()->SyncBlock( block );
 
     if ( message->islast() )
     {
-        BlockHub::Instance()->SyncBlock( block );
-
         // Duplicate Block
         auto new_block = make_uptr( MessageNewBlock );
         new_block->set_fileoffset ( block->FileOffset );
