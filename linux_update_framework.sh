@@ -1,3 +1,5 @@
-copy ..\MaratonFramework\inc\*.* 3rd\
-copy ..\MaratonFramework\project\x64\Debug\*.lib lib\ 
-pause
+ 
+#!/bin/sh
+
+cp -f ../MaratonFramework/cmakebuild/*.a lib/
+cp -f ../MaratonFramework/inc/*.* 3rd/ 
