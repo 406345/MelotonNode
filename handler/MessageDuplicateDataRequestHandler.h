@@ -43,13 +43,13 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
 
     auto block = BlockHub::Instance()->FindBlock( message->index() );
 
-    if ( block == nullptr )
-    {
-        Logger::Error( "duplicate block(%) not found node:%" ,
-                       message->index()  ,
-                       session->ip_address() );
-        return -1;
-    }
+    //if ( block == nullptr )
+    //{
+    //    Logger::Error( "duplicate block(%) not found node:%" ,
+    //                   message->index()  ,
+    //                   session->ip_address() );
+    //    return -1;
+    //}
 
     
     auto buf = BlockHub::Instance()->ReadBlock( block->Index ,
