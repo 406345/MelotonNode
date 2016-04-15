@@ -112,9 +112,7 @@ static int MessageBlockDataHandler( MRT::Session * session , uptr<MessageBlockDa
         new_block->set_path       ( block->Path );
         new_block->set_size       ( block->Size );
         new_block->set_status     ( 0 );
-        new_block->set_token      ( TokenPool::Instance()->CreateToken( 0 , 
-                                    block->Index ,
-                                    TOKEN_EXPIRE_TIME ) );
+        new_block->set_token      ( "" );
 
         MasterSession::Instance()->SendMessage( move_ptr( new_block ) );
         return -1;

@@ -31,22 +31,22 @@ limitations under the License.
 static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<MessageDuplicateDataRequest> message )
 {
     auto peer   = scast<MelotonSession*>( session );
-    auto token  = TokenPool::Instance()->CheckToken( message->token() );
+    //auto token  = TokenPool::Instance()->CheckToken( message->token() );
 
-    if ( token == nullptr )
-    {
-        Logger::Error( "duplicate token(%) not found node:%" ,
-                       message->token() ,
-                       session->ip_address() );
-        return -1;
-    }
+    //if ( token == nullptr )
+    //{
+    //    Logger::Error( "duplicate token(%) not found node:%" ,
+    //                   message->token() ,
+    //                   session->ip_address() );
+    //    return -1;
+    //}
 
-    auto block = BlockHub::Instance()->FindBlock( token->Index() );
+    auto block = BlockHub::Instance()->FindBlock( message->index() );
 
     if ( block == nullptr )
     {
         Logger::Error( "duplicate block(%) not found node:%" ,
-                       token->Index() ,
+                       message->index()  ,
                        session->ip_address() );
         return -1;
     }
@@ -58,7 +58,7 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     auto read_size = buf->Size(); 
     bool is_last   = false;
 
-    if ( (message->offset() + read_size) == BLOCK_TRANSFER_SIZE )
+    if ( (message->offset() + read_size) == BLOCK_SIZE )
     {
         is_last = true;
     }
@@ -81,9 +81,16 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     reply->set_index        ( message->index() );
     reply->set_offset       ( message->offset() );
     reply->set_size         ( read_size );
-    reply->set_token        ( message->token() );
+    reply->set_token        ( "" );
     reply->set_islast       ( is_last );
     peer->SendMessage       ( move_ptr( reply ) );
+
+    Logger::Log( "duplicate request block % offset % size % is_last % from %" ,
+                 message->index() ,
+                 message->offset() ,
+                 read_size , 
+                 is_last ,
+                 peer->ip_address() );
 
     return 0;
 }
