@@ -44,7 +44,7 @@ static const size_t BLOCK_SIZE              = 1024 * 1024 * 16;
 static const size_t BLOCK_PATH_SIZE         = 256;
 static const int    TOKEN_EXPIRE_TIME       = 6000 * 60 * 24;
 static const size_t MAX_TRANSFER_SIZE       = 1024 * 1024 * 5; // 5MB
-static const size_t BLOCK_TRANSFER_SIZE     = 1024 * 1024 * 2;
+static const size_t BLOCK_TRANSFER_SIZE     = 1024 * 1024 * 2; // 2MB
 
 static const int    MASTER_NODE_PORT        = 110;
 static const int    MASTER_CLIENT_PORT      = 111;

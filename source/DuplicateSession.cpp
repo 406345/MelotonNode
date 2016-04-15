@@ -53,7 +53,7 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
     BlockHub::Instance()->SaveBlockIndex( this->index_ );
 
     if ( msg->islast() )
-    {
+    { 
         auto sync = make_uptr   ( MessageBlockMeta );
         sync->set_fileoffset    ( this->index_->FileOffset );
         sync->set_index         ( this->index_->Index );
@@ -62,6 +62,12 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         sync->set_size          ( this->index_->Size );
         sync->set_status        ( 0 );
         MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
+
+        Logger::Log( "duplicate % part:% size:% from %" ,
+                     this->index_->Path ,
+                     this->index_->PartId ,
+                     this->index_->Size ,
+                     this->ip_address() );
 
         this->Close();
         return;

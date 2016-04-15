@@ -35,6 +35,9 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
 
     if ( token == nullptr )
     {
+        Logger::Error( "duplicate token(%) not found node:%" ,
+                       message->token() ,
+                       session->ip_address() );
         return -1;
     }
 
@@ -42,6 +45,9 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
 
     if ( block == nullptr )
     {
+        Logger::Error( "duplicate block(%) not found node:%" ,
+                       token->Index() ,
+                       session->ip_address() );
         return -1;
     }
 
@@ -59,6 +65,6 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     reply->set_token        ( message->token() );
     reply->set_islast       ( buf->Size() < BLOCK_TRANSFER_SIZE ? true : false );
     peer->SendMessage       ( move_ptr( reply ) );
-                                    
+
     return 0;
 }
