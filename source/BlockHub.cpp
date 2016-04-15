@@ -41,7 +41,7 @@ void BlockHub::LoadIndex()
                             1 ,
                             sizeof( BlockIndex ) ,
                             this->index_file_ );
-        
+        bi->Index = index;
         if ( reads == 0 )
         {
             break;
