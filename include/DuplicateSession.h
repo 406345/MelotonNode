@@ -57,9 +57,15 @@ private:
     size_t                      block_offset_  = 0;
     size_t                      index_num_     = 0;
 
-    MRT::SyncWorker*            work_          = nullptr;
 
-    void                        StartTimer();
+    size_t                      part_id_       = 0;
+    std::string                 path_          = "";
+    size_t                      file_offset_   = 0;
+    size_t                      remote_index_  = 0;
+    std::string                 remote_ip_     = "";
+
+    MRT::SyncWorker*            worker_        = nullptr;
+    void                        RetryTimer();
 };
 
 #endif // !DUPLICATE_SESSION_H_ 

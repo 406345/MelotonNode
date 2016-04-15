@@ -59,6 +59,7 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     if ( buf == nullptr )
     {
         Logger::Error( "duplicate from % block is not found" , peer->ip_address() );
+        return -1;
     }
 
     auto read_size = buf->Size(); 

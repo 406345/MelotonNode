@@ -29,7 +29,8 @@ void MasterConnector::OnSessionOpen( Session * session )
 void MasterConnector::OnSessionClose( Session * session )
 {
     SAFE_DELETE( session );
-    Logger::Sys( "master connecting disconnected" );
+    MasterSession::SetInstance( nullptr );
+    Logger::Sys( "disconnect from master" );
     sptr<MasterConnector> connector = make_sptr( MasterConnector , MASTER_IP , MASTER_NODE_PORT );
     MRT::Maraton::Instance()->Regist( connector );
 }
