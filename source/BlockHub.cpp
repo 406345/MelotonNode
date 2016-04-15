@@ -146,6 +146,8 @@ size_t BlockHub::WriteBlock( int blockid ,
     size_t  write_size   =  ( offset + len ) > BLOCK_SIZE ?
                             ( BLOCK_SIZE - offset + 1 ) : len;
 
+    Logger::Log( "block write % offset:% len:% write_size:%",blockid , offset , len , write_size );
+
     fseek( this->data_file_ , block->Location + offset , SEEK_SET );
     write_size = fwrite( data , 1 , write_size , this->data_file_ );
     fflush( this->data_file_ );
