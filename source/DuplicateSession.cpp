@@ -68,7 +68,7 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
                                       msg->data().c_str() ,
                                       msg->data().size() );
 
-    this->index_->Size += msg->size();
+    this->index_->Size = msg->offset() + msg->size();
 
     BlockHub::Instance()->SaveBlockIndex( this->index_ );
 
