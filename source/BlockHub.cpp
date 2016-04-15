@@ -139,7 +139,7 @@ size_t BlockHub::WriteBlock( int blockid ,
                              size_t len )
 {
     auto block        = this->index_list_[blockid];
-    size_t write_size =  0;
+    size_t write_size =  len;
     if ( block == nullptr )
         return 0;
 
