@@ -63,12 +63,12 @@ void DuplicateSession::StartTimer()
 
 void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
 {
-    BlockHub::Instance()->WriteBlock( this->index_->Index ,
-                                      msg->offset() ,
-                                      msg->data().c_str() ,
-                                      msg->data().size() );
-
-    this->index_->Size = msg->offset() + msg->size();
+    auto wsize = BlockHub::Instance()->WriteBlock( this->index_->Index ,
+                                                   msg->offset() ,
+                                                   msg->data().c_str() ,
+                                                   msg->data().size() );
+                                                   
+    this->index_->Size = msg->offset() + wsize;
 
     BlockHub::Instance()->SaveBlockIndex( this->index_ );
 
