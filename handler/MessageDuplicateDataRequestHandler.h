@@ -55,6 +55,12 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     auto buf = BlockHub::Instance()->ReadBlock( block->Index ,
                                                 message->offset() ,
                                                 BLOCK_TRANSFER_SIZE );
+
+    if ( buf == nullptr )
+    {
+        Logger::Error( "duplicate from % block is not found" , peer->ip_address() );
+    }
+
     auto read_size = buf->Size(); 
     bool is_last   = false;
 
@@ -85,8 +91,9 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     reply->set_islast       ( is_last );
     peer->SendMessage       ( move_ptr( reply ) );
 
-    Logger::Log( "duplicate request block % offset % size % is_last % from %" ,
+    Logger::Log( "duplicate request block % part % offset % size % is_last % from %" ,
                  message->index() ,
+                 block->PartId , 
                  message->offset() ,
                  read_size , 
                  is_last ,
