@@ -5,7 +5,6 @@
 #include <MasterSession.h>
 #include <MessageSyncBlock.pb.h>
 
-static int duplicate_session_count = 0;
 DuplicateSession::DuplicateSession()
 { 
 }
@@ -20,13 +19,14 @@ DuplicateSession::DuplicateSession( uptr<MessageDuplicateBlock> msg )
         this->index_ = BlockHub::Instance()->CreateBlock( (int)this->message_block_->partid() ,
                                                           this->message_block_->fileoffset() ,
                                                           this->message_block_->path() ); 
-
-   
 }
 
 DuplicateSession::~DuplicateSession()
 {
-    duplicate_session_count--;
+    if ( this->work_ != nullptr )
+    {
+        MRT::SyncWorker::Stop( this->work_ );
+    }
 }
 
 void DuplicateSession::SendRequest()
