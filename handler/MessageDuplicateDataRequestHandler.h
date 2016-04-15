@@ -55,22 +55,34 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     auto buf = BlockHub::Instance()->ReadBlock( block->Index ,
                                                 message->offset() ,
                                                 BLOCK_TRANSFER_SIZE );
+    auto read_size = buf->Size(); 
+    bool is_last   = false;
 
-    Logger::Log( "duplicate read block % offset % size % from %" ,
+    if ( (message->offset() + read_size) == BLOCK_TRANSFER_SIZE )
+    {
+        is_last = true;
+    }
+
+    if ( read_size < BLOCK_TRANSFER_SIZE )
+    {
+        is_last = true;
+    }
+
+    /*Logger::Log( "duplicate send block % offset % size % to %" ,
                  block->Index ,
                  message->offset() ,
                  buf->Size() ,
-                 peer->ip_address() );
+                 peer->ip_address() );*/
 
     uptr<MessageDuplicateData> reply = make_uptr( MessageDuplicateData );
-    reply->set_data         ( buf->Data() , buf->Size() );
+    reply->set_data         ( buf->Data() , read_size );
     reply->set_sessionid    ( message->sessionid() );
     reply->set_checksum     ( 0 );
     reply->set_index        ( message->index() );
     reply->set_offset       ( message->offset() );
-    reply->set_size         ( buf->Size() );
+    reply->set_size         ( read_size );
     reply->set_token        ( message->token() );
-    reply->set_islast       ( buf->Size() < BLOCK_TRANSFER_SIZE ? true : false );
+    reply->set_islast       ( is_last );
     peer->SendMessage       ( move_ptr( reply ) );
 
     return 0;
