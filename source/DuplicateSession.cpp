@@ -30,7 +30,7 @@ DuplicateSession::~DuplicateSession()
 void DuplicateSession::SendRequest()
 {
     uptr<MessageDuplicateDataRequest> message = make_uptr( MessageDuplicateDataRequest );
-    message->set_index     ( this->index_->Index );
+    message->set_index     ( this->message_block_->index() );
     message->set_token     ( this->message_block_->token() );
     message->set_offset    ( this->block_offset_ );
     message->set_size      ( BLOCK_TRANSFER_SIZE );
