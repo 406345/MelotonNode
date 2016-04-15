@@ -91,13 +91,5 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     reply->set_islast       ( is_last );
     peer->SendMessage       ( move_ptr( reply ) );
 
-    Logger::Log( "duplicate request block % part % offset % size % is_last % from %" ,
-                 message->index() ,
-                 block->PartId , 
-                 message->offset() ,
-                 read_size , 
-                 is_last ,
-                 peer->ip_address() );
-
     return 0;
 }

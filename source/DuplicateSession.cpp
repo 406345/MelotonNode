@@ -89,10 +89,10 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
 
         Logger::Log( "duplicate path % part:% size:% from %" , 
-                  this->index_->Path ,
-                  this->index_->PartId ,
-                  this->index_->Size,
-                  this->message_block_->address() );
+                     this->index_->Path ,
+                     this->index_->PartId ,
+                     this->index_->Size,
+                     this->message_block_->address() );
 
         this->Close();
         return;
