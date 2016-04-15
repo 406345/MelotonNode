@@ -55,6 +55,12 @@ void DuplicateSession::StartTimer()
 
     this->work_ = MRT::SyncWorker::Create( 30 * 1000 , [ this ] ( MRT::SyncWorker* worker )
     {
+        if ( this == nullptr )
+        {
+            Logger::Error( "resend request failed , this is nullptr" );
+            return true;
+        }
+
         this->SendRequest();
         return false;
 
