@@ -64,9 +64,10 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         sync->set_status        ( 0 );
         MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
 
-        Logger::Log( "duplicate % part:% from %" ,
+        Logger::Log( "duplicate % part:% size:% from %" ,
                   this->index_->Path ,
                   this->index_->PartId ,
+                  this->index_->Size,
                   this->message_block_->address() );
 
         this->Close();
