@@ -104,6 +104,7 @@ sptr<BlockIndex> BlockHub::CreateBlock( int partId , size_t fileOffset , string 
     idx->FileOffset = fileOffset;
     idx->Location   = idx->Index * BLOCK_SIZE;
     idx->PartId     = partId;
+    idx->Size       = 0;
 
     memcpy( idx->Path , path.c_str() , path.size() );
 
