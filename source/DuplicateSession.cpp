@@ -53,7 +53,7 @@ void DuplicateSession::StartTimer()
         MRT::SyncWorker::Stop( this->work_ );
     }
 
-    this->work_ = MRT::SyncWorker::Create( 120000 , [ this ] ( MRT::SyncWorker* worker )
+    this->work_ = MRT::SyncWorker::Create( 30 * 1000 , [ this ] ( MRT::SyncWorker* worker )
     {
         this->SendRequest();
         return false;
