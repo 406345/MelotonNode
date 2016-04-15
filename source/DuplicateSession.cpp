@@ -76,7 +76,7 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
 
     if ( msg->islast() )
     { 
-        MRT::SyncWorker::Stop( this->work_ );
+        //MRT::SyncWorker::Stop( this->work_ );
         BlockHub::Instance()->SaveBlockIndex( this->index_ );
 
         auto sync = make_uptr   ( MessageBlockMeta );
@@ -98,6 +98,7 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         return;
     }
 
-    this->block_offset_ += msg->size();
+    this->block_offset_ = msg->offset() + wsize;
+
     this->SendRequest();
 }
