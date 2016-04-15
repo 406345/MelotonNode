@@ -155,7 +155,7 @@ size_t BlockHub::WriteBlock( int blockid ,
 
     fseek( this->data_file_ , block->Location + offset , SEEK_SET );
     write_size = fwrite( data , 1 , write_size , this->data_file_ );
-    fflush( this->data_file_ );
+
     return write_size;
 }
 

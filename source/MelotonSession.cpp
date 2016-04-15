@@ -40,14 +40,17 @@ MelotonSession::~MelotonSession()
 
 void MelotonSession::SendMessage( uptr<google::protobuf::Message> message )
 { 
-    uptr<MRT::Buffer> head   = make_uptr( MRT::Buffer , "YH" );
-    uptr<MRT::Buffer> length = make_uptr( MRT::Buffer , 4 );
+    uptr<MRT::Buffer> buf = make_uptr( MRT::Buffer , message->ByteSize() + 6 );
     uptr<MRT::Buffer> body   = MessageHub::Build( message.get( ) );
 
-    *( ( int* ) length->Data( ) ) = ( int ) body->Size( );
-    
-    this->Send( move_ptr( head ) );
-    this->Send( move_ptr( length ) );
+    char * pbuf = buf->Data();
+    *pbuf = 'Y'; pbuf++;
+    *pbuf = 'H'; pbuf++;
+
+    *( ( int* ) pbuf ) = ( int ) body->Size();
+    pbuf+=4;
+    memcpy( pbuf , body->Data() , body->Size() );
+
     this->Send( move_ptr( body ) );
 }
 
