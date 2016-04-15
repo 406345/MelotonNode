@@ -31,6 +31,7 @@ static int MessageDuplicateDataHandler( MRT::Session * session , uptr<MessageDup
 
     if ( peer == nullptr )
     {
+        Logger::Error( "duplicate node % is not found" , message->sessionid() );
         return -1;
     }
 
