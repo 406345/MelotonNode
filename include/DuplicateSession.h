@@ -56,6 +56,10 @@ private:
     sptr<BlockIndex>            index_         = nullptr;
     size_t                      block_offset_  = 0;
     size_t                      index_num_     = 0;
+
+    MRT::SyncWorker*            work_          = nullptr;
+
+    void                        StartTimer();
 };
 
 #endif // !DUPLICATE_SESSION_H_ 

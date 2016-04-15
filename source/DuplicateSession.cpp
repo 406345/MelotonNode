@@ -7,8 +7,7 @@
 
 static int duplicate_session_count = 0;
 DuplicateSession::DuplicateSession()
-{
-    duplicate_session_count++;
+{ 
 }
 
 DuplicateSession::DuplicateSession( uptr<MessageDuplicateBlock> msg )
@@ -20,8 +19,9 @@ DuplicateSession::DuplicateSession( uptr<MessageDuplicateBlock> msg )
     if(this->index_ == nullptr )
         this->index_ = BlockHub::Instance()->CreateBlock( (int)this->message_block_->partid() ,
                                                           this->message_block_->fileoffset() ,
-                                                          this->message_block_->path() );
-    duplicate_session_count++;
+                                                          this->message_block_->path() ); 
+
+   
 }
 
 DuplicateSession::~DuplicateSession()
@@ -38,14 +38,31 @@ void DuplicateSession::SendRequest()
     message->set_size      ( BLOCK_TRANSFER_SIZE );
     message->set_sessionid ( this->Id() );
     this->SendMessage      ( move_ptr( message ) );
+    StartTimer();
 }
 
 void DuplicateSession::OnConnect()
 {
+
+}
+
+void DuplicateSession::StartTimer()
+{
+    if ( this->work_ != nullptr )
+    {
+        MRT::SyncWorker::Stop( this->work_ );
+    }
+
+    this->work_ = MRT::SyncWorker::Create( 120000 , [ this ] ( MRT::SyncWorker* worker )
+    {
+        this->SendRequest();
+        return false;
+
+    } , nullptr , nullptr );
 }
 
 void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
-{ 
+{
     BlockHub::Instance()->WriteBlock( this->index_->Index ,
                                       msg->offset() ,
                                       msg->data().c_str() ,
@@ -57,6 +74,8 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
 
     if ( msg->islast() )
     { 
+        MRT::SyncWorker::Stop( this->work_ );
+
         auto sync = make_uptr   ( MessageBlockMeta );
         sync->set_fileoffset    ( this->index_->FileOffset );
         sync->set_index         ( this->index_->Index );
@@ -66,8 +85,7 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         sync->set_status        ( 0 );
         MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
 
-        Logger::Log( "duplicate total % path % part:% size:% from %" ,
-                  duplicate_session_count,
+        Logger::Log( "duplicate path % part:% size:% from %" , 
                   this->index_->Path ,
                   this->index_->PartId ,
                   this->index_->Size,
