@@ -180,6 +180,8 @@ uptr<Buffer> BlockHub::ReadBlock( int blockid ,
     if ( block == nullptr )
         return nullptr;
 
+    Logger::Log( "block read % offset:% len:% write_size:%", blockid , offset , len , read_size );
+
     uptr<Buffer> result       = make_uptr( Buffer , read_size );
 
     fseek( this->data_file_ , block->Location + offset , SEEK_SET );
