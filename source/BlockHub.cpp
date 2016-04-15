@@ -138,13 +138,20 @@ size_t BlockHub::WriteBlock( int blockid ,
                              const char* data ,
                              size_t len )
 {
-    auto block = this->index_list_[blockid];
-    
+    auto block        = this->index_list_[blockid];
+    size_t write_size =  0;
     if ( block == nullptr )
         return 0;
 
-    size_t  write_size   =  ( offset + len ) > BLOCK_SIZE ?
-                            ( BLOCK_SIZE - offset + 1 ) : len;
+    if ( offset > BLOCK_SIZE )
+    {
+        return 0;
+    }
+
+    if ( ( offset + len ) > BLOCK_SIZE )
+    {
+        write_size = BLOCK_SIZE - offset;
+    }
 
     Logger::Log( "block write % offset:% len:% write_size:%",blockid , offset , len , write_size );
 
