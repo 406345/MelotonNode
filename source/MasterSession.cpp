@@ -10,9 +10,13 @@ MasterSession * MasterSession::Instance()
     return MasterSession::instance_;
 }
 
+void MasterSession::SetInstance( MasterSession * session )
+{
+    MasterSession::instance_ = session;
+}
+
 MasterSession::MasterSession()
 {
-    MasterSession::instance_ = this;
     alive_worker_ = MRT::SyncWorker::Create( 1000 , [this] ( MRT::SyncWorker* worker )
     {
         auto msg = make_uptr( MessageAlive );
@@ -27,7 +31,6 @@ MasterSession::MasterSession()
 
 MasterSession::~MasterSession()
 {
-    MasterSession::instance_ = nullptr;
     if ( alive_worker_ != nullptr )
     {
         MRT::SyncWorker::Stop( alive_worker_ );

@@ -19,11 +19,6 @@ DuplicateSession::DuplicateSession( uptr<MessageDuplicateBlock> msg )
         this->index_ = BlockHub::Instance()->CreateBlock( (int)this->message_block_->partid() ,
                                                           this->message_block_->fileoffset() ,
                                                           this->message_block_->path() );
-    Logger::Log( "duplicate % part:% size:% from %" ,
-                  this->index_->Path ,
-                  this->index_->PartId ,
-                  this->index_->Size ,
-                  this->message_block_->address() );
     
 }
 
@@ -69,7 +64,11 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         sync->set_status        ( 0 );
         MasterSession::Instance ()->SendMessage( move_ptr( sync ) );
 
-      
+        Logger::Log( "duplicate % part:% from %" ,
+                  this->index_->Path ,
+                  this->index_->PartId ,
+                  this->message_block_->address() );
+
         this->Close();
         return;
     }

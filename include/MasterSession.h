@@ -36,7 +36,7 @@ class MasterSession :
 public:
 
     static MasterSession* Instance();
-
+    static void           SetInstance( MasterSession* session );
     MasterSession ();
     ~MasterSession();
 

@@ -15,7 +15,9 @@ MasterConnector::~MasterConnector()
 
 Session * MasterConnector::CreateSession()
 {
-    return new MasterSession();
+    auto session = new MasterSession();
+    MasterSession::SetInstance( session );
+    return session;
 }
 
 void MasterConnector::OnSessionOpen( Session * session )
