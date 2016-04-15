@@ -51,9 +51,16 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
         return -1;
     }
 
+    
     auto buf = BlockHub::Instance()->ReadBlock( block->Index ,
                                                 message->offset() ,
                                                 BLOCK_TRANSFER_SIZE );
+
+    Logger::Log( "duplicate read block % offset % size % from %" ,
+                 block->Index ,
+                 message->offset() ,
+                 buf->Size() ,
+                 peer->ip_address() );
 
     uptr<MessageDuplicateData> reply = make_uptr( MessageDuplicateData );
     reply->set_data         ( buf->Data() , buf->Size() );

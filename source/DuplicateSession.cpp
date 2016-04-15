@@ -44,6 +44,12 @@ void DuplicateSession::OnConnect()
 
 void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
 {
+    Logger::Log( "duplicate write block % offset % size % from %" ,
+                 this->index_->Index ,
+                 msg->offset() ,
+                 msg->data().size() ,
+                 this->message_block_->address() );
+
     BlockHub::Instance()->WriteBlock( this->index_->Index ,
                                       msg->offset() ,
                                       msg->data().c_str() ,

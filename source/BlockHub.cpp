@@ -153,8 +153,6 @@ size_t BlockHub::WriteBlock( int blockid ,
         write_size = BLOCK_SIZE - offset;
     }
 
-    Logger::Log( "block write % offset:% len:% write_size:%",blockid , offset , len , write_size );
-
     fseek( this->data_file_ , block->Location + offset , SEEK_SET );
     write_size = fwrite( data , 1 , write_size , this->data_file_ );
     fflush( this->data_file_ );
@@ -179,8 +177,6 @@ uptr<Buffer> BlockHub::ReadBlock( int blockid ,
 
     if ( block == nullptr )
         return nullptr;
-
-    Logger::Log( "block read % offset:% len:% write_size:%", blockid , offset , len , read_size );
 
     uptr<Buffer> result       = make_uptr( Buffer , read_size );
 
