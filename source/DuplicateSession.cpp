@@ -67,14 +67,12 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
                                                    msg->offset() ,
                                                    msg->data().c_str() ,
                                                    msg->data().size() );
-                                                   
     this->index_->Size = msg->offset() + wsize;
-
-    BlockHub::Instance()->SaveBlockIndex( this->index_ );
 
     if ( msg->islast() )
     { 
         MRT::SyncWorker::Stop( this->work_ );
+        BlockHub::Instance()->SaveBlockIndex( this->index_ );
 
         auto sync = make_uptr   ( MessageBlockMeta );
         sync->set_fileoffset    ( this->index_->FileOffset );
