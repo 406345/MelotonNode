@@ -54,6 +54,12 @@ void DuplicateSession::SendRequest()
     message->set_sessionid ( this->Id() );
     this->SendMessage      ( move_ptr( message ) );
     RetryTimer             ();
+
+     Logger::Log( "duplicate session send request % part:% size:% from %" ,
+                  this->index_->Path ,
+                  this->index_->PartId ,
+                  this->index_->Size ,
+                  this->remote_ip_ );
 }
 
 void DuplicateSession::OnConnect()
