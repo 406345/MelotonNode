@@ -99,6 +99,9 @@ public:
         message_id = *( (size_t*) data );
         data += sizeof( size_t );
         int msg_len = scast<int>( len - sizeof( size_t ) );
+
+        Logger::Log( "receive message % len %" , message_id , msg_len );
+
         switch( message_id )
         {
         case 0x4165676177776D6F : 
