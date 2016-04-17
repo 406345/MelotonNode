@@ -1,5 +1,5 @@
 #include <DuplicateListener.h>
-#include <DuplicateSession.h>
+#include <DuplicateSendBlockSession.h>
 
 DuplicateListener::DuplicateListener( string ip , int port )
     : Listener( ip , port )
@@ -13,7 +13,7 @@ DuplicateListener::~DuplicateListener()
 
 Session * DuplicateListener::CreateSession()
 {
-    return new DuplicateSession();
+    return new DuplicateSendBlockSession();
 }
 
 void DuplicateListener::OnSessionOpen( Session * session )

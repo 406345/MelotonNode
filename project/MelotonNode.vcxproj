@@ -180,6 +180,7 @@
     <ClCompile Include="..\source\ClientListener.cpp" />
     <ClCompile Include="..\source\DuplicateConnector.cpp" />
     <ClCompile Include="..\source\DuplicateListener.cpp" />
+    <ClCompile Include="..\source\DuplicateSendBlockSession.cpp" />
     <ClCompile Include="..\source\DuplicateSession.cpp" />
     <ClCompile Include="..\source\MasterConnector.cpp" />
     <ClCompile Include="..\source\MasterSession.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="..\include\ClientSession.h" />
     <ClInclude Include="..\include\DuplicateConnector.h" />
     <ClInclude Include="..\include\DuplicateListener.h" />
+    <ClInclude Include="..\include\DuplicateSendBlockSession.h" />
     <ClInclude Include="..\include\DuplicateSession.h" />
     <ClInclude Include="..\include\DuplicateSessionPool.h" />
     <ClInclude Include="..\include\ErrorCode.h" />

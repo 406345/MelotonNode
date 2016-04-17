@@ -130,6 +130,9 @@
     <ClCompile Include="..\message\MessageDeleteFileACK.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\DuplicateSendBlockSession.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\handler\MessageAliveHandler.h">
@@ -345,6 +348,9 @@
     </ClInclude>
     <ClInclude Include="..\message\MessageDeleteFileACK.pb.h">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DuplicateSendBlockSession.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
