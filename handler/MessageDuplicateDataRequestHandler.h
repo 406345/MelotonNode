@@ -27,10 +27,11 @@ limitations under the License.
 #include <TokenPool.h>
 #include <MessageDuplicateData.pb.h>
 #include <MelotonSession.h>
+#include <DuplicateSession.h>
 
 static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<MessageDuplicateDataRequest> message )
 {
-    auto peer   = scast<MelotonSession*>( session );
+    auto peer   = scast<DuplicateSession*>( session );
     //auto token  = TokenPool::Instance()->CheckToken( message->token() );
 
     //if ( token == nullptr )
@@ -91,6 +92,9 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     reply->set_token        ( "" );
     reply->set_islast       ( is_last );
     peer->SendMessage       ( move_ptr( reply ) );
+
+    Logger::Error( "duplicate send block % part % to %" , block->Index , block->PartId , peer->ip_address() );
+        
 
     return 0;
 }
