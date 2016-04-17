@@ -47,7 +47,6 @@ void DuplicateSession::SendRequest()
     message->set_size      ( BLOCK_TRANSFER_SIZE );
     message->set_sessionid ( this->Id() );
     this->SendMessage      ( move_ptr( message ) );
-    RetryTimer             (); 
 }
 
 void DuplicateSession::OnConnect()
