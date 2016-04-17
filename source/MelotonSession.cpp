@@ -32,6 +32,9 @@ MelotonSession::MelotonSession()
     static size_t SessionId = 10000;
     this->id_ = SessionId;
     SessionId = (++SessionId % 0xFFFFFFFFFFul);
+
+    this->body_length_ = 0;
+    this->parse_state_ = MelotonSessionParseState::kHead;
 }
 
 MelotonSession::~MelotonSession()
@@ -92,7 +95,7 @@ void MelotonSession::dispatch_message( MRT::CircleBuffer & buffer )
 
                     if ( buf->Data()[0] != 'Y' )
                     {
-                        continue;
+                        break;
                     }
 
                     buf = buffer.Pop( 1 );
@@ -101,7 +104,7 @@ void MelotonSession::dispatch_message( MRT::CircleBuffer & buffer )
 
                     if ( buf->Data()[0] != 'H' )
                     {
-                        continue;
+                        break;
                     }
 
                     this->parse_state_ = MelotonSessionParseState::kLength;
