@@ -86,15 +86,26 @@ void MelotonSession::dispatch_message( MRT::CircleBuffer & buffer )
         {
             case MelotonSessionParseState::kHead:
                 {
-                    auto buf = buffer.Pop( 2 );
+                    auto buf = buffer.Pop( 1 );
 
                     if ( buf == nullptr )return;
 
-                    if ( buf->Data( )[0] == 'Y' &&
-                         buf->Data( )[1] == 'H' )
+                    if ( buf->Data()[0] != 'Y' )
                     {
-                        this->parse_state_ = MelotonSessionParseState::kLength;
+                        continue;
                     }
+
+                    buf = buffer.Pop( 1 );
+
+                    if ( buf == nullptr )return;
+
+                    if ( buf->Data()[0] != 'H' )
+                    {
+                        continue;
+                    }
+
+                    this->parse_state_ = MelotonSessionParseState::kLength;
+
                 }break;
             case MelotonSessionParseState::kLength:
                 {

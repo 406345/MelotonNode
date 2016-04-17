@@ -71,8 +71,8 @@ void DuplicateSession::RetryTimer()
         
         DuplicateSession* session = (DuplicateSession*) worker->Data();
         
-        Logger::Log( "retring duplicate block % part % to %" , 
-                     session->message_block_->index() , 
+        Logger::Log( "retring duplicate path % part % to %" , 
+                     session->message_block_->path() , 
                      session->message_block_->partid() , 
                      session->message_block_->address() );
 
