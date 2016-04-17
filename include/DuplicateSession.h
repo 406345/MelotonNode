@@ -45,10 +45,11 @@ public:
 
     void SendRequest();
     void AcceptBlock( uptr<MessageDuplicateData> msg );
+    bool DuplicateFinish();
 
 protected:
 
-    void OnConnect  ()                    override;
+    void OnConnect      ()                    override;
 
 private:
 
@@ -56,7 +57,7 @@ private:
     sptr<BlockIndex>            index_         = nullptr;
     size_t                      block_offset_  = 0;
     size_t                      index_num_     = 0;
-
+    bool                        finish_        = false;
 
     size_t                      part_id_       = 0;
     std::string                 path_          = "";

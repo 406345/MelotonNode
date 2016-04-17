@@ -26,7 +26,7 @@ void DuplicateConnector::OnSessionOpen( Session * session )
 
 void DuplicateConnector::OnSessionClose( Session * session )
 {
-    DuplicateSessionPool::Instance()->Pop( scast<DuplicateSession*>( session ) );
+    auto s = DuplicateSessionPool::Instance()->Pop( scast<DuplicateSession*>( session ) );
 
     if ( session->LastError().Code() != 0 &&
          session->LastError().Code() != -4095 )
@@ -42,7 +42,12 @@ void DuplicateConnector::OnSessionClose( Session * session )
                      this->message_->address() );
         auto connector = make_uptr( DuplicateConnector , move_ptr( this->message_ ) );
         MRT::Maraton::Instance()->Regist( move_ptr( connector ) );
-    } 
+    }
+
+    if ( !s->DuplicateFinish() )
+    {
+        Logger::Log( "duplication is not finish!" );
+    }
 
     SAFE_DELETE( session );
 }

@@ -54,6 +54,11 @@ void DuplicateSession::OnConnect()
 
 }
 
+bool DuplicateSession::DuplicateFinish()
+{
+    return this->finish_;
+}
+
 void DuplicateSession::RetryTimer()
 {
     if ( this->worker_ != nullptr )
@@ -103,6 +108,7 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         {
             MRT::SyncWorker::Stop( this->worker_ );
         }
+        this->finish_ = true;
 
         this->Close();
         return;
