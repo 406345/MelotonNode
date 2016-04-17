@@ -74,13 +74,7 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     if ( read_size < BLOCK_TRANSFER_SIZE )
     {
         is_last = true;
-    }
-
-    /*Logger::Log( "duplicate send block % offset % size % to %" ,
-                 block->Index ,
-                 message->offset() ,
-                 buf->Size() ,
-                 peer->ip_address() );*/
+    } 
 
     uptr<MessageDuplicateData> reply = make_uptr( MessageDuplicateData );
     reply->set_data         ( buf->Data() , read_size );
@@ -92,9 +86,6 @@ static int MessageDuplicateDataRequestHandler( MRT::Session * session , uptr<Mes
     reply->set_token        ( "" );
     reply->set_islast       ( is_last );
     peer->SendMessage       ( move_ptr( reply ) );
-
-    Logger::Error( "duplicate send block % part % to %" , block->Index , block->PartId , peer->ip_address() );
-        
 
     return 0;
 }

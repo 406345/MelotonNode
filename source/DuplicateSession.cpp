@@ -28,13 +28,6 @@ DuplicateSession::DuplicateSession( uptr<MessageDuplicateBlock> msg )
         this->index_ = BlockHub::Instance()->CreateBlock( (int)this->part_id_ ,
                                                           this->file_offset_ ,
                                                           this->path_ ); 
-
-    Logger::Log( "duplicate session created % part:% size:% from %" ,
-                  this->index_->Path ,
-                  this->index_->PartId ,
-                  this->index_->Size ,
-                  this->remote_ip_ );
-
 }
 
 DuplicateSession::~DuplicateSession()
@@ -54,13 +47,7 @@ void DuplicateSession::SendRequest()
     message->set_size      ( BLOCK_TRANSFER_SIZE );
     message->set_sessionid ( this->Id() );
     this->SendMessage      ( move_ptr( message ) );
-    RetryTimer             ();
-
-     Logger::Log( "duplicate session send request % part:% size:% from %" ,
-                  this->index_->Path ,
-                  this->index_->PartId ,
-                  this->index_->Size ,
-                  this->remote_ip_ );
+    RetryTimer             (); 
 }
 
 void DuplicateSession::OnConnect()
@@ -83,7 +70,7 @@ void DuplicateSession::RetryTimer()
     this->worker_ = MRT::SyncWorker::Create( 15000 , [] ( MRT::SyncWorker* worker ) {
         
         DuplicateSession* session = (DuplicateSession*) worker->Data();
-
+        
         sptr<DuplicateConnector> connector = make_sptr( DuplicateConnector , move_ptr( session->message_block_ ) );
         MRT::Maraton::Instance()->Regist( connector );
 
@@ -91,7 +78,6 @@ void DuplicateSession::RetryTimer()
         return false;
 
     } , nullptr , this );
-
 }
 
 void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
@@ -125,14 +111,8 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
         {
             MRT::SyncWorker::Stop( this->worker_ );
         }
-        this->finish_ = true;
 
-        Logger::Log( "duplicate session close % part:% size:% from %" ,
-                      this->index_->Path ,
-                      this->index_->PartId ,
-                      this->index_->Size ,
-                      this->remote_ip_ );
-
+        this->finish_ = true; 
         this->Close();
         return;
     }
