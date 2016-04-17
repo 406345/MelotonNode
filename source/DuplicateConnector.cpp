@@ -43,11 +43,6 @@ void DuplicateConnector::OnSessionClose( Session * session )
         auto connector = make_uptr( DuplicateConnector , move_ptr( this->message_ ) );
         MRT::Maraton::Instance()->Regist( move_ptr( connector ) );
     }
-
-    if ( !s->DuplicateFinish() )
-    {
-        Logger::Log( "duplication is not finish!" );
-    }
-
+     
     SAFE_DELETE( session );
 }

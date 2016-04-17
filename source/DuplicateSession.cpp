@@ -71,6 +71,11 @@ void DuplicateSession::RetryTimer()
         
         DuplicateSession* session = (DuplicateSession*) worker->Data();
         
+        Logger::Log( "retring duplicate block % part % to %" , 
+                     session->message_block_->index() , 
+                     session->message_block_->partid() , 
+                     session->message_block_->address() );
+
         sptr<DuplicateConnector> connector = make_sptr( DuplicateConnector , move_ptr( session->message_block_ ) );
         MRT::Maraton::Instance()->Regist( connector );
 
