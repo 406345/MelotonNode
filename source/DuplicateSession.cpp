@@ -4,6 +4,7 @@
 #include <MRT.h>
 #include <MasterSession.h>
 #include <MessageSyncBlock.pb.h>
+#include <DuplicateConnector.h>
 
 DuplicateSession::DuplicateSession()
 { 
@@ -82,8 +83,11 @@ void DuplicateSession::RetryTimer()
     this->worker_ = MRT::SyncWorker::Create( 15000 , [] ( MRT::SyncWorker* worker ) {
         
         DuplicateSession* session = (DuplicateSession*) worker->Data();
-        if ( session == nullptr ) return true;
-        session->SendRequest();
+
+        sptr<DuplicateConnector> connector = make_sptr( DuplicateConnector , move_ptr( session->message_block_ ) );
+        MRT::Maraton::Instance()->Regist( connector );
+
+        session->Close();
         return false;
 
     } , nullptr , this );
