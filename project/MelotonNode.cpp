@@ -23,9 +23,9 @@ int main( int argc , char* argv[] )
                                                      "0.0.0.0" ,
                                                      DUPLICATE_PORT );
     
-    MRT::Maraton::Instance()->Regist( connector );
-    MRT::Maraton::Instance()->Regist( client );
     MRT::Maraton::Instance()->Regist( duplicate );
+    MRT::Maraton::Instance()->Regist( client );
+    MRT::Maraton::Instance()->Regist( connector );
 
     while ( true )
     {

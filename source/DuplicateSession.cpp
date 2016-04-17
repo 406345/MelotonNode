@@ -27,6 +27,13 @@ DuplicateSession::DuplicateSession( uptr<MessageDuplicateBlock> msg )
         this->index_ = BlockHub::Instance()->CreateBlock( (int)this->part_id_ ,
                                                           this->file_offset_ ,
                                                           this->path_ ); 
+
+    Logger::Log( "duplicate session created % part:% size:% from %" ,
+                  this->index_->Path ,
+                  this->index_->PartId ,
+                  this->index_->Size ,
+                  this->remote_ip_ );
+
 }
 
 DuplicateSession::~DuplicateSession()
@@ -109,6 +116,12 @@ void DuplicateSession::AcceptBlock( uptr<MessageDuplicateData> msg )
             MRT::SyncWorker::Stop( this->worker_ );
         }
         this->finish_ = true;
+
+        Logger::Log( "duplicate session close % part:% size:% from %" ,
+                      this->index_->Path ,
+                      this->index_->PartId ,
+                      this->index_->Size ,
+                      this->remote_ip_ );
 
         this->Close();
         return;
